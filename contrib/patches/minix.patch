@@ -1,0 +1,22 @@
+--- ../busybox-1.23.2.orig/util-linux/minix.h	2015-03-23 06:06:55.000000000 +0300
++++ ./util-linux/minix.h	2015-09-25 18:58:42.769271642 +0300
+@@ -54,6 +54,8 @@
+ /* Believe it or not, but mount.h has this one #defined */
+ #undef BLOCK_SIZE
+ 
++#undef MINIX2_SUPER_MAGIC
++#undef MINIX2_SUPER_MAGIC2
+ enum {
+ 	BLOCK_SIZE              = 1024,
+ 	BITS_PER_BLOCK          = BLOCK_SIZE << 3,
+--- ../busybox-1.23.2.orig/include/platform.h	2015-03-23 06:07:19.000000000 +0300
++++ ./include/platform.h	2015-09-25 19:14:47.497837100 +0300
+@@ -367,7 +367,7 @@
+ #define HAVE_MEMRCHR 1
+ #define HAVE_MKDTEMP 1
+ #define HAVE_PTSNAME_R 1
+-#define HAVE_SETBIT 1
++//#define HAVE_SETBIT 1
+ #define HAVE_SIGHANDLER_T 1
+ #define HAVE_STPCPY 1
+ #define HAVE_STRCASESTR 1

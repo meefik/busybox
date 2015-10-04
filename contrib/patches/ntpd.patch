@@ -1,0 +1,11 @@
+--- ../busybox-1.23.2.orig/networking/ntpd.c	2015-03-23 06:07:19.000000000 +0300
++++ ./networking/ntpd.c	2015-09-25 00:02:23.085778787 +0300
+@@ -55,7 +55,7 @@
+ #include <math.h>
+ #include <netinet/ip.h> /* For IPTOS_LOWDELAY definition */
+ #include <sys/resource.h> /* setpriority */
+-#include <sys/timex.h>
++#include <linux/timex.h>
+ #ifndef IPTOS_LOWDELAY
+ # define IPTOS_LOWDELAY 0x10
+ #endif
