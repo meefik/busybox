@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# BusyBox uninstaller
+# (c) 2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 SYSTEM_REMOUNT=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
 

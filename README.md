@@ -59,5 +59,5 @@ Latest BusyBox v1.23.2, supported 335 applets:
 **Referenses**:
 
 * [Source code](https://github.com/meefik/busybox)
-* [Releases](https://github.com/meefik/busybox/release)
+* [Releases](https://github.com/meefik/busybox/releases)
 * [Donations](http://meefik.github.io/donate/)

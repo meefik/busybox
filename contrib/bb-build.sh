@@ -72,4 +72,3 @@ make -j$NCPU || exit 1
 
 echo ">>> install"
 make CONFIG_PREFIX=$PREFIX install || exit 1
-
