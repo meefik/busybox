@@ -11,9 +11,9 @@ ARCH=$(busybox uname -m)
 busybox printf "* architecture: $ARCH\n"
 
 busybox printf "\nFree space:\n"
-DATA_FREE=$(busybox df -h /data | busybox grep -v ^Filesystem | busybox awk '{print $4}')
+DATA_FREE=$(busybox df -Ph /data | busybox grep -v ^Filesystem | busybox awk '{print $4}')
 busybox printf "* /data: $DATA_FREE\n"
-SYSTEM_FREE=$(busybox df -h /system | busybox grep -v ^Filesystem | busybox awk '{print $4}')
+SYSTEM_FREE=$(busybox df -Ph /system | busybox grep -v ^Filesystem | busybox awk '{print $4}')
 busybox printf "* /system: $SYSTEM_FREE\n"
 
 busybox printf "\nLatest BusyBox:\n"
