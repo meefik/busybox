@@ -1,0 +1,46 @@
+diff -urN ../busybox-1.23.2.orig/include/platform.h ./include/platform.h
+--- ../busybox-1.23.2.orig/include/platform.h	2015-03-23 06:07:19.000000000 +0300
++++ ./include/platform.h	2015-09-24 14:59:10.703201495 +0300
+@@ -384,6 +384,7 @@
+ #define HAVE_MNTENT_H 1
+ #define HAVE_NET_ETHERNET_H 1
+ #define HAVE_SYS_STATFS_H 1
++#define HAVE_MEMPCPY 1
+ 
+ #if defined(__UCLIBC__)
+ # if UCLIBC_VERSION < KERNEL_VERSION(0, 9, 32)
+@@ -481,6 +482,7 @@
+ # undef HAVE_STRVERSCMP
+ # undef HAVE_UNLOCKED_LINE_OPS
+ # undef HAVE_NET_ETHERNET_H
++# undef HAVE_MEMPCPY
+ #endif
+ 
+ /*
+@@ -544,4 +546,9 @@
+ extern ssize_t getline(char **lineptr, size_t *n, FILE *stream) FAST_FUNC;
+ #endif
+ 
++#ifndef HAVE_MEMPCPY
++# include <sys/types.h> /* size_t */
++extern void *mempcpy(void *dest, const void *src, size_t n);
++#endif
++
+ #endif
+diff -urN ../busybox-1.23.2.orig/libbb/platform.c ./libbb/platform.c
+--- ../busybox-1.23.2.orig/libbb/platform.c	2015-03-23 06:06:55.000000000 +0300
++++ ./libbb/platform.c	2015-09-24 14:59:15.423263724 +0300
+@@ -194,3 +194,12 @@
+ 	return len;
+ }
+ #endif
++
++#ifndef HAVE_MEMPCPY
++void *mempcpy(void *dest, const void *src, size_t n)
++{
++  memcpy(dest, src, n);
++  dest += n;
++  return dest;
++}
++#endif
+\ В конце файла нет новой строки

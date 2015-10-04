@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AboutActivity">
+    <item
+        android:id="@+id/menu_donate"
+        android:orderInCategory="100"
+        android:title="@string/action_donate"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_forum"
+        android:orderInCategory="100"
+        android:title="@string/action_forum"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_doc"
+        android:orderInCategory="100"
+        android:title="@string/action_doc"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_issues"
+        android:orderInCategory="100"
+        android:title="@string/action_issues"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_source"
+        android:orderInCategory="100"
+        android:title="@string/action_source"
+        app:showAsAction="never" />
+</menu>

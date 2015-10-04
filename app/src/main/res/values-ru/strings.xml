@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_version">версия %1$s</string>
+    <string name="action_settings">Настройки</string>
+    <string name="action_help">Информация</string>
+    <string name="action_about">О программе</string>
+    <string name="action_donate">Поддержать</string>
+    <string name="action_forum">Обсуждения</string>
+    <string name="action_doc">Документация</string>
+    <string name="action_issues">Вопросы</string>
+    <string name="action_source">Исходный код</string>
+    <string name="title_activity_about">О программе</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="install_button">УСТАНОВИТЬ</string>
+    <string name="remove_button">УДАЛИТЬ</string>
+
+    <string name="busybox_preferences">BusyBox</string>
+    <string name="title_installdir">Директория установки</string>
+    <string name="dialog_title_installdir">Директория установки</string>
+    <string name="title_applets">Установить апплеты</string>
+    <string name="summary_applets">Создать символьные ссылки на апплеты</string>
+    <string name="title_replace">Заменить апплеты</string>
+    <string name="summary_replace">Заменить существующие апплеты</string>
+    <string name="gui_preferences">Интерфейс</string>
+    <string name="title_language">Язык</string>
+    <string name="dialog_title_language">Язык интерфейса</string>
+    <string name="title_theme">Тема</string>
+    <string name="dialog_title_theme">Тема интерфейса</string>
+    <string name="title_fontsize">Размер шрифта</string>
+    <string name="dialog_title_fontsize">Размер шрифта</string>
+    <string name="title_maxlines">Глубина прокрутки</string>
+    <string name="dialog_title_maxlines">Глубина прокрутки</string>
+    <string name="title_timestamp">Отметка времени</string>
+    <string name="summary_timestamp">Отображать отметку времени</string>
+    <string name="title_confirm_install_dialog">Установка</string>
+    <string name="message_confirm_install_dialog">Установить BusyBox в систему?</string>
+    <string name="title_confirm_remove_dialog">Удаление</string>
+    <string name="message_confirm_remove_dialog">Удалить BusyBox из системы?</string>
+    <string name="debug_preferences">Отладка</string>
+    <string name="title_debug">Режим отладки</string>
+    <string name="summary_debug">Включить отображение отладочной информации</string>
+    <string name="title_trace">Режим трассировки</string>
+    <string name="summary_trace">Перейти в режим трассировки</string>
+    <string name="title_logger">Журналирование</string>
+    <string name="summary_logger">Сохранять отчеты в файл</string>
+    <string name="title_logfile">Файл журнала</string>
+    <string name="dialog_title_logfile">Файл журнала</string>
+    <string name="help_text">Загрузка...</string>
+    <string name="about_text">Эта программа поставляется БЕЗ ВСЯКИХ ГАРАНТИЙ, а автор не несет ответственности за любые возможные последствия ее использования. Это свободное программное обеспечение, и вы можете распространять его при определенных условиях.\n\nЛицензировано под GPL версии 3 или более поздней.\n\n&#169; 2015 Антон Скшидлевский</string>
+
+    <string-array name="theme_entries">
+        <item>Темная</item>
+        <item>Светлая</item>
+    </string-array>
+</resources>

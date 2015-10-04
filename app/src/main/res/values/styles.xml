@@ -1,0 +1,4 @@
+<resources>
+    <style name="LightTheme" parent="Theme.AppCompat.Light" />
+    <style name="DarkTheme" parent="Theme.AppCompat" />
+</resources>
