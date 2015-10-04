@@ -20,7 +20,6 @@ import java.util.Locale;
  */
 public class Logger {
 
-    private static final Handler outputUpdater = new Handler(Looper.getMainLooper());
     private static volatile List<String> protocol = new ArrayList<>();
     private static boolean fragment = false;
 
@@ -43,35 +42,31 @@ public class Logger {
         final int msgLength = msg.length();
         if (msgLength > 0) {
             final boolean timestamp = PrefStore.isTimestamp(c);
-            outputUpdater.post(new Runnable() {
-                public void run() {
-                    String[] tokens = msg.split("\\n");
-                    int lastIndex = protocol.size() - 1;
-                    for (int i = 0, l = tokens.length; i < l; i++) {
-                        // update last record from List if fragment
-                        if (i == 0 && fragment && lastIndex >= 0) {
-                            String last = protocol.get(lastIndex);
-                            protocol.set(lastIndex, last + tokens[i]);
-                            continue;
-                        }
-                        // add the message to List
-                        if (timestamp) protocol.add(getTimeStamp() + tokens[i]);
-                        else protocol.add(tokens[i]);
-                        // remove first line if overflow
-                        if (protocol.size() > PrefStore.getMaxLines(c)) {
-                            protocol.remove(0);
-                        }
-                    }
-                    // set fragment
-                    fragment = (msg.charAt(msgLength - 1) != '\n');
-                    // show log
-                    MainActivity.showLog(get());
-                    // save the message to file
-                    if (PrefStore.isLogger(c)) {
-                        saveToFile(c, msg);
-                    }
+            String[] tokens = msg.split("\\n");
+            int lastIndex = protocol.size() - 1;
+            for (int i = 0, l = tokens.length; i < l; i++) {
+                // update last record from List if fragment
+                if (i == 0 && fragment && lastIndex >= 0) {
+                    String last = protocol.get(lastIndex);
+                    protocol.set(lastIndex, last + tokens[i]);
+                    continue;
                 }
-            });
+                // add the message to List
+                if (timestamp) protocol.add(getTimeStamp() + tokens[i]);
+                else protocol.add(tokens[i]);
+                // remove first line if overflow
+                if (protocol.size() > PrefStore.getMaxLines(c)) {
+                    protocol.remove(0);
+                }
+            }
+            // set fragment
+            fragment = (msg.charAt(msgLength - 1) != '\n');
+            // show log
+            MainActivity.showLog(get());
+            // save the message to file
+            if (PrefStore.isLogger(c)) {
+                saveToFile(c, msg);
+            }
         }
     }
 
