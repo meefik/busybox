@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String log = Logger.get();
         if (log.length() == 0) {
             // show info if empty
-            new ExecScript(this, "info").start();
+            new ExecScript(getApplicationContext(), "info").start();
         } else {
             showLog(log);
         }
