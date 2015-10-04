@@ -1,4 +1,6 @@
 #!/system/bin/sh
+# List of BusyBox applets
+# (c) 2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 if busybox test -z "$INSTALL_DIR"
 then
