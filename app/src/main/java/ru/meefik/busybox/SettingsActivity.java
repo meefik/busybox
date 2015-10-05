@@ -15,8 +15,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         PrefStore.setLocale(this);
+        super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(getString(R.string.title_activity_settings));
 
         // init variables

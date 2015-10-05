@@ -19,6 +19,10 @@ fi
 
 busybox printf "Copying busybox to $INSTALL_DIR ... "
 BB_BIN=$(busybox which busybox)
+if busybox test -e "$INSTALL_DIR/busybox"
+then
+    busybox rm "$INSTALL_DIR/busybox"
+fi
 busybox cp $BB_BIN $INSTALL_DIR/busybox
 if busybox test $? -eq 0
 then

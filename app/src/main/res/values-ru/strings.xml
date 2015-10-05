@@ -3,11 +3,6 @@
     <string name="action_settings">Настройки</string>
     <string name="action_help">Информация</string>
     <string name="action_about">О программе</string>
-    <string name="action_donate">Поддержать</string>
-    <string name="action_forum">Обсуждения</string>
-    <string name="action_doc">Документация</string>
-    <string name="action_issues">Вопросы</string>
-    <string name="action_source">Исходный код</string>
     <string name="title_activity_about">О программе</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="install_button">УСТАНОВИТЬ</string>
@@ -45,7 +40,7 @@
     <string name="title_logfile">Файл журнала</string>
     <string name="dialog_title_logfile">Файл журнала</string>
     <string name="help_text">Загрузка...</string>
-    <string name="about_text">Эта программа поставляется БЕЗ ВСЯКИХ ГАРАНТИЙ, а автор не несет ответственности за любые возможные последствия ее использования. Это свободное программное обеспечение, и вы можете распространять его при определенных условиях.\n\nЛицензировано под GPL версии 3 или более поздней.\n\n&#169; 2015 Антон Скшидлевский</string>
+    <string name="about_text"><a href="https://github.com/meefik/busybox/">Домашняя</a>&#160;&#160;<a href="http://4pda.ru/forum/index.php?showtopic=694640">Форум</a>&#160;&#160;<a href="http://meefik.github.io/donate">Пожертвование</a>\n\nДанное приложение представляет собой инсталлятор BusyBox для Android. BusyBox содержит крошечные версии многих утилит UNIX в одном маленьком исполняемом файле. Он обеспечивает замену для большинства утилит, которые можно найти в GNU fileutils, shellutils и др. Утилиты BusyBox обычно имеют меньше возможностей, чем их полнофункциональные собратья GNU, однако те функции, которые включены в BusyBox, совместимы с аналогичными функциями утилит GNU. BusyBox предоставляет довольно полное окружение для любых мобильных или встраиваемых систем.\n\n&#169; 2015 <a href="http://meefik.ru">Антон Скшидлевский</a>, GPLv3</string>
 
     <string-array name="theme_entries">
         <item>Темная</item>
