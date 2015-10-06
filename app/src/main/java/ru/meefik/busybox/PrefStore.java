@@ -174,7 +174,8 @@ public class PrefStore {
      */
     public static boolean isTraceMode(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
-        return pref.getBoolean("trace", c.getString(R.string.trace).equals("true"));
+        return pref.getBoolean("debug", c.getString(R.string.debug).equals("true")) &&
+               pref.getBoolean("trace", c.getString(R.string.trace).equals("true"));
     }
 
     /**
