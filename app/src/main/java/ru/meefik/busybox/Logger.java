@@ -38,7 +38,7 @@ public class Logger {
      * @param c   context
      * @param msg message
      */
-    private static void appendMessage(final Context c, final String msg) {
+    private static synchronized void appendMessage(final Context c, final String msg) {
         final int msgLength = msg.length();
         if (msgLength > 0) {
             final boolean timestamp = PrefStore.isTimestamp(c);
