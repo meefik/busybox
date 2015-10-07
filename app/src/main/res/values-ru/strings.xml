@@ -3,6 +3,7 @@
     <string name="action_settings">Настройки</string>
     <string name="action_help">Информация</string>
     <string name="action_about">О программе</string>
+    <string name="action_zip">Zip-архив</string>
     <string name="title_activity_about">О программе</string>
     <string name="title_activity_settings">Настройки</string>
     <string name="install_button">УСТАНОВИТЬ</string>
@@ -30,6 +31,9 @@
     <string name="message_confirm_install_dialog">Установить BusyBox в систему?</string>
     <string name="title_confirm_remove_dialog">Удаление</string>
     <string name="message_confirm_remove_dialog">Удалить BusyBox из системы?</string>
+    <string name="title_export_dialog">Архив для рекавери:</string>
+    <string name="toast_export_success">Zip-архив успешно сохранен</string>
+    <string name="toast_export_error">Ошибка сохранения zip-архива</string>
     <string name="debug_preferences">Отладка</string>
     <string name="title_debug">Режим отладки</string>
     <string name="summary_debug">Включить отображение отладочной информации</string>

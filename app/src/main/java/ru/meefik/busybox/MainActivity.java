@@ -10,11 +10,10 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_help:
                 new ExecScript(this, "info").start();
+                break;
+            case R.id.action_zip:
+                makeZipArchiveDialog();
                 break;
             case R.id.action_about:
                 Intent intentAbout = new Intent(this, AboutActivity.class);
@@ -137,6 +139,43 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 new ExecScript(getApplicationContext(), "remove").start();
+                            }
+                        })
+                .setNegativeButton(android.R.string.no,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }).show();
+    }
+
+    private void makeZipArchiveDialog() {
+        String archiveName = PrefStore.getStorage() + "/busybox-" + PrefStore.getArch() + ".zip";
+        final EditText input = new EditText(this);
+        input.setText(archiveName);
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.title_export_dialog)
+                .setCancelable(false)
+                .setView(input, 16, 32, 16, 0)
+                .setPositiveButton(android.R.string.yes,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                String archiveName = input.getText().toString();
+                                if (!archiveName.isEmpty()) {
+                                    if (EnvUtils.makeZipArchive(getApplicationContext(), archiveName)) {
+                                        Toast toast = Toast.makeText(getApplicationContext(),
+                                                getString(R.string.toast_export_success),
+                                                Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    } else {
+                                        Toast toast = Toast.makeText(getApplicationContext(),
+                                                getString(R.string.toast_export_error),
+                                                Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                }
                             }
                         })
                 .setNegativeButton(android.R.string.no,

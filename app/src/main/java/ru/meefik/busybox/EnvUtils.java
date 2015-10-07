@@ -3,11 +3,13 @@ package ru.meefik.busybox;
 import android.content.Context;
 import android.content.res.AssetManager;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +18,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * Created by anton on 19.09.15.
@@ -194,7 +198,7 @@ public class EnvUtils {
         if (!extractDir(c, "all", "")) {
             return false;
         }
-        String mArch = PrefStore.getArch(System.getProperty("os.arch"));
+        String mArch = PrefStore.getArch();
         // PIE for Android L+
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             if (!extractDir(c, mArch + "/pie", "")) {
@@ -352,6 +356,57 @@ public class EnvUtils {
             close(stdout);
             close(stderr);
             close(stdin);
+        }
+        return result;
+    }
+
+    /**
+     * Add file to zip archive
+     *
+     * @param srcFile file
+     * @param zip     zip stream
+     */
+    private static void addFileToZip(File srcFile, ZipOutputStream zip) {
+        byte[] buf = new byte[1024];
+        int len;
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(srcFile);
+            while ((len = in.read(buf)) > 0) {
+                zip.write(buf, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            close(in);
+        }
+    }
+
+    /**
+     * Make zip archive
+     *
+     * @param c           context
+     * @param archiveName archive file name
+     */
+    public static boolean makeZipArchive(Context c, String archiveName) {
+        boolean result = false;
+        FileOutputStream f = null;
+        ZipOutputStream zip = null;
+        try {
+            f = new FileOutputStream(archiveName);
+            zip = new ZipOutputStream(new BufferedOutputStream(f));
+            File busybox = new File(PrefStore.getEnvDir(c) + "/bin/busybox");
+            zip.putNextEntry(new ZipEntry("busybox"));
+            addFileToZip(busybox, zip);
+            File updateBinary = new File(PrefStore.getEnvDir(c) + "/recovery/update-binary");
+            zip.putNextEntry(new ZipEntry("META-INF/com/google/android/update-binary"));
+            addFileToZip(updateBinary, zip);
+            result = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            close(zip);
+            close(f);
         }
         return result;
     }
