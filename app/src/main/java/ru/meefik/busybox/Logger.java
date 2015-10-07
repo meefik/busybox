@@ -1,8 +1,6 @@
 package ru.meefik.busybox;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
