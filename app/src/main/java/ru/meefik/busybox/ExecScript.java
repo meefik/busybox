@@ -35,7 +35,6 @@ public class ExecScript extends Thread {
         params.add("INSTALL_APPLETS=" + PrefStore.isInstallApplets(context));
         params.add("REPLACE_APPLETS=" + PrefStore.isReplaceApplets(context));
         params.add(". " + envDir + "/bin/install.sh");
-        params.add("busybox printf '.'");
         EnvUtils.exec(context, "su", params);
     }
 
@@ -46,7 +45,6 @@ public class ExecScript extends Thread {
         List<String> params = new ArrayList<>();
         params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
         params.add(". " + envDir + "/bin/remove.sh");
-        params.add("busybox printf '.'");
         EnvUtils.exec(context, "su", params);
     }
 
@@ -63,10 +61,12 @@ public class ExecScript extends Thread {
             case "install":
                 Logger.log(context, ">>> INSTALL BUSYBOX\n");
                 install();
+                Logger.log(context, ".\n");
                 break;
             case "remove":
                 Logger.log(context, ">>> REMOVE BUSYBOX\n");
                 remove();
+                Logger.log(context, ".\n");
                 break;
         }
     }
