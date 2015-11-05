@@ -1,18 +1,16 @@
 Changelog (English)
 ===================
 
-1.0.2
+1.23.2-12
+Fixed problem with remount the block device as read-write
 Fixed problem with mounting loop devices
-
-1.0.1
 Added feature of creating a zip-archive for installation via recovery
 
 
 История изменений (Русский)
 ===========================
 
-1.0.2
+1.23.2-12
+Исправлена проблема перемонтирования блочного устройства на чтение-запись
 Исправлена проблема с монтированием loop-устройств
-
-1.0.1
 Добавлена функция создания zip-ахрива для установки через рекавери
