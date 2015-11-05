@@ -64,6 +64,7 @@ if [ -n "$PIE" ]
 then sed -i "s|^# CONFIG_PIE.*|CONFIG_PIE=y|" ./configs/$defconfig
 else sed -i "s|^CONFIG_PIE.*|# CONFIG_PIE is not set|" ./configs/$defconfig
 fi
+sed -i "s|^EXTRAVERSION =.*|EXTRAVERSION = -meefik|" ./Makefile
 make $defconfig || exit 1
 
 echo ">>> make"
