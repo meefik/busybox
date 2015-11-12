@@ -27,7 +27,11 @@ busybox printf "* size: $BB_SIZE bytes\n"
 
 busybox printf "\nInstalled BusyBox:\n"
 BB_BIN=""
-if busybox test -e "/system/bin/busybox"
+if busybox test -e "$INSTALL_DIR/busybox"
+then
+    BB_PATH="$INSTALL_DIR"
+    BB_BIN="$BB_PATH/busybox"
+elif busybox test -e "/system/bin/busybox"
 then
     BB_PATH="/system/bin"
     BB_BIN="$BB_PATH/busybox"

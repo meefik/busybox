@@ -22,8 +22,9 @@ public class ExecScript extends Thread {
         String envDir = PrefStore.getEnvDir(context);
         List<String> params = new ArrayList<>();
         params.add("ENV_DIR=" + envDir);
-        params.add(". " + envDir + "/bin/info.sh");
-        EnvUtils.exec(context, "/system/bin/sh", params);
+        params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
+        params.add(". " + envDir + "/scripts/info.sh");
+        EnvUtils.exec(context, "sh", params);
     }
 
     private void install() {
@@ -34,7 +35,7 @@ public class ExecScript extends Thread {
         params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
         params.add("INSTALL_APPLETS=" + PrefStore.isInstallApplets(context));
         params.add("REPLACE_APPLETS=" + PrefStore.isReplaceApplets(context));
-        params.add(". " + envDir + "/bin/install.sh");
+        params.add(". " + envDir + "/scripts/install.sh");
         EnvUtils.exec(context, "su", params);
     }
 
@@ -44,7 +45,7 @@ public class ExecScript extends Thread {
         String envDir = PrefStore.getEnvDir(context);
         List<String> params = new ArrayList<>();
         params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
-        params.add(". " + envDir + "/bin/remove.sh");
+        params.add(". " + envDir + "/scripts/remove.sh");
         EnvUtils.exec(context, "su", params);
     }
 

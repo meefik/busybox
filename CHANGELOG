@@ -1,7 +1,8 @@
 Changelog (English)
 ===================
 
-1.23.2-12
+1.23.2-13
+Added the ability to use busybox tools without superuser privileges (root)
 Fixed problem with remount the block device as read-write
 Fixed problem with mounting loop devices
 Added feature of creating a zip-archive for installation via recovery
@@ -10,7 +11,8 @@ Added feature of creating a zip-archive for installation via recovery
 История изменений (Русский)
 ===========================
 
-1.23.2-12
+1.23.2-13
+Добавлена возможность использовать утилиты busybox без прав суперпользователя (root)
 Исправлена проблема перемонтирования блочного устройства на чтение-запись
 Исправлена проблема с монтированием loop-устройств
 Добавлена функция создания zip-ахрива для установки через рекавери

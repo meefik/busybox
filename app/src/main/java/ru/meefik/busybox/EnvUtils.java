@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -141,7 +142,7 @@ public class EnvUtils {
      */
     private static Boolean setVersion(Context c) {
         Boolean result = false;
-        String f = PrefStore.getEnvDir(c) + "/etc/version";
+        String f = PrefStore.getEnvDir(c) + "/version";
         BufferedWriter bw = null;
         try {
             bw = new BufferedWriter(new FileWriter(f));
@@ -163,7 +164,7 @@ public class EnvUtils {
      */
     private static Boolean isLatestVersion(Context c) {
         Boolean result = false;
-        String f = PrefStore.getEnvDir(c) + "/etc/version";
+        String f = PrefStore.getEnvDir(c) + "/version";
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(f));
@@ -187,7 +188,8 @@ public class EnvUtils {
         if (isLatestVersion(c)) return true;
 
         // prepare env directory
-        File fEnvDir = new File(PrefStore.getEnvDir(c));
+        String envDir = PrefStore.getEnvDir(c);
+        File fEnvDir = new File(envDir);
         fEnvDir.mkdirs();
         if (!fEnvDir.exists()) {
             return false;
@@ -212,6 +214,11 @@ public class EnvUtils {
 
         // set permissions
         setPermissions(fEnvDir);
+
+        // install applets
+        List<String> params = new ArrayList<>();
+        params.add("busybox --install -s " + envDir + "/bin");
+        exec(c, "sh", params);
 
         // update version
         return setVersion(c);
@@ -398,7 +405,7 @@ public class EnvUtils {
             File busybox = new File(PrefStore.getEnvDir(c) + "/bin/busybox");
             zip.putNextEntry(new ZipEntry("busybox"));
             addFileToZip(busybox, zip);
-            File updateBinary = new File(PrefStore.getEnvDir(c) + "/recovery/update-binary");
+            File updateBinary = new File(PrefStore.getEnvDir(c) + "/scripts/recovery.sh");
             zip.putNextEntry(new ZipEntry("META-INF/com/google/android/update-binary"));
             addFileToZip(updateBinary, zip);
             result = true;

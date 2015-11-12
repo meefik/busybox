@@ -41,7 +41,7 @@ else
     busybox printf "fail\n"
 fi
 
-if busybox test "$REPLACE_APPLETS" == "true"
+if busybox test "$REPLACE_APPLETS" = "true"
 then
     busybox printf "Removing old applets ... "
     #busybox --list | busybox xargs -I APPLET busybox rm $INSTALL_DIR/APPLET
@@ -60,7 +60,7 @@ then
     fi
 fi
 
-if busybox test "$INSTALL_APPLETS" == "true"
+if busybox test "$INSTALL_APPLETS" = "true"
 then
     busybox printf "Installing new applets ... "
     $INSTALL_DIR/busybox --install -s $INSTALL_DIR
