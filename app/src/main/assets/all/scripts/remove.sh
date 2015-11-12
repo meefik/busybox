@@ -34,7 +34,7 @@ then
     busybox printf "* applets ... "
     busybox ls "$INSTALL_DIR" | while read f
     do
-        if busybox test "$(busybox readlink $INSTALL_DIR/$f)" == "$INSTALL_DIR/busybox"
+        if busybox test "$(busybox readlink $INSTALL_DIR/$f)" = "$INSTALL_DIR/busybox"
         then
             busybox rm "$INSTALL_DIR/$f"
         fi

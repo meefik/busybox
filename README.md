@@ -56,6 +56,12 @@ Latest BusyBox v1.23.2, supported 335 applets:
 * Android 2.3 (API 9) or later
 * Superuser permissions (root)
 
+**Use without root permissions**
+
+To access busybox tools without superuser privileges, perform the following command in Android terminal:
+
+    export PATH=/data/data/ru.meefik.busybox/files/bin:$PATH
+
 **Referenses**:
 
 * [Source code](https://github.com/meefik/busybox)
