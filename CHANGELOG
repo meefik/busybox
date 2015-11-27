@@ -1,8 +1,9 @@
 Changelog (English)
 ===================
 
-1.23.2-14
+1.23.2-15
 Added applets cryptpw and mkpasswd
+Added support devpts
 Enabled line editing (mainly for shell command line)
 
 1.23.2-13
@@ -15,8 +16,9 @@ Added feature of creating a zip-archive for installation via recovery
 История изменений (Русский)
 ===========================
 
-1.23.2-14
+1.23.2-15
 Добавлены апплеты cryptpw и mkpasswd
+Добавлена поддержка devpts
 Включено редактирование строки (в основном для командной оболочки)
 
 1.23.2-13

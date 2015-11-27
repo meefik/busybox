@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.23.2-meefik
-# Fri Nov 27 16:35:16 2015
+# Fri Nov 27 23:28:32 2015
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -39,7 +39,7 @@ CONFIG_LAST_SUPPORTED_WCHAR=0
 # CONFIG_PAM is not set
 CONFIG_FEATURE_USE_SENDFILE=y
 CONFIG_LONG_OPTS=y
-# CONFIG_FEATURE_DEVPTS is not set
+CONFIG_FEATURE_DEVPTS=y
 # CONFIG_FEATURE_CLEAN_UP is not set
 # CONFIG_FEATURE_UTMP is not set
 # CONFIG_FEATURE_WTMP is not set
