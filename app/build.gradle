@@ -8,7 +8,7 @@ android {
         applicationId "ru.meefik.busybox"
         minSdkVersion 9
         targetSdkVersion 23
-        versionCode 14
+        versionCode 15
         versionName "1.23.2"
     }
     buildTypes {
