@@ -1,6 +1,10 @@
 Changelog (English)
 ===================
 
+1.23.2-14
+Added applets cryptpw and mkpasswd
+Enabled line editing (mainly for shell command line)
+
 1.23.2-13
 Added the ability to use busybox tools without superuser privileges (root)
 Fixed problem with remount the block device as read-write
@@ -10,6 +14,10 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.23.2-14
+Добавлены апплеты cryptpw и mkpasswd
+Включено редактирование строки (в основном для командной оболочки)
 
 1.23.2-13
 Добавлена возможность использовать утилиты busybox без прав суперпользователя (root)
