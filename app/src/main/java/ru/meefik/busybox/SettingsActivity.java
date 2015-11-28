@@ -1,26 +1,29 @@
 package ru.meefik.busybox;
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 /**
  * Created by anton on 19.09.15.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         PrefStore.setLocale(this);
         super.onCreate(savedInstanceState);
         getSupportActionBar().setTitle(getString(R.string.title_activity_settings));
-
-        // init variables
-        PrefStore.getLogFile(this);
 
         getPreferenceManager().setSharedPreferencesName(PrefStore.APP_PREF_NAME);
         addPreferencesFromResource(R.xml.settings);
@@ -56,6 +59,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
     }
 
     /**
+     * Request permission to write to storage.
+     */
+    private void requestWritePermissions() {
+        int REQUEST_WRITE_STORAGE = 112;
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+        }
+    }
+
+    /**
      * Recursive set summaries
      *
      * @param pg group
@@ -82,11 +98,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
         if (pref instanceof EditTextPreference) {
             EditTextPreference editPref = (EditTextPreference) pref;
             pref.setSummary(editPref.getText());
+
+            if (editPref.getKey().equals("logfile") && !init) {
+                editPref.setText(PrefStore.getLogFile(this));
+                pref.setSummary(editPref.getText());
+            }
         }
 
         if (pref instanceof ListPreference) {
             ListPreference listPref = (ListPreference) pref;
             pref.setSummary(listPref.getEntry());
+        }
+
+        if (pref instanceof CheckBoxPreference) {
+            CheckBoxPreference checkPref = (CheckBoxPreference) pref;
+
+            if (checkPref.getKey().equals("logger") && checkPref.isChecked() && init) {
+                requestWritePermissions();
+            }
         }
     }
 }
