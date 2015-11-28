@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.23.2-16
+Added request for permission to write (for Android 6)
+
 1.23.2-15
 Added applets cryptpw and mkpasswd
 Added support devpts
@@ -15,6 +18,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.23.2-16
+Добавлен запрос прав доступа на запись (для Android 6)
 
 1.23.2-15
 Добавлены апплеты cryptpw и mkpasswd
