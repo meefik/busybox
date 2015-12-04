@@ -24,6 +24,8 @@ BB_APPLETS=$(busybox --list | busybox wc -l)
 busybox printf "* applets: $BB_APPLETS items\n"
 BB_SIZE=$(busybox stat -c '%s' $BB_BIN)
 busybox printf "* size: $BB_SIZE bytes\n"
+BB_MD5=$(busybox md5sum $BB_BIN | busybox awk '{print $1}')
+busybox printf "* md5: $BB_MD5\n"
 
 busybox printf "\nInstalled BusyBox:\n"
 BB_BIN=""
@@ -49,6 +51,8 @@ then
     busybox printf "* applets: $BB_APPLETS items\n"
     BB_SIZE=$(busybox stat -c '%s' $BB_BIN)
     busybox printf "* size: $BB_SIZE bytes\n"
+    BB_MD5=$(busybox md5sum $BB_BIN | busybox awk '{print $1}')
+    busybox printf "* md5: $BB_MD5\n"
 else
     busybox printf "* not installed\n"
 fi
