@@ -1,12 +1,10 @@
 # BusyBox
 
-(c) 2015 Anton Skshidlevsky
-
-Licensed under the [GPL version 3](http://www.gnu.org/licenses/) or later.
-
-[BusyBox](http://busybox.net) combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.
+Copyright (C) 2015 Anton Skshidlevsky, [GPLv3](http://opensource.org/licenses/gpl-3.0.html)
 
 This application is an BusyBox installer for Android.
+
+[BusyBox](http://busybox.net) combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.
 
 Latest BusyBox v1.23.2, supported 337 applets:
 
