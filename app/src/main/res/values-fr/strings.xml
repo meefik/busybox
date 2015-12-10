@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_version">version %1$s</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="action_help">Informations</string>
+    <string name="action_zip">Archive zip</string>
+    <string name="action_about">À propos</string>
+    <string name="title_activity_about">À propos</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="install_button">INSTALLER</string>
+    <string name="remove_button">SUPPRIMER</string>
+
+    <string name="busybox_preferences">BusyBox</string>
+    <string name="title_installdir">Chemin d\'installation</string>
+    <string name="dialog_title_installdir">Chemin d\'installation</string>
+    <string name="title_applets">Installer les applets</string>
+    <string name="summary_applets">Créer des liens symboliques vers les applets</string>
+    <string name="title_replace">Remplacer les applets</string>
+    <string name="summary_replace">Remplacer les applets existants</string>
+    <string name="gui_preferences">Interface</string>
+    <string name="title_language">Langue</string>
+    <string name="dialog_title_language">Choisir une langue</string>
+    <string name="title_theme">Thème</string>
+    <string name="dialog_title_theme">Choisir un thème</string>
+    <string name="title_fontsize">Taille de la police</string>
+    <string name="dialog_title_fontsize">Taille de la police</string>
+    <string name="title_maxlines">Taille de défilement</string>
+    <string name="dialog_title_maxlines">Taille de défilement</string>
+    <string name="title_timestamp">Horodatage</string>
+    <string name="summary_timestamp">Afficher l\'horodatage</string>
+    <string name="title_confirm_install_dialog">Installer</string>
+    <string name="message_confirm_install_dialog">Installer BusyBox dans le système ?</string>
+    <string name="title_confirm_remove_dialog">Supprimer</string>
+    <string name="message_confirm_remove_dialog">Supprimer BusyBox du système ?</string>
+    <string name="title_export_dialog">Archive pour recovery :</string>
+    <string name="toast_export_success">Archive zip sauvegardée avec succès</string>
+    <string name="toast_export_error">Impossible de sauvegarder l\'archive zip</string>
+    <string name="debug_preferences">Débogage</string>
+    <string name="title_debug">Mode débogage</string>
+    <string name="summary_debug">Afficher les informations de débogage</string>
+    <string name="title_trace">Mode trace</string>
+    <string name="summary_trace">Activer le mode traçage</string>
+    <string name="title_logger">Journalisation</string>
+    <string name="summary_logger">Sauvegarder les journaux dans un fichier</string>
+    <string name="title_logfile">Fichier journal</string>
+    <string name="dialog_title_logfile">Fichier journal</string>
+    <string name="write_permissions_disallow">L\'application n\'a pas été autorisée à écrire sur votre stockage</string>
+    <string name="help_text">Chargement...</string>
+    <string name="about_text">Cette application est un installateur BusyBox pour Android.\n\nBusyBox combine des versions allégées de nombreux utilitaires UNIX en un seul petit exécutable. Il fournit un remplaçant pour la plupart des utilitaires que vous trouvez habituellement dans GNU fileutils, shellutils, etc. Les utilitaires dans BusyBox ont généralement moins d\'options que leurs cousins GNU complets ; toutefois, les options qui sont incluses fournissent la fonctionnalité attendue et se comportent comme leurs homologues GNU. BusyBox fournit un environnement assez complet pour tout système petit ou intégré.\n\nPour plus d\'informations, aller sur <a href="https://github.com/meefik/busybox">la page du projet</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">le forum</a> ou <a href="http://meefik.ru">le site du développeur</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
+
+    <string-array name="theme_entries">
+        <item>Sombre</item>
+        <item>Clair</item>
+    </string-array>
+</resources>
