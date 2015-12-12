@@ -1,0 +1,124 @@
+--- ../busybox-1.23.2.orig/networking/Kbuild.src	2015-03-23 06:06:55.000000000 +0300
++++ ./networking/Kbuild.src	2015-09-24 19:33:58.419902492 +0300
+@@ -9,9 +9,11 @@
+ INSERT
+ lib-$(CONFIG_ARP)          += arp.o interface.o
+ lib-$(CONFIG_ARPING)       += arping.o
++lib-$(CONFIG_ARPING)       += ether_ntoa_r.o
+ lib-$(CONFIG_BRCTL)        += brctl.o
+ lib-$(CONFIG_DNSD)         += dnsd.o
+ lib-$(CONFIG_ETHER_WAKE)   += ether-wake.o
++lib-$(CONFIG_ETHER_WAKE)   += ether_aton_r.o ether_ntoa_r.o
+ lib-$(CONFIG_FAKEIDENTD)   += isrv_identd.o isrv.o
+ lib-$(CONFIG_FTPD)         += ftpd.o
+ lib-$(CONFIG_FTPGET)       += ftpgetput.o
+@@ -26,6 +28,7 @@
+ lib-$(CONFIG_IP)           += ip.o
+ lib-$(CONFIG_IPCALC)       += ipcalc.o
+ lib-$(CONFIG_NAMEIF)       += nameif.o
++lib-$(CONFIG_NAMEIF)       += ether_aton_r.o
+ lib-$(CONFIG_NC)           += nc.o
+ lib-$(CONFIG_NETSTAT)      += netstat.o
+ lib-$(CONFIG_NSLOOKUP)     += nslookup.o
+--- ../busybox-1.23.2.orig/networking/ether_aton_r.c	1970-01-01 03:00:00.000000000 +0300
++++ ./networking/ether_aton_r.c	2015-09-24 19:36:40.138027859 +0300
+@@ -0,0 +1,63 @@
++/* Copyright (C) 1996,97,98,99,2002 Free Software Foundation, Inc.
++   This file is part of the GNU C Library.
++   Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
++
++   The GNU C Library is free software; you can redistribute it and/or
++   modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either
++   version 2.1 of the License, or (at your option) any later version.
++
++   The GNU C Library is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++   Lesser General Public License for more details.
++
++   You should have received a copy of the GNU Lesser General Public
++   License along with the GNU C Library; if not, write to the Free
++   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
++   02111-1307 USA.  */
++
++#include <ctype.h>
++#include <sys/types.h>
++#include <netinet/ether.h>
++#include <netinet/if_ether.h>
++
++
++struct ether_addr *
++ether_aton_r (const char *asc, struct ether_addr *addr)
++{
++  size_t cnt;
++
++  for (cnt = 0; cnt < 6; ++cnt)
++    {
++      unsigned int number;
++      char ch;
++
++      ch = tolower (*asc++);
++      if ((ch < '0' || ch > '9') && (ch < 'a' || ch > 'f'))
++        return NULL;
++      number = isdigit (ch) ? (ch - '0') : (ch - 'a' + 10);
++
++      ch = tolower (*asc);
++      if ((cnt < 5 && ch != ':') || (cnt == 5 && ch != '\0' && !isspace (ch)))
++        {
++          ++asc;
++          if ((ch < '0' || ch > '9') && (ch < 'a' || ch > 'f'))
++            return NULL;
++          number <<= 4;
++          number += isdigit (ch) ? (ch - '0') : (ch - 'a' + 10);
++
++          ch = *asc;
++          if (cnt < 5 && ch != ':')
++            return NULL;
++        }
++
++      /* Store result.  */
++      addr->ether_addr_octet[cnt] = (unsigned char) number;
++
++      /* Skip ':'.  */
++      ++asc;
++    }
++
++  return addr;
++}
+--- ../busybox-1.23.2.orig/networking/ether_ntoa_r.c	1970-01-01 03:00:00.000000000 +0300
++++ ./networking/ether_ntoa_r.c	2015-09-24 19:36:58.182265022 +0300
+@@ -0,0 +1,33 @@
++/* Copyright (C) 1996,97,2002 Free Software Foundation, Inc.
++   This file is part of the GNU C Library.
++   Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
++
++   The GNU C Library is free software; you can redistribute it and/or
++   modify it under the terms of the GNU Lesser General Public
++   License as published by the Free Software Foundation; either
++   version 2.1 of the License, or (at your option) any later version.
++
++   The GNU C Library is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
++   Lesser General Public License for more details.
++
++   You should have received a copy of the GNU Lesser General Public
++   License along with the GNU C Library; if not, write to the Free
++   Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
++   02111-1307 USA.  */
++
++#include <stdio.h>
++#include <netinet/ether.h>
++#include <netinet/if_ether.h>
++
++
++char *
++ether_ntoa_r (const struct ether_addr *addr, char *buf)
++{
++  sprintf (buf, "%x:%x:%x:%x:%x:%x",
++           addr->ether_addr_octet[0], addr->ether_addr_octet[1],
++           addr->ether_addr_octet[2], addr->ether_addr_octet[3],
++           addr->ether_addr_octet[4], addr->ether_addr_octet[5]);
++  return buf;
++}

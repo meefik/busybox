@@ -1,0 +1,17 @@
+--- ../busybox-1.23.2.orig/util-linux/mdev.c	2015-03-23 06:07:19.000000000 +0300
++++ ./util-linux/mdev.c	2015-09-26 01:26:04.892390824 +0300
+@@ -1134,3 +1134,14 @@
+ 
+ 	return EXIT_SUCCESS;
+ }
++
++#include <errno.h>
++#include <signal.h>
++
++int
++sigtimedwait (const sigset_t *set, siginfo_t *info,
++		const struct timespec *timeout)
++{
++  __set_errno (ENOSYS);
++  return -1;
++}
