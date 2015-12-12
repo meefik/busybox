@@ -1,8 +1,11 @@
 #!/bin/bash
 # BusyBox build tools
-# (c) 2014-2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (C) 2014-2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+#
+# Make a patch:
+# diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches-${BB_VERSION}/${PATCH_NAME}.patch
 
-BB_VERSION="1.23.2"
+BB_VERSION="1.24.1"
 ANDROID_NATIVE_API_LEVEL="android-9"
 MARCH="$1"
 PIE="$2"
@@ -25,11 +28,11 @@ tar jvxf $pkg.tar.bz2 || exit 1
 
 echo ">>> patch"
 cd $pkg
-for p in $(ls ../patches/*.patch)
+for p in $(ls ../patches-$BB_VERSION/*.patch)
 do
 	patch -b -p0 < $p || exit 1
 done
-cp ../patches/$defconfig ./configs/$defconfig
+cp ../patches-$BB_VERSION/$defconfig ./configs/$defconfig
 
 echo ">>> config"
 case "$MARCH" in

@@ -1,0 +1,11 @@
+--- ../busybox-1.23.2.orig/util-linux/setarch.c	2015-03-23 06:06:55.000000000 +0300
++++ ./util-linux/setarch.c	2015-09-25 19:11:33.855310797 +0300
+@@ -20,7 +20,7 @@
+ //usage:#define linux64_trivial_usage NOUSAGE_STR
+ //usage:#define linux64_full_usage ""
+ 
+-#include <sys/personality.h>
++#include <linux/personality.h>
+ 
+ #include "libbb.h"
+ 

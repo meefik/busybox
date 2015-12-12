@@ -1,0 +1,17 @@
+--- ../busybox-1.23.2.orig/coreutils/logname.c	2015-03-23 06:06:55.000000000 +0300
++++ ./coreutils/logname.c	2015-09-26 01:06:00.568414824 +0300
+@@ -50,3 +50,14 @@
+ 
+ 	bb_perror_msg_and_die("getlogin");
+ }
++
++int getlogin_r(char* name, size_t namesize)
++{
++	char *s = getlogin(); 
++	if (s) {
++	 	strncpy (name, s, namesize);
++		return 0;
++	} else {
++		return -1;
++	}
++}
