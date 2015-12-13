@@ -50,13 +50,13 @@
 
     <string-array name="language_entries" translatable="false">
         <item>English</item>
-        <item>Русский</item>
         <item>Français</item>
+        <item>Русский</item>
     </string-array>
     <string-array name="language_values" translatable="false">
         <item>en</item>
-        <item>ru</item>
         <item>fr</item>
+        <item>ru</item>
     </string-array>
 
     <string-array name="theme_entries">
