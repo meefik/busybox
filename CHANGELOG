@@ -3,6 +3,7 @@ Changelog (English)
 
 1.24.1-18
 Includes busybox v1.24.1
+Translated into French
 
 1.23.2-17
 Added request for permission to write (for Android 6)
@@ -25,6 +26,7 @@ Added feature of creating a zip-archive for installation via recovery
 
 1.24.1-18
 Включает сборку busybox v1.24.1
+Переведено на французский язык
 
 1.23.2-17
 Добавлен запрос прав доступа на запись (для Android 6)
