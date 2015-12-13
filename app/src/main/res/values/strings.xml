@@ -50,11 +50,13 @@
 
     <string-array name="language_entries" translatable="false">
         <item>English</item>
+        <item>Français</item>
         <item>Русский</item>
         <item>Français</item>
     </string-array>
     <string-array name="language_values" translatable="false">
         <item>en</item>
+        <item>fr</item>
         <item>ru</item>
         <item>fr</item>
     </string-array>
