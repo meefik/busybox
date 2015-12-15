@@ -63,6 +63,4 @@
         <item>深色</item>
         <item>浅色</item>
     </string-array>
-    <string name="ok">确定</string>
-    <string name="cancle">取消</string>
 </resources>
