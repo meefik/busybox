@@ -1,7 +1,9 @@
 #!/bin/bash
 # BusyBox build tools
 # (C) 2014-2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
-#
+# Requires:
+# Android NDK r10e (http://developer.android.com/ndk/downloads/index.html)
+# export ANDROID_NDK_ROOT="/path/to/ndk"
 # Make a patch:
 # diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches-${BB_VERSION}/${PATCH_NAME}.patch
 
@@ -10,7 +12,7 @@ ANDROID_NATIVE_API_LEVEL="android-9"
 MARCH="$1"
 PIE="$2"
 [ -z "$MARCH" ] && { echo "Usage: $0 <arm|intel|mips> [pie]"; exit 1; }
-[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/android-ndk-r10d"
+[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk-bundle"
 HOST_ARCH=$(uname -m)
 NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
@@ -37,24 +39,24 @@ cp ../patches-$BB_VERSION/$defconfig ./configs/$defconfig
 echo ">>> config"
 case "$MARCH" in
 arm)
-	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.6/prebuilt/linux-$HOST_ARCH/bin/arm-linux-androideabi-"
+	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-$HOST_ARCH/bin/arm-linux-androideabi-"
 	CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/$ANDROID_NATIVE_API_LEVEL/arch-arm"
 	CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -nostdlib -march=armv5te -msoft-float -mfloat-abi=softfp -mfpu=neon -mthumb -mthumb-interwork -fpic -fno-short-enums -fgcse-after-reload -frename-registers $CFLAGS"
-	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o $LDFLAGS"
+	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
 	CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 intel)
-	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/x86-4.6/prebuilt/linux-$HOST_ARCH/bin/i686-linux-android-"
+	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/x86-4.9/prebuilt/linux-$HOST_ARCH/bin/i686-linux-android-"
 	CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/$ANDROID_NATIVE_API_LEVEL/arch-x86"
 	CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -nostdlib -march=i686 -mtune=atom -fpic $CFLAGS"
-	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o $LDFLAGS"
+	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
 	CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 mips)
-	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/mipsel-linux-android-4.6/prebuilt/linux-$HOST_ARCH/bin/mipsel-linux-android-"
+	CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/mipsel-linux-android-4.9/prebuilt/linux-$HOST_ARCH/bin/mipsel-linux-android-"
 	CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/$ANDROID_NATIVE_API_LEVEL/arch-mips"
 	CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -nostdlib -march=mips32 -fpic -Wno-psabi -fomit-frame-pointer -fno-strict-aliasing -finline-functions -ffunction-sections -funwind-tables -fmessage-length=0 -fno-inline-functions-called-once -fgcse-after-reload -frerun-cse-after-loop -frename-registers $CFLAGS"
-	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o $LDFLAGS"
+	CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
 	CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 esac
