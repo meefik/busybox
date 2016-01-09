@@ -366,7 +366,7 @@ diff -urN ../busybox-1.23.2.orig/libres/dnscruft3.c ./libres/dnscruft3.c
 diff -urN ../busybox-1.23.2.orig/libres/dnscruft.c ./libres/dnscruft.c
 --- ../busybox-1.23.2.orig/libres/dnscruft.c	1970-01-01 03:00:00.000000000 +0300
 +++ ./libres/dnscruft.c	2015-09-25 18:03:21.450002344 +0300
-@@ -0,0 +1,119 @@
+@@ -0,0 +1,155 @@
 +#include <sys/socket.h>
 +#include <netinet/in.h>
 +#include <sys/socket.h>
@@ -424,6 +424,37 @@ diff -urN ../busybox-1.23.2.orig/libres/dnscruft.c ./libres/dnscruft.c
 +  return 0;
 +}
 +
++int getprop(const char *propname, char *propvalue) {
++  int rv = 0;
++  int fd[2];
++  int status;
++  int pid;
++  FILE *fp;
++  const char *argv[3] = {"getprop", propname};
++  pipe(fd);
++  pid = fork();
++  if (pid == 0) {
++    close(fd[0]);
++    dup2(fd[1], STDOUT_FILENO);
++    close(fd[1]);
++    execvp(argv[0], argv);
++    exit(-1);
++  } else if (pid != -1) {
++    close(fd[1]);
++    wait(&status);
++    if (status == 0) {
++      fp = fdopen(fd[0], "r");
++      if (fp != NULL) {
++        if (fgets(propvalue, PROP_VALUE_MAX, fp) != NULL) {
++          rv = 1;
++        }
++        fclose(fp);
++      }
++    }
++  }
++  return rv;
++}
++
 +#define MAX_DNS_PROPERTIES 8
 +#define DNS_PROP_NAME_PREFIX "net.dns"
 +void __dns_readstartfiles(void) {
@@ -441,13 +472,18 @@ diff -urN ../busybox-1.23.2.orig/libres/dnscruft.c ./libres/dnscruft.c
 +#ifdef __BIONIC__
 +  for(i = 1; i <= MAX_DNS_PROPERTIES; i++) {
 +    snprintf(propname, sizeof(propname), "%s%d", DNS_PROP_NAME_PREFIX, i);
-+    if(__system_property_get(propname, propvalue) < 1) {
++    if (getprop(propname, propvalue) > 0) {
++      if (parsesockaddr(propvalue,&_diet_res.nsaddr_list[_diet_res.nscount]))
++        if (_diet_res.nscount<DIET_MAXNS)
++          ++_diet_res.nscount;
++    } else {
 +      break;
 +    }
-+
-+    if (parsesockaddr(propvalue,&_diet_res.nsaddr_list[_diet_res.nscount]))
-+      if (_diet_res.nscount<DIET_MAXNS)
-+        ++_diet_res.nscount;
++  }
++  if (_diet_res.nscount < 1) {
++      if (parsesockaddr("8.8.8.8",&_diet_res.nsaddr_list[_diet_res.nscount]))
++        if (_diet_res.nscount<DIET_MAXNS)
++          ++_diet_res.nscount;
 +  }
 +#else
 +  /* testing */
@@ -1147,3 +1183,31 @@ diff -urN ../busybox-1.23.2.orig/libres/test.c ./libres/test.c
  	/* rfc2133 says this enables IPv6 lookups */
  	/* (but it also says "may be enabled in /etc/resolv.conf") */
  	/*_res.options |= RES_USE_INET6;*/
+--- ../busybox-1.24.1.orig/libbb/xconnect.c	2015-09-03 05:15:55.000000000 +0300
++++ ./libbb/xconnect.c	2016-01-09 22:43:14.346436304 +0300
+@@ -12,6 +12,7 @@
+ #include <netinet/in.h>
+ #include <net/if.h>
+ #include <sys/un.h>
++#include "../libres/dietdns.h"
+ #include "libbb.h"
+ 
+ int FAST_FUNC setsockopt_int(int fd, int level, int optname, int optval)
+@@ -282,7 +283,7 @@
+ 	 * for each possible socket type (tcp,udp,raw...): */
+ 	hint.ai_socktype = SOCK_STREAM;
+ 	hint.ai_flags = ai_flags & ~DIE_ON_ERROR;
+-	rc = getaddrinfo(host, NULL, &hint, &result);
++	rc = diet_getaddrinfo(host, NULL, &hint, &result);
+ 	if (rc || !result) {
+ 		bb_error_msg("bad address '%s'", org_host);
+ 		if (ai_flags & DIE_ON_ERROR)
+@@ -309,7 +310,7 @@
+ 	set_nport(&r->u.sa, htons(port));
+  ret:
+ 	if (result)
+-		freeaddrinfo(result);
++		diet_freeaddrinfo(result);
+ 	return r;
+ }
+ #if !ENABLE_FEATURE_IPV6
