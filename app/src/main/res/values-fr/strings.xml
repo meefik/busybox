@@ -1,5 +1,6 @@
 <resources>
     <string name="app_version">version %1$s</string>
+    <string name="action_terminal">Terminal</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_help">Informations</string>
     <string name="action_zip">Archive zip</string>
@@ -34,6 +35,7 @@
     <string name="title_export_dialog">Archive pour recovery :</string>
     <string name="toast_export_success">Archive zip sauvegardée avec succès</string>
     <string name="toast_export_error">Impossible de sauvegarder l\'archive zip</string>
+    <string name="toast_terminal_error">Error when starting the terminal</string>
     <string name="debug_preferences">Débogage</string>
     <string name="title_debug">Mode débogage</string>
     <string name="summary_debug">Afficher les informations de débogage</string>

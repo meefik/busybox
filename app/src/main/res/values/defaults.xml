@@ -11,4 +11,5 @@
     <string name="installdir" translatable="false">/system/xbin</string>
     <string name="applets" translatable="false">true</string>
     <string name="replace" translatable="false">false</string>
+    <string name="terminalcmd" translatable="false">export PATH=${ENV_DIR}/bin:$PATH</string>
 </resources>

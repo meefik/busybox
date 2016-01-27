@@ -208,6 +208,17 @@ public class PrefStore {
     }
 
     /**
+     * Get terminal script
+     *
+     * @param c context
+     * @return script
+     */
+    public static String getTerminalCmd(Context c) {
+        SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
+        return c.getString(R.string.terminalcmd).replace("${ENV_DIR}", getEnvDir(c));
+    }
+
+    /**
      * Get hardware architecture
      *
      * @param arch unformated architecture
