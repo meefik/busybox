@@ -201,8 +201,12 @@ public class EnvUtils {
             return false;
         }
         String mArch = PrefStore.getArch();
-        // PIE for Android L+
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
+        if (PrefStore.STATIC_VERSION) {
+            if (!extractDir(c, mArch + "/static", "")) {
+                return false;
+            }
+        } else if (android.os.Build.VERSION.SDK_INT >= 21) {
+            // PIE for Android L+
             if (!extractDir(c, mArch + "/pie", "")) {
                 return false;
             }
