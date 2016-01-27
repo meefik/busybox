@@ -49,11 +49,13 @@
     <string name="about_text">This application is an BusyBox installer for Android.\n\nBusyBox combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.\n\nFor more information see <a href="https://github.com/meefik/busybox">project page</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> or <a href="http://meefik.ru">developer site</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
 
     <string-array name="language_entries" translatable="false">
+        <item>简体中文</item>
         <item>English</item>
         <item>Русский</item>
         <item>Français</item>
     </string-array>
     <string-array name="language_values" translatable="false">
+        <item>zh</item>
         <item>en</item>
         <item>ru</item>
         <item>fr</item>
