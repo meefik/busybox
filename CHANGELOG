@@ -2,9 +2,9 @@ Changelog (English)
 ===================
 
 1.24.1-21
-Includes busybox v1.24.1 (static build)
 Open a shell from Android Terminal Emulator
 Translated into Chinese
+Added support static build
 
 1.24.1-18
 Includes busybox v1.24.1
@@ -30,9 +30,9 @@ Added feature of creating a zip-archive for installation via recovery
 ===========================
 
 1.24.1-21
-Включает статическую сборку busybox v1.24.1
 Добавлена команда открытия Android Terminal Emulator
 Переведено на китайский язык
+Добавлена поддержка статических сборок
 
 1.24.1-18
 Включает сборку busybox v1.24.1
