@@ -18,10 +18,10 @@ ANDROID_NATIVE_API_LEVEL="android-9"
 GCC_VERSION="4.9"
 MARCH="$1"
 PARAM="$2"
-HOST_ARCH=$(uname -m)
 NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
 [ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk-bundle"
+
 case "$MARCH" in
 arm|intel|mips)
 ;;
@@ -29,6 +29,7 @@ arm|intel|mips)
     helper
 ;;
 esac
+
 case "$PARAM" in
 pie)
     PREFIX="$PREFIX/pie"
@@ -41,6 +42,19 @@ static)
 ;;
 *)
     helper
+;;
+esac
+
+case "$(uname -m)"  in
+i[3-6]86)
+    HOST_ARCH="x86"
+;;
+x86_64)
+    HOST_ARCH="x86_64"
+;;
+*)
+    echo "Unknown architecture"
+    exit 1
 ;;
 esac
 
