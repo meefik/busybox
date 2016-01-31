@@ -15,7 +15,7 @@ import java.util.Locale;
  */
 public class PrefStore {
 
-    public static final boolean STATIC_VERSION = true;
+    public static final boolean STATIC_VERSION = false;
     public static final String APP_PREF_NAME = "app_settings";
     private static final String LOG_FILE = "busybox.log";
 
