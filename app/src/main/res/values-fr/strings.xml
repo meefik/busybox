@@ -1,6 +1,5 @@
 <resources>
     <string name="app_version">version %1$s</string>
-    <string name="action_terminal">Terminal</string>
     <string name="action_settings">Paramètres</string>
     <string name="action_help">Informations</string>
     <string name="action_zip">Archive zip</string>
