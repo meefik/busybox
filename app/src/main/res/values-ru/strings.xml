@@ -1,6 +1,5 @@
 <resources>
     <string name="app_version">версия %1$s</string>
-    <string name="action_terminal">Терминал</string>
     <string name="action_settings">Настройки</string>
     <string name="action_help">Информация</string>
     <string name="action_about">О программе</string>

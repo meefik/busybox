@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_terminal:
-                openTerminal();
-                break;
             case R.id.action_settings:
                 Intent intentSettings = new Intent(this, SettingsActivity.class);
                 startActivity(intentSettings);
@@ -157,19 +154,6 @@ public class MainActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         }).show();
-    }
-
-    private void openTerminal() {
-        try {
-            Intent intent_terminal = new Intent("jackpal.androidterm.RUN_SCRIPT");
-            intent_terminal.addCategory(Intent.CATEGORY_DEFAULT);
-            intent_terminal.putExtra("jackpal.androidterm.iInitialCommand",
-                    PrefStore.getTerminalCmd(this));
-            startActivity(intent_terminal);
-        } catch(Exception e) {
-            Toast.makeText(getApplicationContext(),
-                    R.string.toast_terminal_error, Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void makeZipArchiveDialog() {
