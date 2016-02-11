@@ -1,6 +1,10 @@
 Changelog (English)
 ===================
 
+1.24.1-23
+Dynamically build by default
+Remove terminal feature
+
 1.24.1-21
 Open a shell from Android Terminal Emulator
 Translated into Chinese
@@ -28,6 +32,10 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.24.1-23
+Динамическая сборка по умолчанию
+Убрана функция открытия терминала
 
 1.24.1-21
 Добавлена команда открытия Android Terminal Emulator
