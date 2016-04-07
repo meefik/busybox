@@ -6,11 +6,6 @@ CONFIG_FLASH_UNLOCK=n
 CONFIG_NANDWRITE=n
 CONFIG_NANDDUMP=n
 
-
-# Requires wait3(2)
-# Removed from POSIX 2004 and Android
-CONFIG_TIME=n
-
 # Requires __set_errno
 # Removed in Android
 CONFIG_MDEV=n
