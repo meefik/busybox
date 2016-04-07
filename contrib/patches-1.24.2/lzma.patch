@@ -1,0 +1,46 @@
+diff -urN ../busybox-1.23.2.orig/archival/libarchive/open_transformer.c ./archival/libarchive/open_transformer.c
+--- ../busybox-1.23.2.orig/archival/libarchive/open_transformer.c	2015-03-23 06:06:55.000000000 +0300
++++ ./archival/libarchive/open_transformer.c	2015-09-24 14:36:50.085506564 +0300
+@@ -203,12 +203,21 @@
+ 			goto found_magic;
+ 		}
+ 	}
++	if (ENABLE_FEATURE_SEAMLESS_LZMA
++	 && magic.b16[0] == LZMA_MAGIC
++	) {
++		xstate->xformer = unpack_lzma_stream;
++		USE_FOR_NOMMU(xstate->xformer_prog = "unlzma";)
++		xlseek(fd, offset, SEEK_CUR);
++		goto found_magic;
++	}
+ 
+ 	/* No known magic seen */
+ 	if (fail_if_not_compressed)
+ 		bb_error_msg_and_die("no gzip"
+ 			IF_FEATURE_SEAMLESS_BZ2("/bzip2")
+ 			IF_FEATURE_SEAMLESS_XZ("/xz")
++			IF_FEATURE_SEAMLESS_LZMA("/lzma")
+ 			" magic");
+ 
+ 	/* Some callers expect this function to "consume" fd
+diff -urN ../busybox-1.23.2.orig/include/bb_archive.h ./include/bb_archive.h
+--- ../busybox-1.23.2.orig/include/bb_archive.h	2015-03-23 06:07:18.000000000 +0300
++++ ./include/bb_archive.h	2015-09-24 14:36:50.085506564 +0300
+@@ -17,6 +17,8 @@
+ 	/* (unsigned) cast suppresses "integer overflow in expression" warning */
+ 	XZ_MAGIC1a  = 256 * (unsigned)(256 * (256 * 0xfd + '7') + 'z') + 'X',
+ 	XZ_MAGIC2a  = 256 * 'Z' + 0,
++	/* lzma default options: lc=3 lp=0 pb=2, historic % 256 == 0 */
++	LZMA_MAGIC = 0x5d00,
+ #else
+ 	COMPRESS_MAGIC = 0x9d1f,
+ 	GZIP_MAGIC  = 0x8b1f,
+@@ -25,6 +27,8 @@
+ 	XZ_MAGIC2   = 'z' + ('X' + ('Z' + 0 * 256) * 256) * 256,
+ 	XZ_MAGIC1a  = 0xfd + ('7' + ('z' + 'X' * 256) * 256) * 256,
+ 	XZ_MAGIC2a  = 'Z' + 0 * 256,
++	/* lzma default options: lc=3 lp=0 pb=2, historic % 256 == 0 */
++	LZMA_MAGIC = 0x5d,
+ #endif
+ };
+ 

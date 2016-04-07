@@ -1,0 +1,20 @@
+--- ../busybox-1.24.1.orig/scripts/trylink	2015-10-24 03:27:41.000000000 +0300
++++ ./scripts/trylink	2016-01-10 00:15:37.174283821 +0300
+@@ -54,7 +54,7 @@
+     # "eval" may be needed if CFLAGS can contain
+     # '... -D"BB_VER=KBUILD_STR(1.N.M)" ...'
+     # and we need shell to process quotes!
+-    $CC $CFLAGS $1 "$tempname".c -o "$tempname" >/dev/null 2>&1
++    $CC $CFLAGS $LDFLAGS $1 "$tempname".c -o "$tempname" >/dev/null 2>&1
+     r=$?
+     rm -f "$tempname" "$tempname".c "$tempname".o
+     return $r
+@@ -70,7 +70,7 @@
+ 	syntax error here
+ 	#endif
+ 	" >"$tempname".c
+-    ! $CC $CFLAGS "$tempname".c -c -o "$tempname".o >/dev/null 2>&1
++    ! $CC $CFLAGS $LDFLAGS "$tempname".c -c -o "$tempname".o >/dev/null 2>&1
+     r=$?
+     rm -f "$tempname" "$tempname".c "$tempname".o
+     return $r
