@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_version">versión %1$s</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_help">Información</string>
+    <string name="action_zip">Archivo zip (flaseable por CWM)</string>
+    <string name="action_about">Sobre</string>
+    <string name="title_activity_about">Sobre</string>
+    <string name="title_activity_settings">Configuración</string>
+    <string name="install_button">INSTALAR</string>
+    <string name="remove_button">DESINSTALAR</string>
+
+    <string name="busybox_preferences">BusyBox</string>
+    <string name="title_installdir">Carpeta para instalar</string>
+    <string name="dialog_title_installdir">Carpeta para instalar</string>
+    <string name="title_applets">Instalar applets</string>
+    <string name="summary_applets">Crear links simbolicos a los applets</string>
+    <string name="title_replace">Remplazar applets</string>
+    <string name="summary_replace">Remplazar applets anteriores</string>
+    <string name="gui_preferences">Interfaz</string>
+    <string name="title_language">Lenguaje</string>
+    <string name="dialog_title_language">Elegir lenguaje</string>
+    <string name="title_theme">Tema</string>
+    <string name="dialog_title_theme">Elegir tema</string>
+    <string name="title_fontsize">Tamaño fuente</string>
+    <string name="dialog_title_fontsize">Tamaño fuente</string>
+    <string name="title_maxlines">Tamaño de lineas</string>
+    <string name="dialog_title_maxlines">Tamaño de lineas</string>
+    <string name="title_timestamp">Marcar hora</string>
+    <string name="summary_timestamp">Mostrar marcar hora</string>
+    <string name="title_confirm_install_dialog">Instalar</string>
+    <string name="message_confirm_install_dialog">Instalar Busybos en el sistema?</string>
+    <string name="title_confirm_remove_dialog">Desinstalar</string>
+    <string name="message_confirm_remove_dialog">Desinstalar BusyBox del sistema?</string>
+    <string name="title_export_dialog">Archivo para el recovery:</string>
+    <string name="toast_export_success">El archivo zip se ha guardado correctamente</string>
+    <string name="toast_export_error">Fallo al guardar archivo zip</string>
+    <string name="toast_terminal_error">Error cuando se arrancaba el terminal</string>
+    <string name="debug_preferences">Debug</string>
+    <string name="title_debug">Debug mode</string>
+    <string name="summary_debug">Mostrar información de depuración</string>
+    <string name="title_trace">Modo seguimiento</string>
+    <string name="summary_trace">Habilitar modo seguimiento</string>
+    <string name="title_logger">Registrando</string>
+    <string name="summary_logger">Guardar archivo de registro en un archivo</string>
+    <string name="title_logfile">Archivo de registro</string>
+    <string name="dialog_title_logfile">Archivo de registro</string>
+    <string name="write_permissions_disallow">La aplicación no puede escribir en la tarjeta de memoria</string>
+    <string name="help_text">Cargando...</string>
+    <string name="about_text">Esta aplicación es un instalador de Busybos para Android.\n\nBusybox combina algunas versiones de la mayoria de utilidades UNIX dentro de un simple ejecutable. Así puede servir de reemplazo para muchas de las utilidades que tu normalmente buscas en utilidades GNU de archivos y shell. Las utilidades en Busybox generalmente tienen menos opciones que sus versiones completas GNU; de todos modos, las opciones que estan incluidas proporcionan la funcionalidad y comportamiento esperados como sus versiones completas GNU. Busybox proporciona un ambiente de variedad completa para cualquier sistema embebido.\n\nPara mas información ver <a href="https://github.com/meefik/busybox">Página del proyecto</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> ó <a href="http://meefik.ru">Sitio del desarrollador</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
+
+    <string-array name="theme_entries">
+        <item>Oscuro</item>
+        <item>Claro</item>
+    </string-array>
+    
+</resources>
