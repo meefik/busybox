@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.24.1-24
+Added removing old busybox for installation via recovery
+
 1.24.1-23
 Dynamically build by default
 Remove terminal feature
@@ -32,6 +35,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.24.1-24
+Добавлено удаление старого busybox при установке через рекавери
 
 1.24.1-23
 Динамическая сборка по умолчанию
