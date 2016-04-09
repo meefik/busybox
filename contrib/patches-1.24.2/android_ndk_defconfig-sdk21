@@ -1,0 +1,12 @@
+
+# MTD support has been dropped
+CONFIG_FLASHCP=n
+CONFIG_FLASH_LOCK=n
+CONFIG_FLASH_UNLOCK=n
+CONFIG_NANDWRITE=n
+CONFIG_NANDDUMP=n
+
+# Requires __set_errno
+# Removed in Android
+CONFIG_MDEV=n
+CONFIG_MICROCOM=n
