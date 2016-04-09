@@ -2,7 +2,7 @@
     <string name="app_version">versión %1$s</string>
     <string name="action_settings">Configuración</string>
     <string name="action_help">Información</string>
-    <string name="action_zip">Archivo zip (flaseable por CWM)</string>
+    <string name="action_zip">Archivo ZIP</string>
     <string name="action_about">Sobre</string>
     <string name="title_activity_about">Sobre</string>
     <string name="title_activity_settings">Configuración</string>
@@ -52,5 +52,4 @@
         <item>Oscuro</item>
         <item>Claro</item>
     </string-array>
-    
 </resources>

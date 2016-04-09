@@ -46,22 +46,10 @@
     <string name="title_logfile">日志文件</string>
     <string name="dialog_title_logfile">日志文件</string>
     <string name="help_text">加载中...</string>
-    <!--<string name="about_text">This application is an BusyBox installer for Android.\n\nBusyBox combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.\n\nFor more information see <a href="https://github.com/meefik/busybox">project page</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> or <a href="http://meefik.ru">developer site</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string> -->
-    <string name="about_text">Cette application est un installateur BusyBox pour Android.\n\nBusyBox combine des versions allégées de nombreux utilitaires UNIX en un seul petit exécutable. Il fournit un remplaçant pour la plupart des utilitaires que vous trouvez habituellement dans GNU fileutils, shellutils, etc. Les utilitaires dans BusyBox ont généralement moins d\'options que leurs cousins GNU complets ; toutefois, les options qui sont incluses fournissent la fonctionnalité attendue et se comportent comme leurs homologues GNU. BusyBox fournit un environnement assez complet pour tout système petit ou intégré.\n\nPour plus d\'informations, aller sur <a href="https://github.com/meefik/busybox">la page du projet</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">le forum</a> ou <a href="http://meefik.ru">le site du développeur</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
-
-
-    <string-array name="language_values" translatable="false">
-        <item>zh</item>
-        <item>en</item>
-        <item>ru</item>
-    </string-array>
+    <string name="about_text">This application is an BusyBox installer for Android.\n\nBusyBox combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.\n\nFor more information see <a href="https://github.com/meefik/busybox">project page</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> or <a href="http://meefik.ru">developer site</a>.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
 
     <string-array name="theme_entries">
         <item>深色主题</item>
         <item>浅色主题</item>
-    </string-array>
-    <string-array name="theme_values" translatable="false">
-        <item>深色</item>
-        <item>浅色</item>
     </string-array>
 </resources>
