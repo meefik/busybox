@@ -8,6 +8,7 @@
     <string name="title_activity_settings">설정</string>
     <string name="install_button">설치</string>
     <string name="remove_button">삭제</string>
+
     <string name="busybox_preferences">BusyBox</string>
     <string name="title_installdir">설치 경로</string>
     <string name="dialog_title_installdir">설치 경로</string>
@@ -45,31 +46,11 @@
     <string name="dialog_title_logfile">기록 파일</string>
     <string name="write_permissions_disallow">이 앱이 사용자 저장소에 쓰기작업을 할 수 없습니다.</string>
     <string name="help_text">불러오는중...</string>
-    <string name="about_text">이 앱은 Android 에 Busybox 를 설치하는 앱입니다.\n\nusyBox는 하나의 작은 실행파일에 많은 일반적인 유닉스 유틸리티의 작은 버전을 결합한 것입니다. 그것은 일반적으로 GNU fileutils, shellutils 등등에서 찾을 유틸리티의 대부분에 대한 기능을 제공합니다. BusyBox에 유틸리티는 일반적으로 GNU Linux의 모든 기능을 갖추며 보다 적은 옵션을가지고 있으나, 최대한 GNU Linux 의 기능을 따라 할 것입니다. BusyBox는 임베디드 시스템에 대한 상당한 환경을 제공합니다.\n\n더 많은 정보는 <a href="https://github.com/meefik/busybox">프로젝트 사이트</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">포럼(러시아어)</a> 또는 <a href="http://meefik.ru">개발자 사이트(러시아어)</a>. 에서 찾아보실 수 있습니다.\n\n&#169; 2015 Anton Skshidlevsky, GPLv3</string>
-
-    <string-array name="language_entries" translatable="false">
-        <item>English</item>
-        <item>Русский</item>
-        <item>Français</item>
-        <item>简体中文</item>
-        <item>Español</item>
-        <item>한국어</item>
-    </string-array>
-    <string-array name="language_values" translatable="false">
-        <item>en</item>
-        <item>ru</item>
-        <item>fr</item>
-        <item>zh</item>
-        <item>es</item>
-        <item>ko</item>
-    </string-array>
+    <string name="about_text">이 앱은 Android 에 Busybox 를 설치하는 앱입니다.\n\nusyBox는 하나의 작은 실행파일에 많은 일반적인 유닉스 유틸리티의 작은 버전을 결합한 것입니다. 그것은 일반적으로 GNU fileutils, shellutils 등등에서 찾을 유틸리티의 대부분에 대한 기능을 제공합니다. BusyBox에 유틸리티는 일반적으로 GNU Linux의 모든 기능을 갖추며 보다 적은 옵션을가지고 있으나, 최대한 GNU Linux 의 기능을 따라 할 것입니다. BusyBox는 임베디드 시스템에 대한 상당한 환경을 제공합니다.\n\n더 많은 정보는 <a href="https://github.com/meefik/busybox">프로젝트 사이트</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">포럼(러시아어)</a> 또는 <a href="http://meefik.ru">개발자 사이트(러시아어)</a>. 에서 찾아보실 수 있습니다.\n\n&#169; 2015-2016 Anton Skshidlevsky, GPLv3</string>
 
     <string-array name="theme_entries">
         <item>어두움</item>
         <item>밝음</item>
     </string-array>
-    <string-array name="theme_values" translatable="false">
-        <item>어두움</item>
-        <item>밝음</item>
-    </string-array>
+
 </resources>
