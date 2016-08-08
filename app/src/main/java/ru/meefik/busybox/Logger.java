@@ -3,7 +3,9 @@ package ru.meefik.busybox;
 import android.content.Context;
 
 import java.io.BufferedReader;
-import java.io.FileOutputStream;
+import java.io.BufferedWriter;
+import java.io.Closeable;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,13 +15,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by anton on 19.09.15.
- */
 public class Logger {
 
     private static volatile List<String> protocol = new ArrayList<>();
-    private static boolean fragment = false;
+    private static char lastChar = '\n';
+    private static String lastLine = "";
 
     /**
      * Generate timestamp
@@ -27,7 +27,9 @@ public class Logger {
      * @return timestamp
      */
     private static String getTimeStamp() {
-        return "[" + new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date()) + "] ";
+        return "[" +
+                new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date())
+                + "] ";
     }
 
     /**
@@ -36,62 +38,28 @@ public class Logger {
      * @param c   context
      * @param msg message
      */
-    private static synchronized void appendMessage(final Context c, final String msg) {
-        final int msgLength = msg.length();
-        if (msgLength > 0) {
-            final boolean timestamp = PrefStore.isTimestamp(c);
-            String[] tokens = msg.split("\\n");
-            int lastIndex = protocol.size() - 1;
-            for (int i = 0, l = tokens.length; i < l; i++) {
-                // update last record from List if fragment
-                if (i == 0 && fragment && lastIndex >= 0) {
-                    String last = protocol.get(lastIndex);
-                    protocol.set(lastIndex, last + tokens[i]);
-                    continue;
-                }
-                // add the message to List
-                if (timestamp) protocol.add(getTimeStamp() + tokens[i]);
-                else protocol.add(tokens[i]);
-                // remove first line if overflow
-                if (protocol.size() > PrefStore.getMaxLines(c)) {
-                    protocol.remove(0);
-                }
-            }
-            // set fragment
-            fragment = (msg.charAt(msgLength - 1) != '\n');
-            // show log
-            MainActivity.showLog(get());
-            // save the message to file
-            if (PrefStore.isLogger(c)) {
-                saveToFile(c, msg);
+    private static synchronized void appendMessage(Context c, final String msg) {
+        if (msg.length() == 0) return;
+        String out = msg;
+        boolean timestamp = PrefStore.isTimestamp(c);
+        int maxLines = PrefStore.getMaxLines(c);
+        int protocolSize = protocol.size();
+        if (protocolSize > 0 && lastChar != '\n') {
+            protocol.remove(protocolSize - 1);
+            out = lastLine + out;
+        }
+        lastChar = out.charAt(out.length() - 1);
+        String[] lines = out.split("\\n");
+        for (int i = 0, l = lines.length; i < l; i++) {
+            lastLine = lines[i];
+            if (timestamp) protocol.add(getTimeStamp() + lastLine);
+            else protocol.add(lastLine);
+            if (protocolSize + i >= maxLines) {
+                protocol.remove(0);
             }
         }
-    }
-
-    /**
-     * Append message to file
-     *
-     * @param c   context
-     * @param msg message
-     */
-    private static void saveToFile(Context c, String msg) {
-        byte[] data = msg.getBytes();
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(PrefStore.getLogFile(c), true);
-            fos.write(data);
-            fos.flush();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        // show protocol
+        show();
     }
 
     /**
@@ -99,7 +67,22 @@ public class Logger {
      */
     public static void clear() {
         protocol.clear();
-        fragment = false;
+    }
+
+    /**
+     * Size of protocol
+     *
+     * @return size
+     */
+    public static int size() {
+        return protocol.size();
+    }
+
+    /**
+     * Show log on main activity
+     */
+    public static void show() {
+        MainActivity.showLog(get());
     }
 
     /**
@@ -122,31 +105,46 @@ public class Logger {
     }
 
     /**
+     * Closeable helper
+     *
+     * @param c closable object
+     */
+    private static void close(Closeable c) {
+        if (c != null) {
+            try {
+                c.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Append stream messages to protocol
      *
      * @param c      context
      * @param stream stream
      */
     public static void log(Context c, InputStream stream) {
+        String logFile = PrefStore.getLogFile(c);
+        boolean isLogger = PrefStore.isLogger(c);
         BufferedReader reader = null;
+        BufferedWriter writer = null;
         try {
             reader = new BufferedReader(new InputStreamReader(stream));
+            if (isLogger) writer = new BufferedWriter(new FileWriter(logFile));
             int n;
             char[] buffer = new char[1024];
             while ((n = reader.read(buffer)) != -1) {
                 String msg = String.valueOf(buffer, 0, n);
                 appendMessage(c, msg);
+                if (writer != null) writer.write(msg, 0, n);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
         } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            close(reader);
+            close(writer);
         }
     }
 

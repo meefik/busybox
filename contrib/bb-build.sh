@@ -2,7 +2,7 @@
 # BusyBox build tools
 # (C) 2014-2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 # Requires:
-# Android NDK r10e (http://developer.android.com/ndk/downloads/index.html)
+# Android NDK r10d (http://developer.android.com/ndk/downloads/index.html)
 # export ANDROID_NDK_ROOT="/path/to/ndk"
 # Make a patch:
 # diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches-${BB_VERSION}/${PATCH_NAME}.patch
@@ -14,7 +14,7 @@ helper()
 }
 
 BB_VERSION="1.24.2"
-ANDROID_NATIVE_API_LEVEL="android-9"
+ANDROID_NATIVE_API_LEVEL="android-21"
 GCC_VERSION="4.9"
 MARCH="$1"
 PARAM="$2"
@@ -23,8 +23,8 @@ PREFIX="../compiled/$MARCH"
 [ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk-bundle"
 # Extra config required for specific API levels
 # This will be prepended to the .config before building
-EXTRACONFIG=
-[ ${ANDROID_NATIVE_API_LEVEL#android-} -ge 21 ] && EXTRACONFIG=android_ndk_defconfig-sdk21
+EXTRACONFIG=""
+[ ${ANDROID_NATIVE_API_LEVEL#android-} -ge 21 ] && EXTRACONFIG="android_ndk_defconfig-sdk21"
 
 case "$MARCH" in
 arm|intel|mips)

@@ -126,6 +126,8 @@ public class EnvUtils {
     private static void setPermissions(File path) {
         if (path == null) return;
         if (path.exists()) {
+            path.setReadable(true, false);
+            path.setExecutable(true, false);
             for (File f : path.listFiles()) {
                 if (f.isDirectory()) setPermissions(f);
                 f.setReadable(true, false);
