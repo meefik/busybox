@@ -9,7 +9,7 @@
 
 helper()
 {
-    echo "Usage: $0 <arm|intel|mips> <pie|nopie|static>"
+    echo "Usage: $0 <arm|arm64|intel|mips> <pie|nopie|static>"
     exit 1
 }
 
@@ -21,13 +21,14 @@ PARAM="$2"
 NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
 [ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk-bundle"
+[ "$MARCH" == "arm64" ] && ANDROID_NATIVE_API_LEVEL="android-21"
 # Extra config required for specific API levels
 # This will be prepended to the .config before building
 EXTRACONFIG=""
 [ ${ANDROID_NATIVE_API_LEVEL#android-} -ge 21 ] && EXTRACONFIG="android_ndk_defconfig-sdk21"
 
 case "$MARCH" in
-arm|intel|mips)
+arm|arm64|intel|mips)
 ;;
 *)
     helper
@@ -87,6 +88,13 @@ arm)
     CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/$ANDROID_NATIVE_API_LEVEL/arch-arm"
     CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=armv5te -msoft-float -mfloat-abi=softfp -mfpu=neon -mthumb -mthumb-interwork -fpic -fno-short-enums -fgcse-after-reload -frename-registers $CFLAGS"
     CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
+    CONFIG_EXTRA_LDLIBS="m c gcc"
+;;
+arm64)
+    CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/aarch64-linux-android-$GCC_VERSION/prebuilt/linux-$HOST_ARCH/bin/aarch64-linux-android-"
+    CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/$ANDROID_NATIVE_API_LEVEL/arch-arm64"
+    CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=armv8-a -fpic -fno-short-enums -fgcse-after-reload -frename-registers $CFLAGS"
+    CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker64 -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
     CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 intel)
