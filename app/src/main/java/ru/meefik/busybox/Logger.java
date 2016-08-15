@@ -27,9 +27,7 @@ public class Logger {
      * @return timestamp
      */
     private static String getTimeStamp() {
-        return "[" +
-                new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date())
-                + "] ";
+        return "[" + new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date()) + "] ";
     }
 
     /**
@@ -60,6 +58,8 @@ public class Logger {
         }
         // show protocol
         show();
+        // write log
+        if (PrefStore.isLogger(c)) write(c, msg);
     }
 
     /**
@@ -114,8 +114,27 @@ public class Logger {
             try {
                 c.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                // e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Write to log file
+     *
+     * @param c   context
+     * @param msg message
+     */
+    public static void write(Context c, String msg) {
+        String logFile = PrefStore.getLogFile(c);
+        BufferedWriter writer = null;
+        try {
+            writer = new BufferedWriter(new FileWriter(logFile, true));
+            writer.write(msg);
+        } catch (IOException e) {
+            // e.printStackTrace();
+        } finally {
+            close(writer);
         }
     }
 
@@ -126,25 +145,19 @@ public class Logger {
      * @param stream stream
      */
     public static void log(Context c, InputStream stream) {
-        String logFile = PrefStore.getLogFile(c);
-        boolean isLogger = PrefStore.isLogger(c);
         BufferedReader reader = null;
-        BufferedWriter writer = null;
         try {
             reader = new BufferedReader(new InputStreamReader(stream));
-            if (isLogger) writer = new BufferedWriter(new FileWriter(logFile));
             int n;
             char[] buffer = new char[1024];
             while ((n = reader.read(buffer)) != -1) {
                 String msg = String.valueOf(buffer, 0, n);
                 appendMessage(c, msg);
-                if (writer != null) writer.write(msg, 0, n);
             }
         } catch (IOException e) {
             // e.printStackTrace();
         } finally {
             close(reader);
-            close(writer);
         }
     }
 
