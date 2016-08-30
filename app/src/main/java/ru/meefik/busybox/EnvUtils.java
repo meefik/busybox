@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -317,17 +318,19 @@ public class EnvUtils {
         boolean result = false;
         OutputStream stdin = null;
         InputStream stdout = null;
-        InputStream stderr = null;
         try {
-            Process process = Runtime.getRuntime().exec(shell);
+            ProcessBuilder pb = new ProcessBuilder(shell);
+            pb.directory(new File(PrefStore.getEnvDir(c)));
+            Map<String, String> env = pb.environment();
+            env.put("PATH", PrefStore.getEnvDir(c) + "/bin:" + env.get("PATH"));
+            pb.redirectErrorStream(true);
+            Process process = pb.start();
 
             stdin = process.getOutputStream();
             stdout = process.getInputStream();
-            stderr = process.getErrorStream();
 
-            params.add(0, "PATH=" + PrefStore.getEnvDir(c) + "/bin:$PATH");
-            params.add("exit $?");
             if (PrefStore.isTraceMode(c)) params.add(0, "set -x");
+            params.add("exit $?");
 
             DataOutputStream os = null;
             try {
@@ -351,25 +354,11 @@ public class EnvUtils {
                 }
             }).start();
 
-            // show stderr log
-            final InputStream err = stderr;
-            if (PrefStore.isDebugMode(c) || PrefStore.isTraceMode(c)) {
-                (new Thread() {
-                    @Override
-                    public void run() {
-                        Logger.log(c, err);
-                    }
-                }).start();
-            }
-
-            process.waitFor();
-            if (process.exitValue() == 0) result = true;
+            if (process.waitFor() == 0) result = true;
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
         } finally {
-            close(stdout);
-            close(stderr);
             close(stdin);
         }
         return result;

@@ -158,6 +158,7 @@ public class Logger {
             // e.printStackTrace();
         } finally {
             close(reader);
+            close(stream);
         }
     }
 
