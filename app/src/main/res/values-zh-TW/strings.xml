@@ -32,7 +32,7 @@
     <string name="title_confirm_remove_dialog">移除</string>
     <string name="message_confirm_remove_dialog">是否从 system 資料夾中移除 Busybox？</string>
     <string name="title_export_dialog">壓縮為 zip 檔以生成 Recovery 安裝包:</string>
-    <string name="toast_export_success">Zip 檔創建完成。</string>
+    <string name="toast_export_success">Zip 檔創建成功。</string>
     <string name="toast_export_error">Zip 檔創建失敗！</string>
     <string name="toast_terminal_error">終端啓動時出錯</string>
     <string name="debug_preferences">偵錯</string>
