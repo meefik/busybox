@@ -16,7 +16,7 @@
     <string name="summary_applets">創建各個元件的連結</string>
     <string name="title_replace">取代元件</string>
     <string name="summary_replace">取代現有元件</string>
-    <string name="gui_preferences">界面設定</string>
+    <string name="gui_preferences">介面設定</string>
     <string name="title_language">语言</string>
     <string name="dialog_title_language">选擇语言</string>
     <string name="title_theme">主題</string>
