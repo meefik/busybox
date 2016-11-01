@@ -44,6 +44,7 @@
     <string name="summary_logger">保存日志到文件</string>
     <string name="title_logfile">日志文件</string>
     <string name="dialog_title_logfile">日志文件</string>
+    <string name="write_permissions_disallow">本应用不被允许写入您的存储</string>
     <string name="help_text">加载中...</string>
     <string name="about_text">This application is an BusyBox installer for Android.\n\nBusyBox combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.\n\nFor more information see <a href="https://github.com/meefik/busybox">project page</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> or <a href="http://meefik.ru">developer site</a>.\n\n© 2015-2016 Anton Skshidlevsky, GPLv3</string>
 
@@ -51,5 +52,4 @@
         <item>深色主题</item>
         <item>浅色主题</item>
     </string-array>
-    <string name="write_permissions_disallow">本应用不被允许写入您的存储</string>
 </resources>
