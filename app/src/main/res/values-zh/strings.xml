@@ -10,10 +10,10 @@
     <string name="remove_button">移除</string>
 
     <string name="busybox_preferences">BusyBox</string>
-    <string name="title_installdir">安装 路径</string>
-    <string name="dialog_title_installdir">安装 路径</string>
-    <string name="title_applets">安装 组件</string>
-    <string name="summary_applets">创建各种组件的链接</string>
+    <string name="title_installdir">安装路径</string>
+    <string name="dialog_title_installdir">安装路径</string>
+    <string name="title_applets">安装组件</string>
+    <string name="summary_applets">创建各个组件的链接</string>
     <string name="title_replace">替换组件</string>
     <string name="summary_replace">替换已有的组件</string>
     <string name="gui_preferences">界面设置</string>
@@ -21,20 +21,20 @@
     <string name="dialog_title_language">选择语言</string>
     <string name="title_theme">主题</string>
     <string name="dialog_title_theme">选择主题</string>
-    <string name="title_fontsize">字体 大小</string>
+    <string name="title_fontsize">字体大小</string>
     <string name="dialog_title_fontsize">字体大小</string>
-    <string name="title_maxlines">滚动 距离</string>
+    <string name="title_maxlines">滚动距离</string>
     <string name="dialog_title_maxlines">滚动距离</string>
     <string name="title_timestamp">时间戳</string>
-    <string name="summary_timestamp">显示 时间戳</string>
+    <string name="summary_timestamp">显示时间戳</string>
     <string name="title_confirm_install_dialog">安装</string>
-    <string name="message_confirm_install_dialog">安装Busybox到system?</string>
+    <string name="message_confirm_install_dialog">是否安装 Busybox 到 system 文件夹？</string>
     <string name="title_confirm_remove_dialog">移除</string>
-    <string name="message_confirm_remove_dialog">从system中移除Busybox?</string>
-    <string name="title_export_dialog">打包zip以生成Recovery安装包:</string>
-    <string name="toast_export_success">Zip打包生成完成。</string>
-    <string name="toast_export_error">Zip打包失败！</string>
-    <string name="toast_terminal_error">Error when starting the terminal</string>
+    <string name="message_confirm_remove_dialog">是否从 system 文件夹中移除 Busybox？</string>
+    <string name="title_export_dialog">打包为 zip 以生成 Recovery 安装包:</string>
+    <string name="toast_export_success">Zip 格式打包成功。</string>
+    <string name="toast_export_error">Zip 格式打包失败！</string>
+    <string name="toast_terminal_error">启动终端时出错</string>
     <string name="debug_preferences">调试</string>
     <string name="title_debug">调试模式</string>
     <string name="summary_debug">显示调试信息</string>
@@ -51,5 +51,5 @@
         <item>深色主题</item>
         <item>浅色主题</item>
     </string-array>
-    <string name="write_permissions_disallow">The app was not allowed to write to your storage</string>
+    <string name="write_permissions_disallow">本应用不被允许写入您的存储</string>
 </resources>
