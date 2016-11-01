@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.25.1-27
+Includes busybox v1.25.1 (static)
+
 1.24.2-25
 Added patch for tar with option --hard-dereference
 Translated into Korean
@@ -41,6 +44,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.25.1-27
+Включает сборку busybox v1.25.1 (статическая сборка)
 
 1.24.2-25
 Добавлен патч для поддержки в tar опции --hard-dereference

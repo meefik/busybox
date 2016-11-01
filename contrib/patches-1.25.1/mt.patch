@@ -1,0 +1,11 @@
+--- ../busybox-1.23.2.orig/miscutils/mt.c	2015-03-23 06:06:55.000000000 +0300
++++ ./miscutils/mt.c	2015-09-25 00:04:41.551585319 +0300
+@@ -16,7 +16,7 @@
+ //usage:       "setpart tell unload unlock weof wset"
+ 
+ #include "libbb.h"
+-#include <sys/mtio.h>
++#include <linux/mtio.h>
+ 
+ /* missing: eod/seod, stoptions, stwrthreshold, densities */
+ static const short opcode_value[] = {

@@ -22,8 +22,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static TextView output;
-    public static ScrollView scroll;
+    static TextView output;
+    static ScrollView scroll;
     private static final int REQUEST_WRITE_STORAGE = 112;
 
     @Override
@@ -219,7 +219,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
     }
 
 }

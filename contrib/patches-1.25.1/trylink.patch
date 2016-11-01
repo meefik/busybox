@@ -1,0 +1,12 @@
+diff -urN ../busybox-1.25.1.orig/scripts/trylink ./scripts/trylink
+--- ../busybox-1.25.1.orig/scripts/trylink	2016-10-07 17:47:47.000000000 +0300
++++ ./scripts/trylink	2016-11-01 15:36:51.790399459 +0300
+@@ -70,7 +70,7 @@
+ 	syntax error here
+ 	#endif
+ 	" >"$tempname".c
+-    ! $CC $CFLAGS "$tempname".c -c -o "$tempname".o >/dev/null 2>&1
++    ! $CC $CFLAGS $LDFLAGS "$tempname".c -c -o "$tempname".o >/dev/null 2>&1
+     r=$?
+     rm -f "$tempname" "$tempname".c "$tempname".o
+     return $r

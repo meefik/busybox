@@ -1,0 +1,18 @@
+diff -urN ../busybox-1.25.1.orig/libbb/missing_syscalls.c ./libbb/missing_syscalls.c
+--- ../busybox-1.25.1.orig/libbb/missing_syscalls.c	2016-09-27 19:53:50.000000000 +0300
++++ ./libbb/missing_syscalls.c	2016-10-19 13:52:02.506463230 +0300
+@@ -46,4 +46,14 @@
+ 	return ioctl(fd, TCSBRK, 1);
+ }
+ # endif
++
++int swapoff(const char *path)
++{
++  return syscall(__NR_swapoff, path);
++}
++
++int swapon(const char *path, int swapflags)
++{
++  return syscall(__NR_swapon, path, swapflags);
++}
+ #endif

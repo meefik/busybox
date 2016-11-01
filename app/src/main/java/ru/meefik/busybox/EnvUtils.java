@@ -26,7 +26,7 @@ import java.util.zip.ZipOutputStream;
 /**
  * Created by anton on 19.09.15.
  */
-public class EnvUtils {
+class EnvUtils {
 
     /**
      * Closeable helper
@@ -112,7 +112,9 @@ public class EnvUtils {
     private static void cleanDirectory(File path) {
         if (path == null) return;
         if (path.exists()) {
-            for (File f : path.listFiles()) {
+            File[] list = path.listFiles();
+            if (list == null) return;
+            for (File f : list) {
                 if (f.isDirectory()) cleanDirectory(f);
                 f.delete();
             }
@@ -129,7 +131,9 @@ public class EnvUtils {
         if (path.exists()) {
             path.setReadable(true, false);
             path.setExecutable(true, false);
-            for (File f : path.listFiles()) {
+            File[] list = path.listFiles();
+            if (list == null) return;
+            for (File f : list) {
                 if (f.isDirectory()) setPermissions(f);
                 f.setReadable(true, false);
                 f.setExecutable(true, false);
@@ -187,7 +191,7 @@ public class EnvUtils {
      * @param c context
      * @return false if error
      */
-    public static boolean update(Context c) {
+    static boolean update(Context c) {
         if (isLatestVersion(c)) return true;
 
         // prepare env directory
@@ -239,7 +243,7 @@ public class EnvUtils {
      * @param c context
      * @return false if error
      */
-    public static boolean remove(Context c) {
+    static boolean remove(Context c) {
         File fEnvDir = new File(PrefStore.getEnvDir(c));
         if (!fEnvDir.exists()) {
             return false;
@@ -254,7 +258,7 @@ public class EnvUtils {
      * @param c context
      * @return false if error
      */
-    public static boolean isRooted(Context c) {
+    static boolean isRooted(Context c) {
         boolean result = false;
         OutputStream stdin = null;
         InputStream stdout = null;
@@ -297,7 +301,7 @@ public class EnvUtils {
             close(stdout);
             close(stdin);
         }
-        if (result == false) {
+        if (!result) {
             Logger.log(c, "Require superuser privileges (root).\n");
         }
         return result;
@@ -310,25 +314,26 @@ public class EnvUtils {
      * @param params list of commands
      * @return false if error
      */
-    public static boolean exec(final Context c, final String shell, final List<String> params) {
+    static boolean exec(final Context c, final String shell, final List<String> params) {
         if (params == null || params.size() == 0) {
             Logger.log(c, "No scripts for processing.\n");
             return false;
         }
         boolean result = false;
         OutputStream stdin = null;
-        InputStream stdout = null;
+        InputStream stdout;
         try {
             ProcessBuilder pb = new ProcessBuilder(shell);
             pb.directory(new File(PrefStore.getEnvDir(c)));
-            Map<String, String> env = pb.environment();
-            env.put("PATH", PrefStore.getEnvDir(c) + "/bin:" + env.get("PATH"));
-            pb.redirectErrorStream(true);
+            // Map<String, String> env = pb.environment();
+            // env.put("PATH", PrefStore.getEnvDir(c) + "/bin:" + env.get("PATH"));
+            if (PrefStore.isDebugMode(c)) pb.redirectErrorStream(true);
             Process process = pb.start();
 
             stdin = process.getOutputStream();
             stdout = process.getInputStream();
 
+            params.add(0, "PATH=" + PrefStore.getEnvDir(c) + "/bin:$PATH");
             if (PrefStore.isTraceMode(c)) params.add(0, "set -x");
             params.add("exit $?");
 
@@ -392,7 +397,7 @@ public class EnvUtils {
      * @param c           context
      * @param archiveName archive file name
      */
-    public static boolean makeZipArchive(Context c, String archiveName) {
+    static boolean makeZipArchive(Context c, String archiveName) {
         boolean result = false;
         FileOutputStream f = null;
         ZipOutputStream zip = null;

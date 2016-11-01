@@ -1,0 +1,87 @@
+diff -urN ../busybox-1.25.1.orig/archival/libarchive/data_extract_all.c ./archival/libarchive/data_extract_all.c
+--- ../busybox-1.25.1.orig/archival/libarchive/data_extract_all.c	2016-09-27 19:53:50.000000000 +0300
++++ ./archival/libarchive/data_extract_all.c	2016-11-01 15:26:26.310407121 +0300
+@@ -32,7 +32,8 @@
+ 	/* Hard links are encoded as regular files of size 0
+ 	 * with a nonempty link field */
+ 	hard_link = NULL;
+-	if (S_ISREG(file_header->mode) && file_header->size == 0)
++	if (S_ISREG(file_header->mode) && file_header->size == 0
++		&& !(archive_handle->ah_flags & ARCHIVE_HARD_DEREFERENCE))
+ 		hard_link = file_header->link_target;
+ 
+ #if ENABLE_FEATURE_TAR_LONG_OPTIONS
+@@ -154,7 +155,16 @@
+ 			flags,
+ 			file_header->mode
+ 			);
+-		bb_copyfd_exact_size(archive_handle->src_fd, dst_fd, file_header->size);
++		/* Copy file if hardlink */
++		if (file_header->link_target && file_header->size == 0) {
++			int src_fd = xopen3(file_header->link_target,
++				O_RDONLY,
++				file_header->mode
++				);
++			bb_copyfd_eof(src_fd, dst_fd);
++			close(src_fd);
++		} else
++			bb_copyfd_exact_size(archive_handle->src_fd, dst_fd, file_header->size);
+ 		close(dst_fd);
+ #ifdef ARCHIVE_REPLACE_VIA_RENAME
+ 		if (archive_handle->ah_flags & ARCHIVE_REPLACE_VIA_RENAME) {
+diff -urN ../busybox-1.25.1.orig/archival/tar.c ./archival/tar.c
+--- ../busybox-1.25.1.orig/archival/tar.c	2016-10-07 17:47:47.000000000 +0300
++++ ./archival/tar.c	2016-11-01 15:29:43.154404710 +0300
+@@ -839,6 +839,7 @@
+ //	o	no-same-owner
+ //	p	same-permissions
+ //	k	keep-old
++//  hard-dereference
+ //	no-recursion
+ //	numeric-owner
+ //	no-same-permissions
+@@ -860,6 +861,7 @@
+ 	IF_FEATURE_SEAMLESS_Z(   OPTBIT_COMPRESS    ,)
+ 	IF_FEATURE_TAR_NOPRESERVE_TIME(OPTBIT_NOPRESERVE_TIME,)
+ #if ENABLE_FEATURE_TAR_LONG_OPTIONS
++	OPTBIT_HARD_DEREFERENCE,
+ 	OPTBIT_STRIP_COMPONENTS,
+ 	OPTBIT_NORECURSION,
+ 	IF_FEATURE_TAR_TO_COMMAND(OPTBIT_2COMMAND   ,)
+@@ -886,6 +888,7 @@
+ 	OPT_XZ           = IF_FEATURE_SEAMLESS_XZ(  (1 << OPTBIT_XZ          )) + 0, // J
+ 	OPT_COMPRESS     = IF_FEATURE_SEAMLESS_Z(   (1 << OPTBIT_COMPRESS    )) + 0, // Z
+ 	OPT_NOPRESERVE_TIME  = IF_FEATURE_TAR_NOPRESERVE_TIME((1 << OPTBIT_NOPRESERVE_TIME)) + 0, // m
++	OPT_HARD_DEREFERENCE = IF_FEATURE_TAR_LONG_OPTIONS((1 << OPTBIT_HARD_DEREFERENCE)) + 0, // hard-dereference
+ 	OPT_STRIP_COMPONENTS = IF_FEATURE_TAR_LONG_OPTIONS((1 << OPTBIT_STRIP_COMPONENTS)) + 0, // strip-components
+ 	OPT_NORECURSION      = IF_FEATURE_TAR_LONG_OPTIONS((1 << OPTBIT_NORECURSION    )) + 0, // no-recursion
+ 	OPT_2COMMAND         = IF_FEATURE_TAR_TO_COMMAND(  (1 << OPTBIT_2COMMAND       )) + 0, // to-command
+@@ -936,6 +939,7 @@
+ 	"touch\0"               No_argument       "m"
+ # endif
+ 	"strip-components\0"	Required_argument "\xf9"
++	"hard-dereference\0"    No_argument   "\xf0"
+ 	"no-recursion\0"	No_argument       "\xfa"
+ # if ENABLE_FEATURE_TAR_TO_COMMAND
+ 	"to-command\0"		Required_argument "\xfb"
+@@ -1131,6 +1135,9 @@
+ 
+ 	if (opt & OPT_NOPRESERVE_TIME)
+ 		tar_handle->ah_flags &= ~ARCHIVE_RESTORE_DATE;
++	
++	if (opt & OPT_HARD_DEREFERENCE)
++		tar_handle->ah_flags |= ARCHIVE_HARD_DEREFERENCE;
+ 
+ #if ENABLE_FEATURE_TAR_FROM
+ 	tar_handle->reject = append_file_list_to_list(tar_handle->reject);
+diff -urN ../busybox-1.25.1.orig/include/bb_archive.h ./include/bb_archive.h
+--- ../busybox-1.25.1.orig/include/bb_archive.h	2016-09-27 19:53:50.000000000 +0300
++++ ./include/bb_archive.h	2016-11-01 15:30:37.086404049 +0300
+@@ -129,6 +129,7 @@
+ #if ENABLE_RPM
+ #define ARCHIVE_REPLACE_VIA_RENAME  (1 << 10)
+ #endif
++#define ARCHIVE_HARD_DEREFERENCE    (1 << 11)
+ 
+ 
+ /* POSIX tar Header Block, from POSIX 1003.1-1990  */

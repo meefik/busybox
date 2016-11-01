@@ -1,0 +1,12 @@
+diff -urN ../busybox-1.25.1.orig/util-linux/setarch.c ./util-linux/setarch.c
+--- ../busybox-1.25.1.orig/util-linux/setarch.c	2016-09-27 19:53:50.000000000 +0300
++++ ./util-linux/setarch.c	2016-10-19 13:54:28.698459208 +0300
+@@ -38,7 +38,7 @@
+ //usage:#define linux64_full_usage ""
+ 
+ #include "libbb.h"
+-#include <sys/personality.h>
++#include <linux/personality.h>
+ 
+ #ifndef ADDR_NO_RANDOMIZE
+ # define ADDR_NO_RANDOMIZE       0x0040000

@@ -1,0 +1,64 @@
+diff -x docs -ur busybox-1.24.1.orig/networking/ifconfig.c busybox-1.24.1/networking/ifconfig.c
+--- busybox-1.24.1.orig/networking/ifconfig.c	2016-04-07 19:40:01.558279826 +0100
++++ networking/ifconfig.c	2016-04-07 21:10:06.463302797 +0100
+@@ -79,13 +79,15 @@
+ #endif
+ 
+ #if ENABLE_FEATURE_IPV6
+-#ifndef __BIONIC__
++# ifndef __BIONIC__
++#  if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ < 21)
+ struct in6_ifreq {
+ 	struct in6_addr ifr6_addr;
+ 	uint32_t ifr6_prefixlen;
+ 	int ifr6_ifindex;
+ };
+-#endif
++#  endif
++# endif
+ #endif
+ 
+ /*
+diff -x docs -ur busybox-1.24.1.orig/networking/interface.c busybox-1.24.1/networking/interface.c
+--- busybox-1.24.1.orig/networking/interface.c	2015-10-11 22:48:15.000000000 +0100
++++ networking/interface.c	2016-04-07 21:12:48.628306709 +0100
+@@ -59,11 +59,13 @@
+ /*
+  * This is from linux/include/net/ipv6.h
+  */
++#  if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ < 21)
+ struct in6_ifreq {
+ 	struct in6_addr ifr6_addr;
+ 	uint32_t ifr6_prefixlen;
+ 	unsigned int ifr6_ifindex;
+ };
++#  endif
+ # endif
+ #endif /* HAVE_AFINET6 */
+ 
+diff -x docs -ur busybox-1.24.1.orig/networking/route.c busybox-1.24.1/networking/route.c
+--- busybox-1.24.1.orig/networking/route.c	2016-04-07 19:40:01.574279924 +0100
++++ networking/route.c	2016-04-07 21:15:51.221436973 +0100
+@@ -33,6 +33,7 @@
+ //usage:     "\n	-e	Display other/more information"
+ //usage:     "\n	-A inet" IF_FEATURE_IPV6("{6}") "	Select address family"
+ 
++#include <sys/socket.h>
+ #include <net/route.h>
+ #include <net/if.h>
+ #include <linux/in6.h>
+diff -x docs -ur busybox-1.24.1.orig/shell/glob.c busybox-1.24.1/shell/glob.c
+--- busybox-1.24.1.orig/shell/glob.c	2016-04-07 19:40:01.554279800 +0100
++++ shell/glob.c	2016-04-07 21:29:33.590523931 +0100
+@@ -351,7 +351,10 @@
+ 		 * the password file
+ 		 */
+ #ifndef __GLIBC__
+-		if (issetugid() != 0 ||
++		if (
++#    if __ANDROID_API__ < 21
++		    issetugid() != 0 ||
++#    endif
+ 		    (h = getenv("HOME")) == NULL) {
+ 			if (((h = getlogin()) != NULL &&
+ 			     (pwd = getpwnam(h)) != NULL) ||

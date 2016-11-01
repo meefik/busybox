@@ -8,12 +8,12 @@ import java.util.List;
 /**
  * Created by anton on 19.09.15.
  */
-public class ExecScript extends Thread {
+class ExecScript extends Thread {
 
     private Context context;
     private String command;
 
-    public ExecScript(Context c, String command) {
+    ExecScript(Context c, String command) {
         this.context = c;
         this.command = command;
     }
@@ -60,14 +60,14 @@ public class ExecScript extends Thread {
                 info();
                 break;
             case "install":
-                Logger.log(context, ">>> INSTALL BUSYBOX\n");
+                Logger.log(context, "### BEGIN INSTALL\n");
                 install();
-                Logger.log(context, ".\n");
+                Logger.log(context, "### END\n");
                 break;
             case "remove":
-                Logger.log(context, ">>> REMOVE BUSYBOX\n");
+                Logger.log(context, "### BEGIN REMOVE\n");
                 remove();
-                Logger.log(context, ".\n");
+                Logger.log(context, "### END\n");
                 break;
         }
     }

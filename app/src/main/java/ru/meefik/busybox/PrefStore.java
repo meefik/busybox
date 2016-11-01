@@ -13,10 +13,10 @@ import java.util.Locale;
 /**
  * Created by anton on 18.09.15.
  */
-public class PrefStore {
+class PrefStore {
 
-    public static final boolean STATIC_VERSION = false;
-    public static final String APP_PREF_NAME = "app_settings";
+    static final boolean STATIC_VERSION = true;
+    static final String APP_PREF_NAME = "app_settings";
     private static final String LOG_FILE = "busybox.log";
 
     /**
@@ -25,7 +25,7 @@ public class PrefStore {
      * @param c context
      * @return version, format versionName-versionCode
      */
-    public static String getVersion(Context c) {
+    static String getVersion(Context c) {
         String version = "";
         try {
             PackageInfo pi = c.getPackageManager().getPackageInfo(c.getPackageName(), 0);
@@ -41,7 +41,7 @@ public class PrefStore {
      *
      * @return path
      */
-    public static String getStorage() {
+    static String getStorage() {
         return Environment.getExternalStorageDirectory().getAbsolutePath();
     }
 
@@ -51,7 +51,7 @@ public class PrefStore {
      * @param c context
      * @return path, e.g. /data/data/com.example.app/files
      */
-    public static String getEnvDir(Context c) {
+    static String getEnvDir(Context c) {
         return c.getFilesDir().getAbsolutePath();
     }
 
@@ -61,7 +61,7 @@ public class PrefStore {
      * @param c context
      * @return language code, e.g. "en"
      */
-    public static String getLanguage(Context c) {
+    private static String getLanguage(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String language = pref.getString("language", c.getString(R.string.language));
         if (language.length() == 0) {
@@ -75,7 +75,7 @@ public class PrefStore {
             }
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("language", language);
-            editor.commit();
+            editor.apply();
         }
         return language;
     }
@@ -86,7 +86,7 @@ public class PrefStore {
      * @param c context
      * @return resource id
      */
-    public static int getTheme(Context c) {
+    static int getTheme(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String theme = pref.getString("theme", c.getString(R.string.theme));
         int themeId = R.style.DarkTheme;
@@ -107,7 +107,7 @@ public class PrefStore {
      * @param c context
      * @return font size
      */
-    public static int getFontSize(Context c) {
+    static int getFontSize(Context c) {
         Integer fontSizeInt;
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String fontSize = pref.getString("fontsize", c.getString(R.string.fontsize));
@@ -129,7 +129,7 @@ public class PrefStore {
      * @param c context
      * @return number of lines
      */
-    public static int getMaxLines(Context c) {
+    static int getMaxLines(Context c) {
         Integer maxLinesInt;
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String maxLines = pref.getString("maxlines", c.getString(R.string.maxlines));
@@ -151,7 +151,7 @@ public class PrefStore {
      * @param c context
      * @return true if enabled
      */
-    public static boolean isTimestamp(Context c) {
+    static boolean isTimestamp(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("timestamp", c.getString(R.string.timestamp).equals("true"));
     }
@@ -162,7 +162,7 @@ public class PrefStore {
      * @param c context
      * @return true if enabled
      */
-    public static boolean isDebugMode(Context c) {
+    static boolean isDebugMode(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("debug", c.getString(R.string.debug).equals("true"));
     }
@@ -173,7 +173,7 @@ public class PrefStore {
      * @param c context
      * @return true if enabled
      */
-    public static boolean isTraceMode(Context c) {
+    static boolean isTraceMode(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("debug", c.getString(R.string.debug).equals("true")) &&
                 pref.getBoolean("trace", c.getString(R.string.trace).equals("true"));
@@ -185,7 +185,7 @@ public class PrefStore {
      * @param c context
      * @return true if enabled
      */
-    public static boolean isLogger(Context c) {
+    static boolean isLogger(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("logger", c.getString(R.string.logger).equals("true"));
     }
@@ -196,27 +196,16 @@ public class PrefStore {
      * @param c context
      * @return path
      */
-    public static String getLogFile(Context c) {
+    static String getLogFile(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String logFile = pref.getString("logfile", c.getString(R.string.logfile));
         if (logFile.length() == 0) {
             logFile = getStorage() + File.separator + LOG_FILE;
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("logfile", logFile);
-            editor.commit();
+            editor.apply();
         }
         return logFile;
-    }
-
-    /**
-     * Get terminal script
-     *
-     * @param c context
-     * @return script
-     */
-    public static String getTerminalCmd(Context c) {
-        SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
-        return c.getString(R.string.terminalcmd).replace("${ENV_DIR}", getEnvDir(c));
     }
 
     /**
@@ -225,7 +214,7 @@ public class PrefStore {
      * @param arch unformated architecture
      * @return intel, arm or mips
      */
-    public static String getArch(String arch) {
+    private static String getArch(String arch) {
         String march = "unknown";
         if (arch.length() > 0) {
             char a = arch.toLowerCase().charAt(0);
@@ -253,7 +242,7 @@ public class PrefStore {
      *
      * @return intel, arm or mips
      */
-    public static String getArch() {
+    static String getArch() {
         return getArch(System.getProperty("os.arch"));
     }
 
@@ -263,7 +252,7 @@ public class PrefStore {
      * @param c context
      * @return path, e.g. /system/xbin
      */
-    public static String getInstallDir(Context c) {
+    static String getInstallDir(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getString("installdir", c.getString(R.string.installdir));
     }
@@ -274,7 +263,7 @@ public class PrefStore {
      * @param c context
      * @return true, if install applets
      */
-    public static boolean isInstallApplets(Context c) {
+    static boolean isInstallApplets(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("applets", c.getString(R.string.applets).equals("true"));
     }
@@ -285,7 +274,7 @@ public class PrefStore {
      * @param c context
      * @return true, if replace applets
      */
-    public static boolean isReplaceApplets(Context c) {
+    static boolean isReplaceApplets(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         return pref.getBoolean("replace", c.getString(R.string.replace).equals("true"));
     }
@@ -295,7 +284,7 @@ public class PrefStore {
      *
      * @param c context
      */
-    public static void setLocale(Context c) {
+    static void setLocale(Context c) {
         String language = getLanguage(c);
         Locale locale = new Locale(language);
         Locale.setDefault(locale);

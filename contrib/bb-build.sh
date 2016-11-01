@@ -13,8 +13,8 @@ helper()
     exit 1
 }
 
-BB_VERSION="1.24.2"
-ANDROID_NATIVE_API_LEVEL="9"
+BB_VERSION="1.25.1"
+ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"
 LINKER="$2"
@@ -22,10 +22,6 @@ NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
 [ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/Android/Sdk/ndk-bundle"
 [ "$LINKER" = "static" -o "$MARCH" = "arm64" ] && ANDROID_NATIVE_API_LEVEL="21"
-# Extra config required for specific API levels
-# This will be prepended to the .config before building
-EXTRACONFIG=""
-[ "$ANDROID_NATIVE_API_LEVEL" -ge 21 ] && EXTRACONFIG="android_ndk_defconfig-sdk21"
 
 case "$MARCH" in
 arm|arm64|intel|mips)
@@ -133,13 +129,6 @@ static)
 esac
 sed -i "s|^EXTRAVERSION =.*|EXTRAVERSION = -meefik|" ./Makefile
 make $defconfig || exit 1
-
-# This needs to be first otherwise it'll get ignored
-if [ -n "$EXTRACONFIG" ]; then
-	cat ../patches-$BB_VERSION/$EXTRACONFIG .config > .config.new && mv .config.new .config
-	echo ">>> Disabling API 21+ incompatible applets (ignore the warnings)"
-	make silentoldconfig
-fi
 
 echo ">>> make"
 unset CFLAGS LDFLAGS
