@@ -59,25 +59,39 @@ class PrefStore {
      * Get language code
      *
      * @param c context
-     * @return language code, e.g. "en"
+     * @return locale
      */
-    private static String getLanguage(Context c) {
+    private static Locale getLocale(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String language = pref.getString("language", c.getString(R.string.language));
-        if (language.length() == 0) {
-            String countryCode = Locale.getDefault().getLanguage();
-            switch (countryCode) {
+        boolean emptyLang = language.isEmpty();
+        if (emptyLang) {
+            language = Locale.getDefault().getLanguage();
+        }
+        Locale locale;
+        switch (language.toLowerCase()) {
+                case "es":
+                case "fr":
+                case "ko":
                 case "ru":
-                    language = countryCode;
+                    locale = new Locale(language);
+                    break;
+                case "zh_cn":
+                    locale = Locale.SIMPLIFIED_CHINESE;
+                    break;
+                case "zh_tw":
+                    locale = Locale.TRADITIONAL_CHINESE;
                     break;
                 default:
                     language = "en";
-            }
+                    locale = Locale.ENGLISH;
+        }
+        if (emptyLang) {
             SharedPreferences.Editor editor = pref.edit();
             editor.putString("language", language);
             editor.apply();
         }
-        return language;
+        return locale;
     }
 
     /**
@@ -285,8 +299,7 @@ class PrefStore {
      * @param c context
      */
     static void setLocale(Context c) {
-        String language = getLanguage(c);
-        Locale locale = new Locale(language);
+        Locale locale = getLocale(c);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

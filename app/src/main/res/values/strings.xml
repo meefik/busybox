@@ -52,20 +52,20 @@
     <string-array name="language_entries" translatable="false">
         <item>English</item>
         <item>Русский</item>
-        <item>Français</item>
         <item>Español</item>
+        <item>Français</item>
+        <item>한국어</item>
         <item>简体中文</item>
         <item>正體中文</item>
-        <item>한국어</item>
     </string-array>
     <string-array name="language_values" translatable="false">
         <item>en</item>
         <item>ru</item>
-        <item>fr</item>
         <item>es</item>
-        <item>zh-rCN</item>
-        <item>zh-rTW</item>
+        <item>fr</item>
         <item>ko</item>
+        <item>zh_CN</item>
+        <item>zh_TW</item>
     </string-array>
 
     <string-array name="theme_entries">
