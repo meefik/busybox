@@ -52,6 +52,7 @@
     <string-array name="language_entries" translatable="false">
         <item>English</item>
         <item>Русский</item>
+        <item>Deutsch</item>
         <item>Español</item>
         <item>Français</item>
         <item>한국어</item>
@@ -61,6 +62,7 @@
     <string-array name="language_values" translatable="false">
         <item>en</item>
         <item>ru</item>
+        <item>de</item>
         <item>es</item>
         <item>fr</item>
         <item>ko</item>
