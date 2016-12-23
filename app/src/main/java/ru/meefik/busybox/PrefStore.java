@@ -70,6 +70,7 @@ class PrefStore {
         }
         Locale locale;
         switch (language.toLowerCase()) {
+                case "de":
                 case "es":
                 case "fr":
                 case "ko":

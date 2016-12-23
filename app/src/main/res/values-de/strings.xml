@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">BusyBox</string>
     <string name="app_version">Version %1$s</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_help">Informationen</string>
