@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.26.2-29
+Includes busybox v1.26.2 (static)
+
 1.25.1-28
 Includes busybox v1.25.1 (static)
 Translated into traditional Chinese and German
@@ -45,6 +48,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.26.2-29
+Включает сборку busybox v1.26.2 (статическая сборка)
 
 1.25.1-28
 Включает сборку busybox v1.25.1 (статическая сборка)
