@@ -6,7 +6,7 @@ This application is an BusyBox installer for Android.
 
 [BusyBox](http://busybox.net) combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.
 
-Latest BusyBox v1.26.2, supported 339 applets:
+Latest BusyBox v1.26.2, supported 338 applets:
 
 	[, [[, acpid, adjtimex, ar, arp, ash, awk, base64, basename, bbconfig,
 	beep, blkdiscard, blkid, blockdev, bootchartd, brctl, bunzip2, bzcat,
@@ -32,15 +32,15 @@ Latest BusyBox v1.26.2, supported 339 applets:
 	nslookup, ntpd, od, openvt, patch, pgrep, pidof, ping, ping6,
 	pipe_progress, pivot_root, pkill, pmap, popmaildir, poweroff, powertop,
 	printenv, printf, ps, pscan, pstree, pwd, pwdx, raidautorun, rdate,
-	rdev, readahead, readlink, readprofile, realpath, reboot, reformime,
-	renice, reset, resize, rev, rfkill, rm, rmdir, route, rpm, rpm2cpio,
-	rtcwake, run-parts, runsv, runsvdir, rx, script, scriptreplay, sed,
-	sendmail, seq, setarch, setconsole, setkeycodes, setlogcons, setserial,
-	setsid, setuidgid, sh, sha1sum, sha256sum, sha3sum, sha512sum, showkey,
-	shuf, slattach, sleep, smemcap, softlimit, sort, split,
-	start-stop-daemon, stat, strings, stty, sum, sv, svc, svlogd, swapoff,
-	swapon, switch_root, sync, sysctl, tac, tail, tar, taskset, tcpsvd,
-	tee, telnet, telnetd, test, tftp, tftpd, time, timeout, top, touch, tr,
+	rdev, readlink, readprofile, realpath, reboot, reformime, renice,
+	reset, resize, rev, rfkill, rm, rmdir, route, rpm, rpm2cpio, rtcwake,
+	run-parts, runsv, runsvdir, rx, script, scriptreplay, sed, sendmail,
+	seq, setarch, setconsole, setkeycodes, setlogcons, setserial, setsid,
+	setuidgid, sh, sha1sum, sha256sum, sha3sum, sha512sum, showkey, shuf,
+	slattach, sleep, smemcap, softlimit, sort, split, start-stop-daemon,
+	stat, strings, stty, sum, sv, svc, svlogd, swapoff, swapon,
+	switch_root, sync, sysctl, tac, tail, tar, taskset, tcpsvd, tee,
+	telnet, telnetd, test, tftp, tftpd, time, timeout, top, touch, tr,
 	traceroute, traceroute6, true, truncate, tty, ttysize, tunctl, tune2fs,
 	ubiattach, ubidetach, ubimkvol, ubirmvol, ubirsvol, ubiupdatevol,
 	udpsvd, uevent, umount, uname, uncompress, unexpand, uniq, unix2dos,
