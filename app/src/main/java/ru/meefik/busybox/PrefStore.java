@@ -227,7 +227,7 @@ class PrefStore {
      * Get hardware architecture
      *
      * @param arch unformated architecture
-     * @return intel, arm or mips
+     * @return x86, arm or mips
      */
     private static String getArch(String arch) {
         String march = "unknown";
@@ -236,7 +236,7 @@ class PrefStore {
             switch (a) {
                 case 'a':
                     if (arch.equals("amd64"))
-                        march = "intel";
+                        march = "x86";
                     else
                         march = "arm";
                     break;
@@ -245,7 +245,7 @@ class PrefStore {
                     break;
                 case 'i':
                 case 'x':
-                    march = "intel";
+                    march = "x86";
                     break;
             }
         }
@@ -255,7 +255,7 @@ class PrefStore {
     /**
      * Get current hardware architecture
      *
-     * @return intel, arm or mips
+     * @return x86, arm or mips
      */
     static String getArch() {
         return getArch(System.getProperty("os.arch"));

@@ -1,23 +1,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_help"
+        android:id="@+id/menu_more"
         android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="@string/action_help" />
-    <item
-        android:id="@+id/action_zip"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="@string/action_zip" />
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="@string/action_settings" />
-    <item
-        android:id="@+id/action_about"
-        android:orderInCategory="100"
-        app:showAsAction="never"
-        android:title="@string/action_about" />
+        android:title="@string/action_menu"
+        android:icon="?attr/ic_action_more"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_help"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="@string/action_help" />
+            <item
+                android:id="@+id/action_zip"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="@string/action_zip" />
+            <item
+                android:id="@+id/action_settings"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="@string/action_settings" />
+            <item
+                android:id="@+id/action_about"
+                android:orderInCategory="100"
+                app:showAsAction="never"
+                android:title="@string/action_about" />
+        </menu>
+    </item>
+
 </menu>

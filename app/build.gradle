@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '24.0.0'
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId 'ru.meefik.busybox'
         minSdkVersion 9
         targetSdkVersion 25
-        versionCode 31
-        versionName '1.26.2'
+        versionCode 33
+        versionName '1.27.1'
     }
     buildTypes {
         release {
@@ -21,5 +21,5 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
 }

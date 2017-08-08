@@ -1,0 +1,15 @@
+--- ../busybox-1.23.2.orig/util-linux/swaponoff.c	2015-03-23 06:07:19.000000000 +0300
++++ ./util-linux/swaponoff.c	2015-09-24 19:03:34.972210378 +0300
+@@ -178,7 +178,11 @@
+ 			/* swapon -a should ignore entries with noauto,
+ 			 * but swapoff -a should process them
+ 			 */
+-			if (do_swapoff || hasmntopt(m, MNTOPT_NOAUTO) == NULL) {
++			if (do_swapoff
++#ifdef MNTOPT_NOAUTO
++ || hasmntopt(m, MNTOPT_NOAUTO) == NULL
++#endif
++) {
+ 				/* each swap space might have different flags */
+ 				/* save global flags for the next round */
+ 				save_g_flags();

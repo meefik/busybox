@@ -1,0 +1,12 @@
+diff -urN ../busybox-1.25.1.orig/miscutils/conspy.c ./miscutils/conspy.c
+--- ../busybox-1.25.1.orig/miscutils/conspy.c	2016-10-07 17:47:47.000000000 +0300
++++ ./miscutils/conspy.c	2016-12-23 11:03:07.371031165 +0300
+@@ -43,7 +43,7 @@
+ 
+ #include "libbb.h"
+ #include "common_bufsiz.h"
+-#include <sys/kd.h>
++#include <linux/kd.h>
+ 
+ #define ESC "\033"
+ #define CURSOR_ON	-1

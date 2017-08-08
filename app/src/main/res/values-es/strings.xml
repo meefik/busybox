@@ -46,10 +46,11 @@
     <string name="dialog_title_logfile">Archivo de registro</string>
     <string name="write_permissions_disallow">La aplicación no puede escribir en la tarjeta de memoria</string>
     <string name="help_text">Cargando...</string>
-    <string name="about_text">Esta aplicación es un instalador de Busybos para Android.\n\nBusybox combina algunas versiones de la mayoria de utilidades UNIX dentro de un simple ejecutable. Así puede servir de reemplazo para muchas de las utilidades que tu normalmente buscas en utilidades GNU de archivos y shell. Las utilidades en Busybox generalmente tienen menos opciones que sus versiones completas GNU; de todos modos, las opciones que estan incluidas proporcionan la funcionalidad y comportamiento esperados como sus versiones completas GNU. Busybox proporciona un ambiente de variedad completa para cualquier sistema embebido.\n\nPara mas información ver <a href="https://github.com/meefik/busybox">Página del proyecto</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> ó <a href="http://meefik.ru">Sitio del desarrollador</a>.\n\n© 2015-2016 Anton Skshidlevsky, GPLv3</string>
+    <string name="about_text">Esta aplicación es un instalador de Busybos para Android.\n\nBusybox combina algunas versiones de la mayoria de utilidades UNIX dentro de un simple ejecutable. Así puede servir de reemplazo para muchas de las utilidades que tu normalmente buscas en utilidades GNU de archivos y shell. Las utilidades en Busybox generalmente tienen menos opciones que sus versiones completas GNU; de todos modos, las opciones que estan incluidas proporcionan la funcionalidad y comportamiento esperados como sus versiones completas GNU. Busybox proporciona un ambiente de variedad completa para cualquier sistema embebido.\n\nPara mas información ver <a href="https://github.com/meefik/busybox">Página del proyecto</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">forum</a> ó <a href="http://meefik.ru">Sitio del desarrollador</a>.\n\n© 2015-2017 Anton Skshidlevsky, GPLv3</string>
 
     <string-array name="theme_entries">
         <item>Oscuro</item>
         <item>Claro</item>
     </string-array>
+    <string name="action_menu">Menú</string>
 </resources>
