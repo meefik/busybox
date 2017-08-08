@@ -9,11 +9,11 @@
 
 helper()
 {
-    echo "Usage: $0 <arm|arm64|intel|mips> <pie|nopie|static>"
+    echo "Usage: $0 <arm|arm64|x86|x86_64|mips|mips64> <pie|nopie|static>"
     exit 1
 }
 
-BB_VERSION="1.26.2"
+BB_VERSION="1.27.1"
 ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"
@@ -24,7 +24,7 @@ PREFIX="../compiled/$MARCH"
 [ "$LINKER" = "static" -o "$MARCH" = "arm64" ] && ANDROID_NATIVE_API_LEVEL="21"
 
 case "$MARCH" in
-arm|arm64|intel|mips)
+arm|arm64|x86|x86_64|mips|mips64)
 ;;
 *)
     helper
@@ -93,11 +93,18 @@ arm64)
     CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker64 -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
     CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
-intel)
+x86)
     CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/x86-$GCC_VERSION/prebuilt/linux-$HOST_ARCH/bin/i686-linux-android-"
     CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/android-$ANDROID_NATIVE_API_LEVEL/arch-x86"
     CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=i686 -mtune=atom -fpic $CFLAGS"
     CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
+    CONFIG_EXTRA_LDLIBS="m c gcc"
+;;
+x86_64)
+    CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/x86_64-$GCC_VERSION/prebuilt/linux-$HOST_ARCH/bin/x86_64-linux-android-"
+    CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/android-$ANDROID_NATIVE_API_LEVEL/arch-x86_64"
+    CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=x86-64 -mtune=atom -fpic $CFLAGS"
+    CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker64 -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib64/crtbegin_dynamic.o \${SYSROOT}/usr/lib64/crtend_android.o -fuse-ld=bfd $LDFLAGS"
     CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 mips)
@@ -105,6 +112,13 @@ mips)
     CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/android-$ANDROID_NATIVE_API_LEVEL/arch-mips"
     CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=mips32 -fpic -Wno-psabi -fomit-frame-pointer -fno-strict-aliasing -finline-functions -ffunction-sections -funwind-tables -fmessage-length=0 -fno-inline-functions-called-once -fgcse-after-reload -frerun-cse-after-loop -frename-registers $CFLAGS"
     CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
+    CONFIG_EXTRA_LDLIBS="m c gcc"
+;;
+mips64)
+    CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/mips64el-linux-android-$GCC_VERSION/prebuilt/linux-$HOST_ARCH/bin/mips64el-linux-android-"
+    CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/android-$ANDROID_NATIVE_API_LEVEL/arch-mips64"
+    CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=mips64r6 -fpic -Wno-psabi -fomit-frame-pointer -fno-strict-aliasing -finline-functions -ffunction-sections -funwind-tables -fmessage-length=0 -fno-inline-functions-called-once -fgcse-after-reload -frerun-cse-after-loop -frename-registers $CFLAGS"
+    CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker64 -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib64/crtbegin_dynamic.o \${SYSROOT}/usr/lib64/crtend_android.o -fuse-ld=bfd $LDFLAGS"
     CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;
 esac
