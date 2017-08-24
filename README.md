@@ -6,7 +6,7 @@ This application is an BusyBox installer for Android.
 
 [BusyBox](http://busybox.net) combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.
 
-Latest BusyBox v1.27.1, supported 357 applets:
+Latest BusyBox v1.27.2, supported 357 applets:
 
 	[, [[, acpid, adjtimex, ar, arp, ash, awk, base64, basename, bbconfig,
 	beep, blkdiscard, blkid, blockdev, bootchartd, brctl, bunzip2, bzcat,
