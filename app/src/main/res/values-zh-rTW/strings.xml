@@ -4,6 +4,7 @@
     <string name="action_help">資訊</string>
     <string name="action_zip">壓縮至</string>
     <string name="action_about">關於</string>
+    <string name="action_menu">菜單</string>
     <string name="title_activity_about">關於</string>
     <string name="title_activity_settings">設定</string>
     <string name="install_button">安裝</string>
@@ -34,7 +35,6 @@
     <string name="title_export_dialog">壓縮為 zip 檔以生成 Recovery 安裝包:</string>
     <string name="toast_export_success">Zip 檔創建成功。</string>
     <string name="toast_export_error">Zip 檔創建失敗！</string>
-    <string name="toast_terminal_error">終端啓動時出錯</string>
     <string name="debug_preferences">偵錯</string>
     <string name="title_debug">偵錯模式</string>
     <string name="summary_debug">显示偵錯資訊</string>
@@ -52,5 +52,4 @@
         <item>深色主題</item>
         <item>浅色主題</item>
     </string-array>
-    <string name="action_menu">菜單</string>
 </resources>

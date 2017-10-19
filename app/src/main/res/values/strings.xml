@@ -36,7 +36,6 @@
     <string name="title_export_dialog">Archive for recovery:</string>
     <string name="toast_export_success">The zip archive successfully saved</string>
     <string name="toast_export_error">Failed to save the zip archive</string>
-    <string name="toast_terminal_error">Error when starting the terminal</string>
     <string name="debug_preferences">Debug</string>
     <string name="title_debug">Debug mode</string>
     <string name="summary_debug">Show debugging information</string>

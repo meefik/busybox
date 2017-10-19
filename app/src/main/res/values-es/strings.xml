@@ -4,6 +4,7 @@
     <string name="action_help">Información</string>
     <string name="action_zip">Archivo ZIP</string>
     <string name="action_about">Sobre</string>
+    <string name="action_menu">Menú</string>
     <string name="title_activity_about">Sobre</string>
     <string name="title_activity_settings">Configuración</string>
     <string name="install_button">INSTALAR</string>
@@ -34,7 +35,6 @@
     <string name="title_export_dialog">Archivo para el recovery:</string>
     <string name="toast_export_success">El archivo zip se ha guardado correctamente</string>
     <string name="toast_export_error">Fallo al guardar archivo zip</string>
-    <string name="toast_terminal_error">Error cuando se arrancaba el terminal</string>
     <string name="debug_preferences">Debug</string>
     <string name="title_debug">Debug mode</string>
     <string name="summary_debug">Mostrar información de depuración</string>
@@ -52,5 +52,4 @@
         <item>Oscuro</item>
         <item>Claro</item>
     </string-array>
-    <string name="action_menu">Menú</string>
 </resources>

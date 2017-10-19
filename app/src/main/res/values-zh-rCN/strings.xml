@@ -4,6 +4,7 @@
     <string name="action_help">信息</string>
     <string name="action_zip">压缩到</string>
     <string name="action_about">关于</string>
+    <string name="action_menu">菜单</string>
     <string name="title_activity_about">关于</string>
     <string name="title_activity_settings">设置</string>
     <string name="install_button">安装</string>
@@ -34,7 +35,6 @@
     <string name="title_export_dialog">打包为 zip 以生成 Recovery 安装包:</string>
     <string name="toast_export_success">Zip 格式打包成功。</string>
     <string name="toast_export_error">Zip 格式打包失败！</string>
-    <string name="toast_terminal_error">启动终端时出错</string>
     <string name="debug_preferences">调试</string>
     <string name="title_debug">调试模式</string>
     <string name="summary_debug">显示调试信息</string>
@@ -52,5 +52,4 @@
         <item>深色主题</item>
         <item>浅色主题</item>
     </string-array>
-    <string name="action_menu">菜单</string>
 </resources>

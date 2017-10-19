@@ -4,6 +4,7 @@
     <string name="action_help">Informationen</string>
     <string name="action_zip">Zip Archive</string>
     <string name="action_about">Über</string>
+    <string name="action_menu">Menü</string>
     <string name="title_activity_about">Über</string>
     <string name="title_activity_settings">Einstellungen</string>
     <string name="install_button">INSTALLIEREN</string>
@@ -34,7 +35,6 @@
     <string name="title_export_dialog">Archiv zur Wiederherstellung:</string>
     <string name="toast_export_success">Das zip-Archiv wurde erfolgreich gespeichert</string>
     <string name="toast_export_error">Speichern des zip-Archivs fehlgeschlagen</string>
-    <string name="toast_terminal_error">Fehler beim starten der Konsole</string>
     <string name="debug_preferences">Debug</string>
     <string name="title_debug">Debug Modus</string>
     <string name="summary_debug">Zeige Debugging Informationen</string>
@@ -52,5 +52,4 @@
         <item>Dunkel</item>
         <item>Hell</item>
     </string-array>
-    <string name="action_menu">Menü</string>
 </resources>
