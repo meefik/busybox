@@ -407,6 +407,9 @@ class EnvUtils {
             File busybox = new File(PrefStore.getEnvDir(c) + "/bin/busybox");
             zip.putNextEntry(new ZipEntry("busybox"));
             addFileToZip(busybox, zip);
+            File sslHelper = new File(PrefStore.getEnvDir(c) + "/bin/ssl_helper");
+            zip.putNextEntry(new ZipEntry("ssl_helper"));
+            addFileToZip(sslHelper, zip);
             File updateBinary = new File(PrefStore.getEnvDir(c) + "/scripts/recovery.sh");
             zip.putNextEntry(new ZipEntry("META-INF/com/google/android/update-binary"));
             addFileToZip(updateBinary, zip);

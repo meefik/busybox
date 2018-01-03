@@ -56,8 +56,9 @@ Added feature of creating a zip-archive for installation via recovery
 История изменений (Русский)
 ===========================
 
-1.27.2-34
+1.27.2-35
 Включает сборку busybox v1.27.2 (статическая сборка)
+Добавлен ssl_helper для поддержки SSL
 
 1.27.1-33
 Включает сборку busybox v1.27.1 (статическая сборка)

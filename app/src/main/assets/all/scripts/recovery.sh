@@ -4,8 +4,8 @@ archive=$3
 fdout=/proc/self/fd/$2
 ui_print()
 {
-echo "ui_print $1" > $fdout
-echo "ui_print" > $fdout
+    echo "ui_print $1" > $fdout
+    echo "ui_print" > $fdout
 }
 ui_print "Making a temporary directory..."
 mkdir -p /tmp/busybox
@@ -21,10 +21,19 @@ do
         rm $link
     fi
 done
-rm $INSTALL_DIR/busybox
+for fn in busybox ssl_helper
+do
+    if [ -e $INSTALL_DIR/$fn ]
+    then
+        rm $INSTALL_DIR/$fn
+    fi
+done
 ui_print "Installing BusyBox to $INSTALL_DIR..."
-cp busybox $INSTALL_DIR
-chmod 755 $INSTALL_DIR/busybox
+for fn in busybox ssl_helper
+do
+    cp $fn $INSTALL_DIR
+    chmod 755 $INSTALL_DIR/$fn
+done
 $INSTALL_DIR/busybox --install -s $INSTALL_DIR
 ui_print "Unmounting /system part..."
 umount /system
