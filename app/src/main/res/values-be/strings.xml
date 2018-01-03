@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_version">версія %1$s</string>
+    <string name="action_settings">Налады</string>
+    <string name="action_help">Інфармацыя</string>
+    <string name="action_about">Пра дадатак</string>
+    <string name="action_zip">Архіў Zip</string>
+    <string name="action_menu">Меню</string>
+    <string name="title_activity_about">Пра дадатак</string>
+    <string name="title_activity_settings">Налады</string>
+    <string name="install_button">УСТАЛЯВАЦЬ</string>
+    <string name="remove_button">Выдаліць</string>
+
+    <string name="busybox_preferences">BusyBox</string>
+    <string name="title_installdir">Шлях усталёўкі</string>
+    <string name="dialog_title_installdir">Шлях усталёўкі</string>
+    <string name="title_applets">Усталяваць аплеты</string>
+    <string name="summary_applets">Стварыць сімвалічныя спасылкі на аплеты</string>
+    <string name="title_replace">Замяніць аплеты</string>
+    <string name="summary_replace">Замяніць існуючыя аплеты</string>
+    <string name="gui_preferences">Інтэрфейс</string>
+    <string name="title_language">Мова</string>
+    <string name="dialog_title_language">Абраць мову</string>
+    <string name="title_theme">Тэма</string>
+    <string name="dialog_title_theme">Абраць тэму</string>
+    <string name="title_fontsize">Памер шрыфту</string>
+    <string name="dialog_title_fontsize">Памер шрыфту</string>
+    <string name="title_maxlines">Глыбіня пракруткі</string>
+    <string name="dialog_title_maxlines">Глыбіня пракруткі</string>
+    <string name="title_timestamp">Адзнака часу</string>
+    <string name="summary_timestamp">Адлюстроўваць адзнаку часу</string>
+    <string name="title_confirm_install_dialog">Усталяваць</string>
+    <string name="message_confirm_install_dialog">Усталяваць BusyBox?</string>
+    <string name="title_confirm_remove_dialog">Выдаліць</string>
+    <string name="message_confirm_remove_dialog">Выдаліць BusyBox?</string>
+    <string name="title_export_dialog">Архіў для аднаўлення:</string>
+    <string name="toast_export_success">Архіў zip паспяхова захаваны</string>
+    <string name="toast_export_error">Не атрымалася захаваць архіў zip</string>
+    <string name="debug_preferences">Адладка</string>
+    <string name="title_debug">Рэжым адладкі</string>
+    <string name="summary_debug">Паказваць адладачную інфармацыю</string>
+    <string name="title_trace">Рэжым трасіроўкі</string>
+    <string name="summary_trace">Уключыць рэжым трасіроўкі</string>
+    <string name="title_logger">Лагаванне</string>
+    <string name="summary_logger">Захоўваць логі ў файл</string>
+    <string name="title_logfile">Файл лога</string>
+    <string name="dialog_title_logfile">Файл лога</string>
+    <string name="write_permissions_disallow">Дадатку забаронена запісваць у памяць прылады</string>
+    <string name="help_text">Загрузка...</string>
+    <string name="about_text">Гэты дадатак - усталёўшчык BusyBox для Android.\n\nBusyBox змяшчае ў сабе маленькія версіі утыліт UNIX. Гэта адпаведнікі многіх утыліт з GNU fileutils, shellutils, і т. п. Утыліты з BusyBox менш фукцыянальныя, аднак сумяшчальныя з функцыямі утыліт GNU. BusyBox прадстаўляе неблагое асяроддзе для большасці мабільных сістэм.\n\nЗа дадатковай інфармацыяй наведайце <a href="https://github.com/meefik/busybox">сайт праекта</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">форум</a> альбо <a href="http://meefik.ru">сайт распрацоўшчыка</a>.\n\n© 2015-2018 Anton Skshidlevsky, GPLv3</string>
+
+    <string-array name="theme_entries">
+        <item>Цёмная</item>
+        <item>Светлая</item>
+    </string-array>
+</resources>
