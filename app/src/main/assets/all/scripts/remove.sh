@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # BusyBox uninstaller
-# (c) 2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 SYSTEM_REMOUNT=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
 
@@ -20,17 +20,20 @@ fi
 busybox printf "Removing BusyBox from $INSTALL_DIR: \n"
 if busybox test -d "$INSTALL_DIR"
 then
-    busybox printf "* busybox ... "
-    if busybox test -e "$INSTALL_DIR/busybox"
-    then
-        busybox rm "$INSTALL_DIR/busybox"
-    fi
-    if busybox test $? -eq 0
-    then
-        busybox printf "done\n"
-    else
-        busybox printf "fail\n"
-    fi
+    for fn in busybox ssl_helper
+    do
+        busybox printf "* $fn ... "
+        if busybox test -e "$INSTALL_DIR/$fn"
+        then
+            busybox rm "$INSTALL_DIR/$fn"
+        fi
+        if busybox test $? -eq 0
+        then
+            busybox printf "done\n"
+        else
+            busybox printf "fail\n"
+        fi
+    done
     busybox printf "* applets ... "
     busybox ls "$INSTALL_DIR" | while read f
     do

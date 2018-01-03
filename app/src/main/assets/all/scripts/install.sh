@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # BusyBox installer
-# (c) 2015 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 SYSTEM_REMOUNT=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
 
@@ -17,39 +17,42 @@ then
     fi
 fi
 
-busybox printf "Copying busybox to $INSTALL_DIR ... "
-BB_BIN=$(busybox which busybox)
-if busybox test -e "$INSTALL_DIR/busybox"
-then
-    busybox rm "$INSTALL_DIR/busybox"
-fi
-busybox cp $BB_BIN $INSTALL_DIR/busybox
-if busybox test $? -eq 0
-then
-    busybox printf "done\n"
-else
-    busybox printf "fail\n"
-fi
+for fn in busybox ssl_helper
+do
+    busybox printf "Copying $fn to $INSTALL_DIR ... "
+    SOURCE_BIN=$(busybox which $fn)
+    if busybox test -e "$INSTALL_DIR/$fn"
+    then
+        busybox rm "$INSTALL_DIR/$fn"
+    fi
+    busybox cp "$SOURCE_BIN" "$INSTALL_DIR/$fn"
+    if busybox test $? -eq 0
+    then
+        busybox printf "done\n"
+    else
+        busybox printf "fail\n"
+    fi
 
-busybox printf "Setting permissions ... "
-busybox chown 0:0 $INSTALL_DIR/busybox
-busybox chmod 755 $INSTALL_DIR/busybox
-if busybox test $? -eq 0
-then
-    busybox printf "done\n"
-else
-    busybox printf "fail\n"
-fi
+    busybox printf "Changing permissions for $fn ... "
+    busybox chown 0:0 "$INSTALL_DIR/$fn"
+    busybox chmod 755 "$INSTALL_DIR/$fn"
+    if busybox test $? -eq 0
+    then
+        busybox printf "done\n"
+    else
+        busybox printf "fail\n"
+    fi
+done
 
 if busybox test "$REPLACE_APPLETS" = "true"
 then
     busybox printf "Removing old applets ... "
     #busybox --list | busybox xargs -I APPLET busybox rm $INSTALL_DIR/APPLET
-    busybox --list | while read f
+    busybox --list | while read fn
     do
-        if busybox test -e "$INSTALL_DIR/$f" -o -L "$INSTALL_DIR/$f"
+        if busybox test -e "$INSTALL_DIR/$fn" -o -L "$INSTALL_DIR/$fn"
         then
-            busybox rm "$INSTALL_DIR/$f"
+            busybox rm "$INSTALL_DIR/$fn"
         fi
     done
     if busybox test $? -eq 0
@@ -63,7 +66,7 @@ fi
 if busybox test "$INSTALL_APPLETS" = "true"
 then
     busybox printf "Installing new applets ... "
-    $INSTALL_DIR/busybox --install -s $INSTALL_DIR
+    $INSTALL_DIR/busybox --install -s "$INSTALL_DIR"
     if busybox test $? -eq 0
     then
         busybox printf "done\n"

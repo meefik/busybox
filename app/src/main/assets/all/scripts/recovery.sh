@@ -1,6 +1,6 @@
 #!/sbin/sh
-INSTALL_DIR="/system/xbin"
-archive="$3"
+INSTALL_DIR=/system/xbin
+archive=$3
 fdout=/proc/self/fd/$2
 ui_print()
 {
@@ -10,11 +10,11 @@ echo "ui_print" > $fdout
 ui_print "Making a temporary directory..."
 mkdir -p /tmp/busybox
 cd /tmp/busybox
-unzip -o "$archive"
+unzip -o $archive
 ui_print "Mounting /system part..."
 mount /system
 ui_print "Removing BusyBox from $INSTALL_DIR..."
-for link in $(find "$INSTALL_DIR" -type l)
+for link in $(find $INSTALL_DIR -type l)
 do
     if readlink $link | grep busybox
     then

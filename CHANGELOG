@@ -1,8 +1,9 @@
 Changelog (English)
 ===================
 
-1.27.2-34
+1.27.2-35
 Includes busybox v1.27.2 (static)
+Added ssl_helper for SSL support
 
 1.27.1-33
 Includes busybox v1.27.1 (static)

@@ -1,6 +1,6 @@
 # BusyBox
 
-Copyright (C) 2015-2017 Anton Skshidlevsky, [GPLv3](http://opensource.org/licenses/gpl-3.0.html)
+Copyright (C) 2015-2018 Anton Skshidlevsky, [GPLv3](http://opensource.org/licenses/gpl-3.0.html)
 
 This application is an BusyBox installer for Android.
 
@@ -62,7 +62,7 @@ To access busybox tools without superuser privileges, perform the following comm
 
     export PATH=/data/data/ru.meefik.busybox/files/bin:$PATH
 
-**Referenses**:
+**References**:
 
 * [Source code](https://github.com/meefik/busybox)
 * [Releases](https://github.com/meefik/busybox/releases)
