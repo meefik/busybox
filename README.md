@@ -6,6 +6,11 @@ This application is an BusyBox installer for Android.
 
 [BusyBox](http://busybox.net) combines tiny versions of many common UNIX utilities into a single small executable. It provides replacements for most of the utilities you usually find in GNU fileutils, shellutils, etc. The utilities in BusyBox generally have fewer options than their full-featured GNU cousins; however, the options that are included provide the expected functionality and behave very much like their GNU counterparts. BusyBox provides a fairly complete environment for any small or embedded system.
 
+<a href="https://f-droid.org/packages/ru.meefik.busybox/" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80"/></a>
+<a href="https://play.google.com/store/apps/details?id=ru.meefik.busybox" target="_blank">
+<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
+
 Latest BusyBox v1.27.2, supported 357 applets:
 
 	[, [[, acpid, adjtimex, ar, arp, ash, awk, base64, basename, bbconfig,
