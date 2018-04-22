@@ -48,7 +48,7 @@ if busybox test "$REPLACE_APPLETS" = "true"
 then
     busybox printf "Removing old applets ... "
     #busybox --list | busybox xargs -I APPLET busybox rm $INSTALL_DIR/APPLET
-    busybox --list | while read fn
+    busybox --list | busybox grep -v busybox | while read fn
     do
         if busybox test -e "$INSTALL_DIR/$fn" -o -L "$INSTALL_DIR/$fn"
         then

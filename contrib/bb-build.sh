@@ -2,7 +2,7 @@
 # BusyBox build tool
 # (C) 2014-2016 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 # Requires:
-# Android NDK r10d (http://www.androiddocs.com/tools/sdk/ndk/index.html#Downloads)
+# Android NDK r10e (https://github.com/android-ndk/ndk/wiki)
 # export ANDROID_NDK_ROOT="/path/to/ndk"
 # Make a patch:
 # diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches-${BB_VERSION}/${PATCH_NAME}.patch
@@ -13,14 +13,14 @@ helper()
     exit 1
 }
 
-BB_VERSION="1.27.2"
+BB_VERSION="1.28.3"
 ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"
 LINKER="$2"
 NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
-[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/android-ndk-r10d"
+[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/android-ndk-r10e"
 [ "$LINKER" = "static" -o "$MARCH" = "arm64" ] && ANDROID_NATIVE_API_LEVEL="21"
 
 case "$MARCH" in
