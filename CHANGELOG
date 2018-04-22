@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.28.3-36
+Updated to busybox v1.28.3 (static)
+
 1.27.2-35
 Includes busybox v1.27.2 (static)
 Added ssl_helper for SSL support
@@ -55,6 +58,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.28.3-36
+Обновлено до busybox v1.28.3 (статическая сборка)
 
 1.27.2-35
 Включает сборку busybox v1.27.2 (статическая сборка)
