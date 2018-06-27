@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.28.4-37
+Updated to busybox v1.28.4 (static)
+
 1.28.3-36
 Updated to busybox v1.28.3 (static)
 
@@ -58,6 +61,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.28.4-37
+Обновлено до busybox v1.28.4 (статическая сборка)
 
 1.28.3-36
 Обновлено до busybox v1.28.3 (статическая сборка)

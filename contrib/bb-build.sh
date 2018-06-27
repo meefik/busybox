@@ -13,7 +13,7 @@ helper()
     exit 1
 }
 
-BB_VERSION="1.28.3"
+BB_VERSION="1.28.4"
 ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"

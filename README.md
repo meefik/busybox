@@ -11,7 +11,7 @@ This application is an BusyBox installer for Android.
 <a href="https://play.google.com/store/apps/details?id=ru.meefik.busybox" target="_blank">
 <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" alt="Get it on Google Play" height="80"/></a>
 
-Latest BusyBox v1.28.3, supported 364 applets:
+Latest BusyBox v1.28.4, supported 364 applets:
 
 	[, [[, acpid, adjtimex, ar, arch, arp, ash, awk, base64, basename,
 	bbconfig, beep, blkdiscard, blkid, blockdev, bootchartd, brctl,
