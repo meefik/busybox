@@ -32,6 +32,7 @@ class ExecScript extends Thread {
         if (!EnvUtils.isRooted(context)) return;
         String envDir = PrefStore.getEnvDir(context);
         List<String> params = new ArrayList<>();
+        params.add("ENV_DIR=" + envDir);
         params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
         params.add("INSTALL_APPLETS=" + PrefStore.isInstallApplets(context));
         params.add("REPLACE_APPLETS=" + PrefStore.isReplaceApplets(context));

@@ -44,6 +44,16 @@ do
     fi
 done
 
+if busybox test "$SYSTEM_REMOUNT" -ne 0 -a -d /system/addon.d
+then
+    busybox cp "$ENV_DIR/scripts/addon.d.sh" /system/addon.d/99-busybox.sh
+    echo "$INSTALL_DIR" > /system/addon.d/busybox-install-dir
+
+    busybox chown 0:0 /system/addon.d/99-busybox.sh
+    busybox chmod 755 /system/addon.d/99-busybox.sh
+    busybox chmod 644 /system/addon.d/busybox-install-dir
+fi
+
 if busybox test "$REPLACE_APPLETS" = "true"
 then
     busybox printf "Removing old applets ... "

@@ -16,6 +16,14 @@ busybox printf "* /data: $DATA_FREE\n"
 SYSTEM_FREE=$(busybox df -Ph /system | busybox grep -v ^Filesystem | busybox awk '{print $4}')
 busybox printf "* /system: $SYSTEM_FREE\n"
 
+busybox printf "\naddon.d support:\n"
+if busybox test -d /system/addon.d
+then
+    busybox printf "* available\n"
+else
+    busybox printf "* unavailable\n"
+fi
+
 busybox printf "\nLatest BusyBox:\n"
 BB_BIN=$(busybox which busybox)
 BB_VERSION=$(busybox | busybox head -1 | busybox awk '{print $2}')
@@ -53,6 +61,16 @@ then
     busybox printf "* size: $BB_SIZE bytes\n"
     BB_MD5=$(busybox md5sum $BB_BIN | busybox awk '{print $1}')
     busybox printf "* md5: $BB_MD5\n"
+
+    if test -d /system/addon.d
+    then
+        if test -f /system/addon.d/99-busybox.sh
+        then
+            busybox printf "* addon.d script: found\n"
+        else
+            busybox printf "* addon.d script: not found\n"
+        fi
+    fi
 else
     busybox printf "* not installed\n"
 fi

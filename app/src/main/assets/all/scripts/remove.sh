@@ -52,6 +52,21 @@ else
     busybox printf "... path not found.\n"
 fi
 
+busybox printf "Removing addon.d script ... "
+if busybox test -e /system/addon.d/99-busybox.sh
+then
+    busybox rm /system/addon.d/busybox-install-dir
+    busybox rm /system/addon.d/99-busybox.sh
+    if busybox test $? -eq 0
+    then
+        busybox printf "done\n"
+    else
+        busybox printf "fail\n"
+    fi
+else
+    busybox printf "not found\n"
+fi
+
 if busybox test "$SYSTEM_REMOUNT" -ne 0
 then
     busybox printf 'Remounting /system to ro ... '

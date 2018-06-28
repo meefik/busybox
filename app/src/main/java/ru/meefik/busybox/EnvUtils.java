@@ -413,6 +413,10 @@ class EnvUtils {
             File updateBinary = new File(PrefStore.getEnvDir(c) + "/scripts/recovery.sh");
             zip.putNextEntry(new ZipEntry("META-INF/com/google/android/update-binary"));
             addFileToZip(updateBinary, zip);
+            File addondBinary = new File(PrefStore.getEnvDir(c) + "/scripts/addon.d.sh");
+            zip.putNextEntry(new ZipEntry("addon.d.sh"));
+            addFileToZip(addondBinary, zip);
+
             result = true;
         } catch (IOException e) {
             e.printStackTrace();
