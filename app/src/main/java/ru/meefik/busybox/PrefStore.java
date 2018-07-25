@@ -77,6 +77,7 @@ class PrefStore {
                 case "ko":
                 case "pl":
                 case "ru":
+                case "uk":
                     locale = new Locale(language);
                     break;
                 case "zh_cn":
