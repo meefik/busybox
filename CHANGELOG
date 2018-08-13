@@ -4,6 +4,7 @@ Changelog (English)
 1.29.2-38
 Updated to busybox v1.29.2 (static)
 Translated into Ukrainian
+Added addon.d support
 
 1.28.4-37
 Updated to busybox v1.28.4 (static)
@@ -69,6 +70,7 @@ Added feature of creating a zip-archive for installation via recovery
 1.29.2-38
 Обновлено до busybox v1.29.2 (статическая сборка)
 Переведено на украинский язык
+Добавлена поддержка addon.d
 
 1.28.4-37
 Обновлено до busybox v1.28.4 (статическая сборка)

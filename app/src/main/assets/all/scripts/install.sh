@@ -44,16 +44,6 @@ do
     fi
 done
 
-if busybox test "$SYSTEM_REMOUNT" -ne 0 -a -d /system/addon.d
-then
-    busybox cp "$ENV_DIR/scripts/addon.d.sh" /system/addon.d/99-busybox.sh
-    echo "$INSTALL_DIR" > /system/addon.d/busybox-install-dir
-
-    busybox chown 0:0 /system/addon.d/99-busybox.sh
-    busybox chmod 755 /system/addon.d/99-busybox.sh
-    busybox chmod 644 /system/addon.d/busybox-install-dir
-fi
-
 if busybox test "$REPLACE_APPLETS" = "true"
 then
     busybox printf "Removing old applets ... "
@@ -76,7 +66,23 @@ fi
 if busybox test "$INSTALL_APPLETS" = "true"
 then
     busybox printf "Installing new applets ... "
-    $INSTALL_DIR/busybox --install -s "$INSTALL_DIR"
+    "$INSTALL_DIR/busybox" --install -s "$INSTALL_DIR"
+    if busybox test $? -eq 0
+    then
+        busybox printf "done\n"
+    else
+        busybox printf "fail\n"
+    fi
+fi
+
+if busybox test "$SYSTEM_REMOUNT" -ne 0 -a -d /system/addon.d
+then
+    busybox printf "Installing addon.d script ... "
+    echo "$INSTALL_DIR" > /system/addon.d/busybox-install-dir
+    busybox chmod 644 /system/addon.d/busybox-install-dir
+    busybox cp "$ENV_DIR/scripts/addon.d.sh" /system/addon.d/99-busybox.sh
+    busybox chown 0:0 /system/addon.d/99-busybox.sh
+    busybox chmod 755 /system/addon.d/99-busybox.sh
     if busybox test $? -eq 0
     then
         busybox printf "done\n"
