@@ -1,9 +1,11 @@
 #!/bin/bash
 # BusyBox build tool
-# (C) 2014-2016 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (C) 2014-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+#
 # Requires:
 # Android NDK r10e (https://github.com/android-ndk/ndk/wiki)
 # export ANDROID_NDK_ROOT="/path/to/ndk"
+#
 # Make a patch:
 # diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches-${BB_VERSION}/${PATCH_NAME}.patch
 
@@ -13,7 +15,7 @@ helper()
     exit 1
 }
 
-BB_VERSION="1.28.4"
+BB_VERSION="1.29.2"
 ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"
