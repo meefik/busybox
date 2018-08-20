@@ -1,6 +1,6 @@
 # BusyBox
 
-Copyright (C) 2015-2018 Anton Skshidlevsky, [GPLv3](http://opensource.org/licenses/gpl-3.0.html)
+Copyright (C) 2015-2018 Anton Skshidlevsky, GPLv2
 
 This application is an BusyBox installer for Android.
 
