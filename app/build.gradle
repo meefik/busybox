@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId 'ru.meefik.busybox'
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 38
-        versionName '1.29.2'
+        versionCode 39
+        versionName '1.29.3'
     }
     buildTypes {
         release {

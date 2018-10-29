@@ -15,7 +15,7 @@ helper()
     exit 1
 }
 
-BB_VERSION="1.29.2"
+BB_VERSION="1.29.3"
 ANDROID_NATIVE_API_LEVEL="21"
 GCC_VERSION="4.9"
 MARCH="$1"
@@ -84,7 +84,7 @@ case "$MARCH" in
 arm)
     CONFIG_CROSS_COMPILER_PREFIX="$ANDROID_NDK_ROOT/toolchains/arm-linux-androideabi-$GCC_VERSION/prebuilt/linux-$HOST_ARCH/bin/arm-linux-androideabi-"
     CONFIG_SYSROOT="$ANDROID_NDK_ROOT/platforms/android-$ANDROID_NATIVE_API_LEVEL/arch-arm"
-    CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=armv5te -msoft-float -mfloat-abi=softfp -mfpu=neon -mthumb -mthumb-interwork -fpic -fno-short-enums -fgcse-after-reload -frename-registers $CFLAGS"
+    CONFIG_EXTRA_CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -nostdlib -march=armv5te -msoft-float -mfloat-abi=softfp -mthumb -mthumb-interwork -fpic -fno-short-enums -fgcse-after-reload -frename-registers $CFLAGS"
     CONFIG_EXTRA_LDFLAGS="-Xlinker -z -Xlinker muldefs -nostdlib -Bdynamic -Xlinker -dynamic-linker -Xlinker /system/bin/linker -Xlinker -z -Xlinker nocopyreloc -Xlinker --no-undefined \${SYSROOT}/usr/lib/crtbegin_dynamic.o \${SYSROOT}/usr/lib/crtend_android.o -fuse-ld=bfd $LDFLAGS"
     CONFIG_EXTRA_LDLIBS="m c gcc"
 ;;

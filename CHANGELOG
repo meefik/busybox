@@ -1,6 +1,9 @@
 Changelog (English)
 ===================
 
+1.29.3-39
+Updated to busybox v1.29.3 (static)
+
 1.29.2-38
 Updated to busybox v1.29.2 (static)
 Translated into Ukrainian
@@ -66,6 +69,9 @@ Added feature of creating a zip-archive for installation via recovery
 
 История изменений (Русский)
 ===========================
+
+1.29.3-39
+Обновлено до busybox v1.29.3 (статическая сборка)
 
 1.29.2-38
 Обновлено до busybox v1.29.2 (статическая сборка)
