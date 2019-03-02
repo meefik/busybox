@@ -1,0 +1,13 @@
+--- ../busybox-1.29.2/libbb/pw_encrypt.c.orig	2018-07-02 14:23:06.000000000 +0300
++++ ./libbb/pw_encrypt.c	2018-08-13 11:52:06.615827371 +0300
+@@ -6,7 +6,9 @@
+  *
+  * Licensed under GPLv2 or later, see file LICENSE in this source tree.
+  */
+-#include <crypt.h>
++#ifndef __ANDROID__
++ #include <crypt.h>
++#endif
+ #include "libbb.h"
+ 
+ /* static const uint8_t ascii64[] ALIGN1 =
