@@ -208,22 +208,51 @@ class EnvUtils {
             return false;
         }
         String mArch = PrefStore.getArch();
-        if (PrefStore.STATIC_VERSION) {
-            if (!extractDir(c, mArch + "/static", "")) {
-                return false;
-            }
-        } else {
-            // PIE for Android L+
-            if (android.os.Build.VERSION.SDK_INT >= 21) {
-                if (!extractDir(c, mArch + "/pie", "")) {
+        switch (mArch) {
+            case "arm":
+                if (!extractDir(c,  "arm/static", "")) {
                     return false;
                 }
-            } else {
-                if (!extractDir(c, mArch + "/nopie", "")) {
+                break;
+            case "arm64":
+                if (!extractDir(c,  "arm/static", "")) {
                     return false;
                 }
-            }
+                if (!extractDir(c,  "arm64/static", "")) {
+                    return false;
+                }
+                break;
+            case "x86":
+                if (!extractDir(c,  "x86/static", "")) {
+                    return false;
+                }
+                break;
+            case "x86_64":
+                if (!extractDir(c,  "x86/static", "")) {
+                    return false;
+                }
+//                if (!extractDir(c,  "x86_64/static", "")) {
+//                    return false;
+//                }
+                break;
+//            case "mips":
+//                if (!extractDir(c,  "mips/static", "")) {
+//                    return false;
+//                }
+//                break;
+//            case "mips64":
+//                if (!extractDir(c,  "mips/static", "")) {
+//                    return false;
+//                }
+//                if (!extractDir(c,  "mips64/static", "")) {
+//                    return false;
+//                }
+//                break;
         }
+
+        // set executable app directory
+        File appDir = new File(PrefStore.getEnvDir(c) + "/..");
+        appDir.setExecutable(true, false);
 
         // set permissions
         setPermissions(fEnvDir);

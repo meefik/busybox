@@ -15,7 +15,6 @@ import java.util.Locale;
  */
 class PrefStore {
 
-    static final boolean STATIC_VERSION = true;
     static final String APP_PREF_NAME = "app_settings";
     private static final String LOG_FILE = "busybox.log";
 
@@ -230,25 +229,26 @@ class PrefStore {
      * Get hardware architecture
      *
      * @param arch unformated architecture
-     * @return x86, arm or mips
+     * @return arm, arm_64, x86, x86_64
      */
-    private static String getArch(String arch) {
+    static String getArch(String arch) {
         String march = "unknown";
         if (arch.length() > 0) {
             char a = arch.toLowerCase().charAt(0);
             switch (a) {
                 case 'a':
-                    if (arch.equals("amd64"))
-                        march = "x86";
-                    else
-                        march = "arm";
-                    break;
-                case 'm':
-                    march = "mips";
+                    if (arch.equals("amd64")) march = "x86_64";
+                    else if (arch.contains("64")) march = "arm64";
+                    else march = "arm";
                     break;
                 case 'i':
                 case 'x':
-                    march = "x86";
+                    if (arch.contains("64")) march = "x86_64";
+                    else march = "x86";
+                    break;
+                case 'm':
+                    if (arch.contains("64")) march = "mips64";
+                    else march = "mips";
                     break;
             }
         }
@@ -258,7 +258,7 @@ class PrefStore {
     /**
      * Get current hardware architecture
      *
-     * @return x86, arm or mips
+     * @return arm, arm_64, x86, x86_64
      */
     static String getArch() {
         return getArch(System.getProperty("os.arch"));

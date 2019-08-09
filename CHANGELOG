@@ -1,35 +1,37 @@
-Changelog (English)
-===================
+Changelog
+=========
 
-1.30.1-40
-Updated to busybox v1.30.1 (static)
+1.30.1-41
+Updated to busybox v1.30.1
+Added build for aarch64
+Set executable flag for application directory
 
 1.29.3-39
-Updated to busybox v1.29.3 (static)
+Updated to busybox v1.29.3
 
 1.29.2-38
-Updated to busybox v1.29.2 (static)
+Updated to busybox v1.29.2
 Translated into Ukrainian
 Added addon.d support
 
 1.28.4-37
-Updated to busybox v1.28.4 (static)
+Updated to busybox v1.28.4
 
 1.28.3-36
-Updated to busybox v1.28.3 (static)
+Updated to busybox v1.28.3
 
 1.27.2-35
-Includes busybox v1.27.2 (static)
+Includes busybox v1.27.2
 Added ssl_helper for SSL support
 
 1.27.1-33
-Includes busybox v1.27.1 (static)
+Includes busybox v1.27.1
 
 1.26.2-29
-Includes busybox v1.26.2 (static)
+Includes busybox v1.26.2
 
 1.25.1-28
-Includes busybox v1.25.1 (static)
+Includes busybox v1.25.1
 Translated into traditional Chinese and German
 
 1.24.2-25
@@ -68,75 +70,3 @@ Added the ability to use busybox tools without superuser privileges (root)
 Fixed problem with remount the block device as read-write
 Fixed problem with mounting loop devices
 Added feature of creating a zip-archive for installation via recovery
-
-
-История изменений (Русский)
-===========================
-
-1.30.1-40
-Обновлено до busybox v1.30.1 (статическая сборка)
-
-1.29.3-39
-Обновлено до busybox v1.29.3 (статическая сборка)
-
-1.29.2-38
-Обновлено до busybox v1.29.2 (статическая сборка)
-Переведено на украинский язык
-Добавлена поддержка addon.d
-
-1.28.4-37
-Обновлено до busybox v1.28.4 (статическая сборка)
-
-1.28.3-36
-Обновлено до busybox v1.28.3 (статическая сборка)
-
-1.27.2-35
-Включает сборку busybox v1.27.2 (статическая сборка)
-Добавлен ssl_helper для поддержки SSL
-
-1.27.1-33
-Включает сборку busybox v1.27.1 (статическая сборка)
-
-1.26.2-29
-Включает сборку busybox v1.26.2 (статическая сборка)
-
-1.25.1-28
-Включает сборку busybox v1.25.1 (статическая сборка)
-Переведено на китайский традиционный и немецкий язык
-
-1.24.2-25
-Добавлен патч для поддержки в tar опции --hard-dereference
-Переведено на корейский язык
-
-1.24.2-24
-Включает сборку busybox v1.24.2
-Добавлено удаление старого busybox при установке через рекавери
-Переведено на испанский язык
-
-1.24.1-23
-Динамическая сборка по умолчанию
-Убрана функция открытия терминала
-
-1.24.1-21
-Добавлена команда открытия Android Terminal Emulator
-Переведено на китайский язык
-Добавлена поддержка статических сборок
-
-1.24.1-18
-Включает сборку busybox v1.24.1
-Переведено на французский язык
-
-1.23.2-17
-Добавлен запрос прав доступа на запись (для Android 6)
-Исправлена проблема с отсутствующими символами siglongjmp и sigsetjmp на x86 архитектуре
-
-1.23.2-15
-Добавлены апплеты cryptpw и mkpasswd
-Добавлена поддержка devpts
-Включено редактирование строки (в основном для командной оболочки)
-
-1.23.2-13
-Добавлена возможность использовать утилиты busybox без прав суперпользователя (root)
-Исправлена проблема перемонтирования блочного устройства на чтение-запись
-Исправлена проблема с монтированием loop-устройств
-Добавлена функция создания zip-ахрива для установки через рекавери
