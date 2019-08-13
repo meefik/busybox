@@ -22,7 +22,7 @@ MARCH="$1"
 LINKER="$2"
 NCPU=$(grep -ci processor /proc/cpuinfo)
 PREFIX="../compiled/$MARCH"
-[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/android-ndk-r10e"
+[ -z "$ANDROID_NDK_ROOT" ] && ANDROID_NDK_ROOT="$HOME/android-ndk-r15c"
 [ "$LINKER" = "static" -o "$MARCH" = "arm64" ] && ANDROID_NATIVE_API_LEVEL="21"
 
 case "$MARCH" in
