@@ -73,4 +73,4 @@ To access busybox tools without superuser privileges, perform the following comm
 
 * [Source code](https://github.com/meefik/busybox)
 * [Releases](https://github.com/meefik/busybox/releases)
-* [Donations](http://meefik.github.io/donate/)
+* [Donations](https://meefik.github.io/donate)
