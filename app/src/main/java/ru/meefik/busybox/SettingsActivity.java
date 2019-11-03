@@ -10,29 +10,26 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NavUtils;
-import android.support.v4.content.ContextCompat;
 
-/**
- * Created by anton on 19.09.15.
- */
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 public class SettingsActivity extends AppCompatPreferenceActivity implements
         SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        PrefStore.setLocale(this);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().setTitle(getString(R.string.title_activity_settings));
-
+        PrefStore.setLocale(this);
         getPreferenceManager().setSharedPreferencesName(PrefStore.APP_PREF_NAME);
         addPreferencesFromResource(R.xml.settings);
         initSummaries(getPreferenceScreen());
     }
 
     @Override
-    public void setTheme(int resid) {
+    public void setTheme(int resId) {
         super.setTheme(PrefStore.getTheme(this));
     }
 
@@ -50,6 +47,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
     @Override
     public void onResume() {
         super.onResume();
+        setTitle(getString(R.string.title_activity_settings));
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -122,7 +120,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        NavUtils.navigateUpFromSameTask(this);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

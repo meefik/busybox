@@ -1,10 +1,21 @@
 #!/system/bin/sh
 # BusyBox installer
-# (c) 2015-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
-SYSTEM_REMOUNT=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
+IS_SYSTEM=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
+IS_RAM=$(busybox grep -c "^tmpfs $INSTALL_DIR" /proc/mounts)
 
-if busybox test "$SYSTEM_REMOUNT" -ne 0
+if busybox test "$MOUNT_RAMDISK" = "true" -a "$IS_RAM" -eq 0
+then
+    busybox printf "Mounting $INSTALL_DIR as tmpfs ... "
+    busybox mount -o size=50M -t tmpfs tmpfs "$INSTALL_DIR"
+    if busybox test $? -eq 0
+    then
+        busybox printf "done\n"
+    else
+        busybox printf "fail\n"
+    fi
+elif busybox test "$IS_SYSTEM" -ne 0
 then
     busybox printf "Remounting /system to rw ... "
     busybox mount -o rw,remount /system
@@ -13,7 +24,6 @@ then
         busybox printf "done\n"
     else
         busybox printf "fail\n"
-        exit 1
     fi
 fi
 
@@ -75,7 +85,7 @@ then
     fi
 fi
 
-if busybox test "$SYSTEM_REMOUNT" -ne 0 -a -d /system/addon.d
+if busybox test "$IS_SYSTEM" -ne 0 -a -d /system/addon.d -a "$MOUNT_RAMDISK" != "true"
 then
     busybox printf "Installing addon.d script ... "
     echo "$INSTALL_DIR" > /system/addon.d/busybox-install-dir
@@ -88,18 +98,5 @@ then
         busybox printf "done\n"
     else
         busybox printf "fail\n"
-    fi
-fi
-
-if busybox test "$SYSTEM_REMOUNT" -ne 0
-then
-    busybox printf "Remounting /system to ro ... "
-    busybox mount -o ro,remount /system
-    if busybox test $? -eq 0
-    then
-        busybox printf "done\n"
-    else
-        busybox printf "skip\n"
-        exit 1
     fi
 fi

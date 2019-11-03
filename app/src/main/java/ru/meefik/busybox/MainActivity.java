@@ -4,12 +4,8 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -20,74 +16,23 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.navigation.NavigationView;
+
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int REQUEST_WRITE_STORAGE = 112;
     static TextView output;
     static ScrollView scroll;
-    private static final int REQUEST_WRITE_STORAGE = 112;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        PrefStore.setLocale(this);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        output = (TextView) findViewById(R.id.outputView);
-        scroll = (ScrollView) findViewById(R.id.scrollView);
-
-        // enable context clickable
-        output.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        PrefStore.setLocale(this);
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_settings:
-                Intent intentSettings = new Intent(this, SettingsActivity.class);
-                startActivity(intentSettings);
-                break;
-            case R.id.action_help:
-                new ExecScript(this, "info").start();
-                break;
-            case R.id.action_zip:
-                requestWritePermissions();
-                break;
-            case R.id.action_about:
-                Intent intentAbout = new Intent(this, AboutActivity.class);
-                startActivity(intentAbout);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void setTheme(int resid) {
-        super.setTheme(PrefStore.getTheme(this));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        TextView outputView = (TextView) findViewById(R.id.outputView);
-        // restore font size
-        outputView.setTextSize(TypedValue.COMPLEX_UNIT_SP, PrefStore.getFontSize(this));
-        // restore logs
-        String log = Logger.get();
-        if (log.length() == 0) {
-            // show info if empty
-            new ExecScript(getApplicationContext(), "info").start();
-        } else {
-            showLog(log);
-        }
-    }
 
     /**
      * Show message in TextView, used from Logger
@@ -110,6 +55,102 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PrefStore.setLocale(this);
+        setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        output = findViewById(R.id.outputView);
+        scroll = findViewById(R.id.scrollView);
+
+        // enable context clickable
+        output.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
+            } else {
+                drawer.openDrawer(GravityCompat.START);
+            }
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intentSettings = new Intent(this, SettingsActivity.class);
+                startActivity(intentSettings);
+                break;
+            case R.id.action_help:
+                new ExecScript(this, "info").start();
+                break;
+            case R.id.action_zip:
+                requestWritePermissions();
+                break;
+            case R.id.action_about:
+                Intent intentAbout = new Intent(this, AboutActivity.class);
+                startActivity(intentAbout);
+                break;
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void setTheme(int resId) {
+        super.setTheme(PrefStore.getTheme(this));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TextView outputView = findViewById(R.id.outputView);
+        // restore font size
+        outputView.setTextSize(TypedValue.COMPLEX_UNIT_SP, PrefStore.getFontSize(this));
+        // restore logs
+        String log = Logger.get();
+        if (log.length() == 0) {
+            // show info if empty
+            new ExecScript(getApplicationContext(), "info").start();
+        } else {
+            showLog(log);
+        }
     }
 
     public void installBtnOnClick(final View view) {
@@ -208,15 +249,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case REQUEST_WRITE_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    makeZipArchiveDialog();
-                } else {
-                    Toast.makeText(this, getString(R.string.write_permissions_disallow), Toast.LENGTH_LONG).show();
-                }
+        if (requestCode == REQUEST_WRITE_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                makeZipArchiveDialog();
+            } else {
+                Toast.makeText(this, getString(R.string.write_permissions_disallow), Toast.LENGTH_LONG).show();
             }
         }
     }

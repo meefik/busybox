@@ -1,0 +1,11 @@
+--- ../busybox-1.31.1.orig/networking/wget.c	2019-10-21 17:54:40.000000000 +0300
++++ ./networking/wget.c	2019-11-05 23:02:15.908409923 +0300
+@@ -1301,6 +1301,8 @@
+ 		case 301:
+ 		case 302:
+ 		case 303:
++		case 307:
++		case 308:
+ 			break;
+ 
+ 		case 206: /* Partial Content */

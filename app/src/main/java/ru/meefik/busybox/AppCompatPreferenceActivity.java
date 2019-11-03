@@ -18,23 +18,22 @@ package ru.meefik.busybox;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.NavUtils;
+
 /**
- * A {@link android.preference.PreferenceActivity} which implements and proxies the necessary calls
+ * A {@link PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
  * <p/>
  * This technique can be used with an {@link android.app.Activity} class, not just
- * {@link android.preference.PreferenceActivity}.
+ * {@link PreferenceActivity}.
  */
 public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
     private AppCompatDelegate mDelegate;
@@ -54,10 +53,6 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
 
     public ActionBar getSupportActionBar() {
         return getDelegate().getSupportActionBar();
-    }
-
-    public void setSupportActionBar(@Nullable Toolbar toolbar) {
-        getDelegate().setSupportActionBar(toolbar);
     }
 
     @Override
@@ -117,10 +112,9 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,0 +1,33 @@
+--- ../busybox-1.26.2.orig/networking/ifconfig.c	2016-12-10 20:46:36.000000000 +0300
++++ ./networking/ifconfig.c	2017-01-18 11:09:10.064194554 +0300
+@@ -130,11 +130,13 @@
+ #endif
+ 
+ #if ENABLE_FEATURE_IPV6
++# if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ < 21)
+ struct in6_ifreq {
+ 	struct in6_addr ifr6_addr;
+ 	uint32_t ifr6_prefixlen;
+ 	int ifr6_ifindex;
+ };
++# endif
+ #endif
+ 
+ /*
+--- ../busybox-1.26.2.orig/networking/interface.c	2016-12-10 20:46:36.000000000 +0300
++++ ./networking/interface.c	2017-01-18 11:08:06.780193597 +0300
+@@ -59,11 +59,13 @@
+ /*
+  * This is from linux/include/net/ipv6.h
+  */
++#  if !defined(__ANDROID__) || (defined(__ANDROID__) && __ANDROID_API__ < 21)
+ struct in6_ifreq {
+ 	struct in6_addr ifr6_addr;
+ 	uint32_t ifr6_prefixlen;
+ 	unsigned int ifr6_ifindex;
+ };
++#  endif
+ # endif
+ #endif /* HAVE_AFINET6 */
+ 
+

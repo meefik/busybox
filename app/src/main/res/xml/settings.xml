@@ -17,6 +17,11 @@
             android:key="replace"
             android:summary="@string/summary_replace"
             android:title="@string/title_replace" />
+        <CheckBoxPreference
+            android:defaultValue="@string/ramdisk"
+            android:key="ramdisk"
+            android:summary="@string/summary_ramdisk"
+            android:title="@string/title_ramdisk" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/gui_preferences">

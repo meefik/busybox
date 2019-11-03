@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.31.1-42
+Updated to busybox v1.31.1
+Added RAM disk installation
+
 1.30.1-41
 Updated to busybox v1.30.1
 Added build for aarch64
