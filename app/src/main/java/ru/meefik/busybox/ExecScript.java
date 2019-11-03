@@ -5,9 +5,6 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by anton on 19.09.15.
- */
 class ExecScript extends Thread {
 
     private Context context;
@@ -36,6 +33,7 @@ class ExecScript extends Thread {
         params.add("INSTALL_DIR=" + PrefStore.getInstallDir(context));
         params.add("INSTALL_APPLETS=" + PrefStore.isInstallApplets(context));
         params.add("REPLACE_APPLETS=" + PrefStore.isReplaceApplets(context));
+        params.add("MOUNT_RAMDISK=" + PrefStore.isRamDisk(context));
         params.add(". " + envDir + "/scripts/install.sh");
         EnvUtils.exec(context, "su", params);
     }

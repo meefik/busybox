@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # BusyBox information
-# (c) 2015-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 busybox printf "System:\n"
 DEVICE=$(getprop ro.product.model)
@@ -32,6 +32,12 @@ BB_SIZE=$(busybox stat -c '%s' "$BB_BIN")
 busybox printf "* size: $BB_SIZE bytes\n"
 BB_MD5=$(busybox md5sum "$BB_BIN" | busybox awk '{print $1}')
 busybox printf "* md5: $BB_MD5\n"
+if busybox test -e "$(which ssl_helper)"
+then
+    busybox printf "* ssl_helper: yes\n"
+else
+    busybox printf "* ssl_helper: no\n"
+fi
 
 busybox printf "\nInstalled BusyBox:\n"
 if busybox test -e "$INSTALL_DIR/busybox"

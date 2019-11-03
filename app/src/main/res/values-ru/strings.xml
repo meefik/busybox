@@ -17,6 +17,8 @@
     <string name="summary_applets">Создать символьные ссылки на апплеты</string>
     <string name="title_replace">Заменить апплеты</string>
     <string name="summary_replace">Заменить существующие апплеты</string>
+    <string name="title_ramdisk">Установить в память</string>
+    <string name="summary_ramdisk">Временно установить в память</string>
     <string name="gui_preferences">Интерфейс</string>
     <string name="title_language">Язык</string>
     <string name="dialog_title_language">Язык интерфейса</string>

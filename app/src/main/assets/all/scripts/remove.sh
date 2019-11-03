@@ -1,10 +1,10 @@
 #!/system/bin/sh
 # BusyBox uninstaller
-# (c) 2015-2018 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
-SYSTEM_REMOUNT=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
+IS_SYSTEM=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
 
-if busybox test "$SYSTEM_REMOUNT" -ne 0
+if busybox test "$IS_SYSTEM" -ne 0
 then
     busybox printf "Remounting /system to rw ... "
     busybox mount -o rw,remount /system
@@ -13,7 +13,6 @@ then
         busybox printf 'done\n'
     else
         busybox printf 'fail\n'
-        exit 1
     fi
 fi
 
@@ -65,17 +64,4 @@ then
     fi
 else
     busybox printf "not found\n"
-fi
-
-if busybox test "$SYSTEM_REMOUNT" -ne 0
-then
-    busybox printf 'Remounting /system to ro ... '
-    busybox mount -o ro,remount /system
-    if busybox test $? -eq 0
-    then
-        busybox printf "done\n"
-    else
-        busybox printf "skip\n"
-        exit 1
-    fi
 fi

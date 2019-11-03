@@ -1,9 +1,6 @@
 <resources>
-    <attr name="ic_action_more" format="reference"/>
     <style name="DarkTheme" parent="Theme.AppCompat">
-        <item name="ic_action_more">@drawable/ic_action_more_dark</item>
     </style>
     <style name="LightTheme" parent="Theme.AppCompat.Light">
-        <item name="ic_action_more">@drawable/ic_action_more_light</item>
     </style>
 </resources>

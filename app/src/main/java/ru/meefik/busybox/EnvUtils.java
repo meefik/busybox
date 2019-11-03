@@ -19,13 +19,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-/**
- * Created by anton on 19.09.15.
- */
 class EnvUtils {
 
     /**
@@ -170,7 +166,7 @@ class EnvUtils {
      * @return false if error
      */
     private static Boolean isLatestVersion(Context c) {
-        Boolean result = false;
+        boolean result = false;
         String f = PrefStore.getEnvDir(c) + "/version";
         BufferedReader br = null;
         try {
@@ -210,25 +206,25 @@ class EnvUtils {
         String mArch = PrefStore.getArch();
         switch (mArch) {
             case "arm":
-                if (!extractDir(c,  "arm/static", "")) {
+                if (!extractDir(c, "arm/static", "")) {
                     return false;
                 }
                 break;
             case "arm64":
-                if (!extractDir(c,  "arm/static", "")) {
+                if (!extractDir(c, "arm/static", "")) {
                     return false;
                 }
-                if (!extractDir(c,  "arm64/static", "")) {
+                if (!extractDir(c, "arm64/static", "")) {
                     return false;
                 }
                 break;
             case "x86":
-                if (!extractDir(c,  "x86/static", "")) {
+                if (!extractDir(c, "x86/static", "")) {
                     return false;
                 }
                 break;
             case "x86_64":
-                if (!extractDir(c,  "x86/static", "")) {
+                if (!extractDir(c, "x86/static", "")) {
                     return false;
                 }
 //                if (!extractDir(c,  "x86_64/static", "")) {
