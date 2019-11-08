@@ -1,0 +1,17 @@
+--- ../busybox-1.31.1.orig/include/libbb.h	2019-06-10 13:50:53.000000000 +0300
++++ ./include/libbb.h	2019-11-08 12:33:36.523396529 +0300
+@@ -2175,10 +2175,10 @@
+ # define VC_4 "/dev/tty4"
+ # define VC_5 "/dev/tty5"
+ # define VC_FORMAT "/dev/tty%d"
+-# define LOOP_FORMAT "/dev/loop%u"
+-# define LOOP_NAMESIZE (sizeof("/dev/loop") + sizeof(int)*3 + 1)
+-# define LOOP_NAME "/dev/loop"
+-# define FB_0 "/dev/fb0"
++# define LOOP_FORMAT "/dev/block/loop%u"
++# define LOOP_NAMESIZE (sizeof("/dev/block/loop") + sizeof(int)*3 + 1)
++# define LOOP_NAME "/dev/block/loop"
++# define FB_0 "/dev/graphics/fb0"
+ #endif
+ 
+ // storage helpers for mk*fs utilities
