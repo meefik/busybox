@@ -60,7 +60,7 @@ Latest BusyBox v1.31.1, supported 374 applets:
 
 **Requirements**:
 
-* Device with architecture ARM, x86 or MIPS
+* Device with architecture arm, arm64, x86, x86_64
 * Android 4.0 (API 14) or later
 * Superuser permissions (root)
 
