@@ -206,44 +206,31 @@ class EnvUtils {
         String mArch = PrefStore.getArch();
         switch (mArch) {
             case "arm":
-                if (!extractDir(c, "arm/static", "")) {
+                if (!extractDir(c, "arm", "")) {
                     return false;
                 }
                 break;
             case "arm64":
-                if (!extractDir(c, "arm/static", "")) {
+                if (!extractDir(c, "arm", "")) {
                     return false;
                 }
-                if (!extractDir(c, "arm64/static", "")) {
+                if (!extractDir(c, "arm64", "")) {
                     return false;
                 }
                 break;
             case "x86":
-                if (!extractDir(c, "x86/static", "")) {
+                if (!extractDir(c, "x86", "")) {
                     return false;
                 }
                 break;
             case "x86_64":
-                if (!extractDir(c, "x86/static", "")) {
+                if (!extractDir(c, "x86", "")) {
                     return false;
                 }
-//                if (!extractDir(c,  "x86_64/static", "")) {
-//                    return false;
-//                }
+                if (!extractDir(c,  "x86_64", "")) {
+                    return false;
+                }
                 break;
-//            case "mips":
-//                if (!extractDir(c,  "mips/static", "")) {
-//                    return false;
-//                }
-//                break;
-//            case "mips64":
-//                if (!extractDir(c,  "mips/static", "")) {
-//                    return false;
-//                }
-//                if (!extractDir(c,  "mips64/static", "")) {
-//                    return false;
-//                }
-//                break;
         }
 
         // set executable app directory

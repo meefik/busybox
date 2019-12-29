@@ -6,16 +6,25 @@ android {
 
     defaultConfig {
         applicationId 'ru.meefik.busybox'
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 29
-        versionCode 44
+        versionCode 45
         versionName '1.31.1'
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        disable 'MissingTranslation'
+        disable 'ExtraTranslation'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
