@@ -17,8 +17,8 @@ then
     fi
 elif busybox test "$IS_SYSTEM" -ne 0
 then
-    busybox printf "Remounting /system to rw ... "
-    busybox mount -o rw,remount /system
+    busybox printf "Remounting / to rw ... "
+    busybox mount -o rw,remount /
     if busybox test $? -eq 0
     then
         busybox printf "done\n"
