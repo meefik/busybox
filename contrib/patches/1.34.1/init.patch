@@ -1,0 +1,16 @@
+--- init/init.c.orig	2022-01-01 21:48:39.637749093 +0300
++++ init/init.c	2022-01-01 21:48:52.385941420 +0300
+@@ -973,6 +973,13 @@
+ }
+ #endif
+ 
++#if defined(ANDROID) || defined(__ANDROID__)
++int sigtimedwait (const sigset_t *set, siginfo_t *info, const struct timespec *timeout)
++{
++  return -1;
++}
++#endif
++
+ static void check_delayed_sigs(struct timespec *ts)
+ {
+ 	int sig = sigtimedwait(&G.delayed_sigset, /* siginfo_t */ NULL, ts);

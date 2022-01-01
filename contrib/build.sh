@@ -1,6 +1,6 @@
 #!/bin/bash
 # BusyBox build tool
-# (C) 2014-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (C) 2014-2022 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 #
 # Make custom patch:
 # diff -urN ../busybox-${BB_VERSION}.orig/ . > ../patches/${BB_VERSION}/${PATCH_NAME}.patch
@@ -9,12 +9,12 @@ set -e
 
 MARCH="$1"
 INSTALL_DIR="$2"
-BB_VERSION="1.31.1"
+BB_VERSION="1.34.1"
 ANDROID_NATIVE_API_LEVEL="21"
 NCPU="$(grep -ci processor /proc/cpuinfo)"
 SOURCE_DIR="${PWD}"
 BUILD_DIR="${SOURCE_DIR}/build"
-WOLFSSL_VERSION="3.13.0-stable"
+WOLFSSL_VERSION="3.15.7-stable"
 DEFCONFIG="android_ndk_defconfig"
 NDK="android-ndk-r15c"
 NDK_DIR="${BUILD_DIR}/${NDK}"
@@ -48,7 +48,7 @@ x86_64)
   PATH="${NDK_DIR}/toolchains/x86_64-4.9/prebuilt/linux-x86_64/bin:${PATH}"
 ;;
 *)
-  echo "Usage: $0 <arm|arm64|x86|x86_64> [INSTALL_DIR]"
+  echo "Usage: $0 <arm|arm64|x86|x86_64|all> [INSTALL_DIR]"
   exit 1
 ;;
 esac

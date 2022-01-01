@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # BusyBox information
-# (c) 2015-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2022 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 busybox printf "System:\n"
 DEVICE=$(getprop ro.product.model)

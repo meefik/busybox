@@ -1,0 +1,38 @@
+--- ../busybox-1.33.2.orig/coreutils/stat.c.orig	2021-11-24 16:27:33.000000000 +0300
++++ ./coreutils/stat.c	2022-01-01 20:32:03.101520566 +0300
+@@ -379,19 +379,19 @@
+ 		strcat(pformat, "lu");
+ 		printf(pformat, (unsigned long) statbuf->st_blksize);
+ 	} else if (m == 'x') {
+-		printfs(pformat, human_time(&statbuf->st_atim));
++		printfs(pformat, human_time(&statbuf->st_atime));
+ 	} else if (m == 'X') {
+ 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
+ 		/* note: (unsigned long) would be wrong:
+ 		 * imagine (unsigned long64)int32 */
+ 		printf(pformat, (long) statbuf->st_atime);
+ 	} else if (m == 'y') {
+-		printfs(pformat, human_time(&statbuf->st_mtim));
++		printfs(pformat, human_time(&statbuf->st_mtime));
+ 	} else if (m == 'Y') {
+ 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
+ 		printf(pformat, (long) statbuf->st_mtime);
+ 	} else if (m == 'z') {
+-		printfs(pformat, human_time(&statbuf->st_ctim));
++		printfs(pformat, human_time(&statbuf->st_ctime));
+ 	} else if (m == 'Z') {
+ 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
+ 		printf(pformat, (long) statbuf->st_ctime);
+@@ -745,9 +745,9 @@
+ 		if (option_mask32 & OPT_SELINUX)
+ 			printf("   S_Context: %s\n", scontext);
+ # endif
+-		printf("Access: %s\n", human_time(&statbuf.st_atim));
+-		printf("Modify: %s\n", human_time(&statbuf.st_mtim));
+-		printf("Change: %s\n", human_time(&statbuf.st_ctim));
++		printf("Access: %s\n", human_time(&statbuf.st_atime));
++		printf("Modify: %s\n", human_time(&statbuf.st_mtime));
++		printf("Change: %s\n", human_time(&statbuf.st_ctime));
+ 	}
+ #endif  /* FEATURE_STAT_FORMAT */
+ 	return 1;

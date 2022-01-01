@@ -1,0 +1,13 @@
+--- coreutils/touch.c.orig	2021-08-15 21:44:35.000000000 +0300
++++ coreutils/touch.c	2022-01-01 21:01:50.981200140 +0300
+@@ -134,8 +134,8 @@
+ 		xstat(reference_file, &stbuf);
+ 		timebuf[0].tv_sec = stbuf.st_atime;
+ 		timebuf[1].tv_sec = stbuf.st_mtime;
+-		timebuf[0].tv_nsec = stbuf.st_atim.tv_nsec;
+-		timebuf[1].tv_nsec = stbuf.st_mtim.tv_nsec;
++		timebuf[0].tv_nsec = stbuf.st_atime * 1000;
++		timebuf[1].tv_nsec = stbuf.st_mtime * 1000;
+ 	}
+ 	if (opts & (OPT_d|OPT_t)) {
+ 		struct tm tm_time;

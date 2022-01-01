@@ -1,6 +1,6 @@
 #!/system/bin/sh
 # BusyBox installer
-# (c) 2015-2019 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
+# (c) 2015-2022 Anton Skshidlevsky <meefik@gmail.com>, GPLv3
 
 IS_SYSTEM=$(busybox printf "$INSTALL_DIR" | busybox grep -c "^/system/")
 IS_RAM=$(busybox grep -c "^tmpfs $INSTALL_DIR" /proc/mounts)
@@ -18,7 +18,7 @@ then
 elif busybox test "$IS_SYSTEM" -ne 0
 then
     busybox printf "Remounting /system to rw ... "
-    busybox mount -o rw,remount /system
+    busybox mount -o rw,remount /system || busybox mount -o rw,remount /
     if busybox test $? -eq 0
     then
         busybox printf "done\n"
