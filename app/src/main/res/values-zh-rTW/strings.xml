@@ -50,6 +50,6 @@
 
     <string-array name="theme_entries">
         <item>深色主題</item>
-        <item>浅色主題</item>
+        <item>淺色主題</item>
     </string-array>
 </resources>
