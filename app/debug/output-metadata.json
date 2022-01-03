@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "ru.meefik.busybox",
+  "variantName": "debug",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 50,
+      "versionName": "1.34.1",
+      "outputFile": "app-debug.apk"
+    }
+  ],
+  "elementType": "File"
+}

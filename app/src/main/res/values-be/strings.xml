@@ -4,7 +4,6 @@
     <string name="action_help">Інфармацыя</string>
     <string name="action_about">Пра дадатак</string>
     <string name="action_zip">Архіў Zip</string>
-    <string name="action_menu">Меню</string>
     <string name="title_activity_about">Пра дадатак</string>
     <string name="title_activity_settings">Налады</string>
     <string name="install_button">УСТАЛЯВАЦЬ</string>
@@ -36,8 +35,6 @@
     <string name="toast_export_success">Архіў zip паспяхова захаваны</string>
     <string name="toast_export_error">Не атрымалася захаваць архіў zip</string>
     <string name="debug_preferences">Адладка</string>
-    <string name="title_debug">Рэжым адладкі</string>
-    <string name="summary_debug">Паказваць адладачную інфармацыю</string>
     <string name="title_trace">Рэжым трасіроўкі</string>
     <string name="summary_trace">Уключыць рэжым трасіроўкі</string>
     <string name="title_logger">Лагаванне</string>
@@ -46,7 +43,7 @@
     <string name="dialog_title_logfile">Файл лога</string>
     <string name="write_permissions_disallow">Дадатку забаронена запісваць у памяць прылады</string>
     <string name="help_text">Загрузка...</string>
-    <string name="about_text">Гэты дадатак - усталёўшчык BusyBox для Android.\n\nBusyBox змяшчае ў сабе маленькія версіі утыліт UNIX. Гэта адпаведнікі многіх утыліт з GNU fileutils, shellutils, і т. п. Утыліты з BusyBox менш фукцыянальныя, аднак сумяшчальныя з функцыямі утыліт GNU. BusyBox прадстаўляе неблагое асяроддзе для большасці мабільных сістэм.\n\nЗа дадатковай інфармацыяй наведайце <a href="https://github.com/meefik/busybox">сайт праекта</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">форум</a> альбо <a href="https://meefik.github.io">сайт распрацоўшчыка</a>.\n\n© 2015-2019 Anton Skshidlevsky, GPLv2</string>
+    <string name="about_text">Гэты дадатак – усталёўшчык BusyBox для Android.\n\nBusyBox змяшчае ў сабе маленькія версіі утыліт UNIX. Гэта адпаведнікі многіх утыліт з GNU fileutils, shellutils, і т. п. Утыліты з BusyBox менш фукцыянальныя, аднак сумяшчальныя з функцыямі утыліт GNU. BusyBox прадстаўляе неблагое асяроддзе для большасці мабільных сістэм.\n\nЗа дадатковай інфармацыяй наведайце <a href="https://github.com/meefik/busybox">сайт праекта</a>, <a href="http://4pda.ru/forum/index.php?showtopic=694640">форум</a> альбо <a href="https://meefik.github.io">сайт распрацоўшчыка</a>.\n\n© 2015–2022 Anton Skshidlevsky, GPLv2</string>
 
     <string-array name="theme_entries">
         <item>Цёмная</item>

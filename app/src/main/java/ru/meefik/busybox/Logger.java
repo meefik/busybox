@@ -1,98 +1,92 @@
 package ru.meefik.busybox;
 
 import android.content.Context;
+import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
+import android.view.View;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 class Logger {
 
-    private static volatile List<String> protocol = new ArrayList<>();
-    private static char lastChar = '\n';
-    private static String lastLine = "";
+    final private Context context;
+    final private TextView output;
+    final private ScrollView scroll;
+
+    /**
+     * Logger constructor
+     *
+     * @param context
+     * @param output
+     * @param scroll
+     */
+    Logger(Context context, TextView output, ScrollView scroll) {
+        this.context = context;
+        this.output = output;
+        this.scroll = scroll;
+        // enable context clickable
+        output.setMovementMethod(LinkMovementMethod.getInstance());
+//        output.setMaxLines(PrefStore.getMaxLines(context));
+        output.setTextSize(TypedValue.COMPLEX_UNIT_SP, PrefStore.getFontSize(context));
+    }
 
     /**
      * Generate timestamp
      *
      * @return timestamp
      */
-    private static String getTimeStamp() {
+    private String getTimeStamp() {
         return "[" + new SimpleDateFormat("HH:mm:ss", Locale.ENGLISH).format(new Date()) + "] ";
     }
 
     /**
      * Append the message to protocol and show
      *
-     * @param c   context
-     * @param msg message
+     * @param line message
      */
-    private static synchronized void appendMessage(Context c, final String msg) {
-        if (msg.length() == 0) return;
-        String out = msg;
-        boolean timestamp = PrefStore.isTimestamp(c);
-        int maxLines = PrefStore.getMaxLines(c);
-        int protocolSize = protocol.size();
-        if (protocolSize > 0 && lastChar != '\n') {
-            protocol.remove(protocolSize - 1);
-            out = lastLine + out;
+    public synchronized void log(final String line) {
+        if (line.length() == 0) return;
+        // show line
+        appendLine(line);
+        // write log to file
+        if (PrefStore.isLogger(context)) {
+            write(line);
         }
-        lastChar = out.charAt(out.length() - 1);
-        String[] lines = out.split("\\n");
-        for (int i = 0, l = lines.length; i < l; i++) {
-            lastLine = lines[i];
-            if (timestamp) protocol.add(getTimeStamp() + lastLine);
-            else protocol.add(lastLine);
-            if (protocolSize + i >= maxLines) {
-                protocol.remove(0);
-            }
-        }
-        // show protocol
-        show();
-        // write log
-        if (PrefStore.isLogger(c)) write(c, msg);
     }
 
     /**
      * Clear protocol
      */
-    static void clear() {
-        protocol.clear();
+    void clear() {
+        output.setText("");
     }
 
     /**
      * Show log on main activity
-     */
-    private static void show() {
-        MainActivity.showLog(get());
-    }
-
-    /**
-     * Get protocol
      *
-     * @return protocol as text
+     * @param line
      */
-    static String get() {
-        return android.text.TextUtils.join("\n", protocol);
-    }
-
-    /**
-     * Append message to protocol
-     *
-     * @param c   context
-     * @param msg message
-     */
-    static void log(Context c, String msg) {
-        appendMessage(c, msg);
+    private void appendLine(String line) {
+        output.post(() -> {
+            if (PrefStore.isTimestamp(context)) {
+                output.append(getTimeStamp() + line);
+            } else {
+                output.append(line);
+            }
+            // scroll TextView to bottom
+            scroll.post(() -> {
+                scroll.fullScroll(View.FOCUS_DOWN);
+                scroll.clearFocus();
+            });
+        });
     }
 
     /**
@@ -100,12 +94,12 @@ class Logger {
      *
      * @param c closable object
      */
-    private static void close(Closeable c) {
+    private void close(Closeable c) {
         if (c != null) {
             try {
                 c.close();
             } catch (IOException e) {
-                // e.printStackTrace();
+                e.printStackTrace();
             }
         }
     }
@@ -113,44 +107,18 @@ class Logger {
     /**
      * Write to log file
      *
-     * @param c   context
      * @param msg message
      */
-    private static void write(Context c, String msg) {
-        String logFile = PrefStore.getLogFile(c);
+    private void write(String msg) {
+        String logFile = PrefStore.getLogFile(context);
         BufferedWriter writer = null;
         try {
             writer = new BufferedWriter(new FileWriter(logFile, true));
             writer.write(msg);
         } catch (IOException e) {
-            // e.printStackTrace();
+            e.printStackTrace();
         } finally {
             close(writer);
         }
     }
-
-    /**
-     * Append stream messages to protocol
-     *
-     * @param c      context
-     * @param stream stream
-     */
-    static void log(Context c, InputStream stream) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(stream));
-            int n;
-            char[] buffer = new char[1024];
-            while ((n = reader.read(buffer)) != -1) {
-                String msg = String.valueOf(buffer, 0, n);
-                appendMessage(c, msg);
-            }
-        } catch (IOException e) {
-            // e.printStackTrace();
-        } finally {
-            close(reader);
-            close(stream);
-        }
-    }
-
 }

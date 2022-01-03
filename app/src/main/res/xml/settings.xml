@@ -68,13 +68,7 @@
 
     <PreferenceCategory android:title="@string/debug_preferences">
         <CheckBoxPreference
-            android:defaultValue="@string/debug"
-            android:key="debug"
-            android:summary="@string/summary_debug"
-            android:title="@string/title_debug" />
-        <CheckBoxPreference
             android:defaultValue="@string/trace"
-            android:dependency="debug"
             android:key="trace"
             android:summary="@string/summary_trace"
             android:title="@string/title_trace" />

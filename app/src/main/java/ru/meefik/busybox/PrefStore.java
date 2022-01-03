@@ -9,11 +9,20 @@ import android.os.Environment;
 
 import java.io.File;
 import java.util.Locale;
+import java.util.Objects;
 
 class PrefStore {
 
     static final String APP_PREF_NAME = "app_settings";
     private static final String LOG_FILE = "busybox.log";
+
+    static String getFilesDir(Context c) {
+        return c.getFilesDir().getAbsolutePath();
+    }
+
+    static String getLibDir(Context c) {
+        return c.getApplicationInfo().nativeLibraryDir;
+    }
 
     /**
      * Get application version
@@ -30,25 +39,6 @@ class PrefStore {
             e.printStackTrace();
         }
         return version;
-    }
-
-    /**
-     * Get external storage path
-     *
-     * @return path
-     */
-    static String getStorage() {
-        return Environment.getExternalStorageDirectory().getAbsolutePath();
-    }
-
-    /**
-     * Get environment directory
-     *
-     * @param c context
-     * @return path, e.g. /data/data/com.example.app/files
-     */
-    static String getEnvDir(Context c) {
-        return c.getFilesDir().getAbsolutePath();
     }
 
     /**
@@ -171,17 +161,6 @@ class PrefStore {
     }
 
     /**
-     * Debug mode is enabled
-     *
-     * @param c context
-     * @return true if enabled
-     */
-    static boolean isDebugMode(Context c) {
-        SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
-        return pref.getBoolean("debug", c.getString(R.string.debug).equals("true"));
-    }
-
-    /**
      * Trace mode is enabled
      *
      * @param c context
@@ -189,8 +168,7 @@ class PrefStore {
      */
     static boolean isTraceMode(Context c) {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
-        return pref.getBoolean("debug", c.getString(R.string.debug).equals("true")) &&
-                pref.getBoolean("trace", c.getString(R.string.trace).equals("true"));
+        return pref.getBoolean("trace", c.getString(R.string.trace).equals("true"));
     }
 
     /**
@@ -214,7 +192,8 @@ class PrefStore {
         SharedPreferences pref = c.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
         String logFile = pref.getString("logfile", c.getString(R.string.logfile));
         if (!logFile.contains("/")) {
-            logFile = getStorage() + "/" + LOG_FILE;
+            File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            logFile = downloadDir.getAbsolutePath() + "/" + LOG_FILE;
         }
         return logFile;
     }
@@ -255,7 +234,7 @@ class PrefStore {
      * @return arm, arm_64, x86, x86_64
      */
     static String getArch() {
-        return getArch(System.getProperty("os.arch"));
+        return getArch(Objects.requireNonNull(System.getProperty("os.arch")));
     }
 
     /**
@@ -310,8 +289,10 @@ class PrefStore {
     static void setLocale(Context c) {
         Locale locale = getLocale(c);
         Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
+        Configuration config = c.getResources().getConfiguration();
+        config.setLocale(locale);
+        config.setLayoutDirection(locale);
+        c.createConfigurationContext(config);
         c.getResources().updateConfiguration(config, c.getResources().getDisplayMetrics());
     }
 

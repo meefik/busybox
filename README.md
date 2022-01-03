@@ -52,14 +52,8 @@ Latest BusyBox v1.34.1, supported 378 applets:
 **Requirements**:
 
 * Device with architecture arm, arm64, x86, x86_64
-* Android 4.1 (API 16) or later
+* Android 8 (API 26) or later
 * Superuser permissions (root)
-
-**Use without root permissions**
-
-To access busybox tools without superuser privileges, perform the following command in Android terminal:
-
-    export PATH=/data/data/ru.meefik.busybox/files/bin:$PATH
 
 **References**:
 

@@ -15,8 +15,10 @@
  */
 package ru.meefik.busybox;
 
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +27,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
@@ -32,10 +35,11 @@ import androidx.core.app.NavUtils;
  * A {@link PreferenceActivity} which implements and proxies the necessary calls
  * to be used with AppCompat.
  * <p/>
- * This technique can be used with an {@link android.app.Activity} class, not just
+ * This technique can be used with an {@link AppCompatActivity} class, not just
  * {@link PreferenceActivity}.
  */
-public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
+public abstract class BasePreferenceActivity extends PreferenceActivity implements
+        SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private AppCompatDelegate mDelegate;
 
     @Override
@@ -43,6 +47,24 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
+        PrefStore.setLocale(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    @Override
+    public void setTheme(int resId) {
+        super.setTheme(PrefStore.getTheme(this));
     }
 
     @Override

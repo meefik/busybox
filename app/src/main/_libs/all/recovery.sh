@@ -36,7 +36,7 @@ do
 done
 $INSTALL_DIR/busybox --install -s $INSTALL_DIR
 if [ -d /system/addon.d ]; then
-    cp addon.d.sh /system/addon.d/99-busybox.sh
+    cp addon_d.sh /system/addon.d/99-busybox.sh
     chmod 755 /system/addon.d/99-busybox.sh
     echo "$INSTALL_DIR" > /system/addon.d/busybox-install-dir
     chmod 644 /system/addon.d/busybox-install-dir

@@ -4,14 +4,11 @@ import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PrefStore.setLocale(this);
         setContentView(R.layout.activity_about);
 
         TextView versionView = findViewById(R.id.versionView);
@@ -21,11 +18,6 @@ public class AboutActivity extends AppCompatActivity {
         // enable context clickable
         TextView aboutView = findViewById(R.id.aboutTextView);
         aboutView.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    @Override
-    public void setTheme(int resId) {
-        super.setTheme(PrefStore.getTheme(this));
     }
 
     @Override

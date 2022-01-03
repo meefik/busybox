@@ -20,8 +20,7 @@ allprojects {
     }
 }
 
-task assets(type:Exec) {
-    environment 'INSTALL_DIR', "${environment.PWD}/app/src/main/assets"
-    workingDir "./contrib"
-    commandLine './build.sh', 'all', "${environment.INSTALL_DIR}"
+task buildJniLibs(type:Exec) {
+    workingDir "${projectDir}/contrib"
+    commandLine './build.sh', 'all', "${projectDir}/app/src/main/jniLibs"
 }

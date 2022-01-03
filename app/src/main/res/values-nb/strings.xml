@@ -4,7 +4,6 @@
     <string name="action_help">Informasjon</string>
     <string name="action_zip">ZIP-arkiv</string>
     <string name="action_about">Om</string>
-    <string name="action_menu">Meny</string>
     <string name="title_activity_about">Om</string>
     <string name="title_activity_settings">Innstillinger</string>
     <string name="install_button">INSTALLER</string>
@@ -36,8 +35,6 @@
     <string name="toast_export_success">ZIP-arkivet ble vellykket lagret</string>
     <string name="toast_export_error">Mislyktes i å lagre ZIP-arkivet</string>
     <string name="debug_preferences">Avlusing</string>
-    <string name="title_debug">Avlusingsmodus</string>
-    <string name="summary_debug">Vis avlusingsinformasjon</string>
     <string name="title_trace">Sporingsmodus</string>
     <string name="summary_trace">Skru på sporingsmodus</string>
     <string name="title_logger">Loggføring</string>
@@ -46,7 +43,7 @@
     <string name="dialog_title_logfile">Loggføringsfil</string>
     <string name="write_permissions_disallow">Appen ble ikke gitt tillatelse til å skrive til minnet ditt</string>
     <string name="help_text">Laster inn …</string>
-    <string name="about_text">Denne appen er en BusyBox-installatør for Android.\n\nBusybox kombinerer bittesmå versjoner av mange vanlige UNIX-verktøy i én liten iverksettbar fil. Den sørger for erstatninger for mange av verktøyene som du vanligvis ville funnet i GNU-«fileutil»-er, «shellutil»-er, osv. Verktøyene i BusyBox har generelt færre innstillinger enn sine tilsvarende GNU-verktøy; men de innstillingene som er inkludert, oppfører og fungerer ganske likt GNU-versjonene. BusyBox sørger for et forholdsvis komplett miljø for ethvert lite eller innebygget system.\n\nFor mere informasjon, se <a href="https://github.com/meefik/busybox">projectsiden</a>, <a href="https://4pda.ru/forum/index.php?showtopic=694640">forumet</a>, eller <a href="https://meefik.github.io">utviklernettstedet</a>.\n\n© 2015-2019 Anton Skshidlevsky, GPLv2</string>
+    <string name="about_text">Denne appen er en BusyBox–installatør for Android.\n\nBusybox kombinerer bittesmå versjoner av mange vanlige UNIX-verktøy i én liten iverksettbar fil. Den sørger for erstatninger for mange av verktøyene som du vanligvis ville funnet i GNU-«fileutil»-er, «shellutil»-er, osv. Verktøyene i BusyBox har generelt færre innstillinger enn sine tilsvarende GNU-verktøy; men de innstillingene som er inkludert, oppfører og fungerer ganske likt GNU-versjonene. BusyBox sørger for et forholdsvis komplett miljø for ethvert lite eller innebygget system.\n\nFor mere informasjon, se <a href="https://github.com/meefik/busybox">projectsiden</a>, <a href="https://4pda.ru/forum/index.php?showtopic=694640">forumet</a>, eller <a href="https://meefik.github.io">utviklernettstedet</a>.\n\n© 2015–2022 Anton Skshidlevsky, GPLv2</string>
 
     <string-array name="theme_entries">
         <item>Mørkt</item>

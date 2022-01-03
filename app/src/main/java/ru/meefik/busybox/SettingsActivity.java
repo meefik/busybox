@@ -13,24 +13,15 @@ import android.preference.PreferenceScreen;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 
-public class SettingsActivity extends AppCompatPreferenceActivity implements
-        SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
+public class SettingsActivity extends BasePreferenceActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        PrefStore.setLocale(this);
         getPreferenceManager().setSharedPreferencesName(PrefStore.APP_PREF_NAME);
         addPreferencesFromResource(R.xml.settings);
         initSummaries(getPreferenceScreen());
-    }
-
-    @Override
-    public void setTheme(int resId) {
-        super.setTheme(PrefStore.getTheme(this));
     }
 
     @Override
@@ -42,19 +33,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference pref = findPreference(key);
         setSummary(pref, true);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        setTitle(getString(R.string.title_activity_settings));
-        getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public void onPause() {
-        getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
-        super.onPause();
     }
 
     /**

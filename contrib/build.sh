@@ -32,18 +32,22 @@ fi
 
 case "${MARCH}" in
 arm)
+  TARGET_ARCH="armeabi-v7a"
   TARGET_HOST="arm-linux-androideabi"
   PATH="${NDK_DIR}/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin:${PATH}"
 ;;
 arm64)
+  TARGET_ARCH="arm64-v8a"
   TARGET_HOST="aarch64-linux-android"
   PATH="${NDK_DIR}/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin:${PATH}"
 ;;
 x86)
+  TARGET_ARCH="x86"
   TARGET_HOST="i686-linux-android"
   PATH="${NDK_DIR}/toolchains/x86-4.9/prebuilt/linux-x86_64/bin:${PATH}"
 ;;
 x86_64)
+  TARGET_ARCH="x86_64"
   TARGET_HOST="x86_64-linux-android"
   PATH="${NDK_DIR}/toolchains/x86_64-4.9/prebuilt/linux-x86_64/bin:${PATH}"
 ;;
@@ -58,20 +62,15 @@ export CFLAGS="-DANDROID -D__ANDROID__ -DSK_RELEASE -D__POSIX_VISIBLE=199209 -D_
 export LDFLAGS="-L${SYSROOT}/usr/lib -L${SYSROOT}/usr/lib64 -static --sysroot=${SYSROOT}"
 
 [[ -e "${BUILD_DIR}" ]] || mkdir -p "${BUILD_DIR}";
-[[ -e "${INSTALL_DIR}/${MARCH}" ]] || mkdir -p "${INSTALL_DIR}/${MARCH}";
+[[ -e "${INSTALL_DIR}/${TARGET_ARCH}" ]] || mkdir -p "${INSTALL_DIR}/${TARGET_ARCH}";
 
 wget -c https://dl.google.com/android/repository/${NDK}-linux-x86_64.zip -O "${BUILD_DIR}/${NDK}-linux-x86_64.zip"
-wget -c http://busybox.net/downloads/busybox-${BB_VERSION}.tar.bz2 -O "${BUILD_DIR}/busybox-${BB_VERSION}.tar.bz2"
-wget -c https://github.com/wolfSSL/wolfssl/archive/v${WOLFSSL_VERSION}.tar.gz -O "$BUILD_DIR/wolfssl-${WOLFSSL_VERSION}.tar.gz"
-
 if [[ ! -e "${BUILD_DIR}/${NDK}" ]]
 then
   unzip "${BUILD_DIR}/${NDK}-linux-x86_64.zip" -d "${BUILD_DIR}"
 fi
 
-[[ ! -e "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}" ]] || rm -rf "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}"
-tar xvzf "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}.tar.gz" -C "${BUILD_DIR}"
-
+wget -c http://busybox.net/downloads/busybox-${BB_VERSION}.tar.bz2 -O "${BUILD_DIR}/busybox-${BB_VERSION}.tar.bz2"
 [[ ! -e "${BUILD_DIR}/busybox-${BB_VERSION}" ]] || rm -rf "${BUILD_DIR}/busybox-${BB_VERSION}"
 tar jvxf "${BUILD_DIR}/busybox-${BB_VERSION}.tar.bz2" -C "${BUILD_DIR}"
 cd "$BUILD_DIR/busybox-${BB_VERSION}"
@@ -91,7 +90,12 @@ make ${DEFCONFIG}
 
 cd "$BUILD_DIR/busybox-${BB_VERSION}"
 make -j${NCPU}
-make CONFIG_PREFIX="${INSTALL_DIR}/${MARCH}" install
+cp busybox "${INSTALL_DIR}/${TARGET_ARCH}/busybox"
+
+cd "$BUILD_DIR"
+wget -c https://github.com/wolfSSL/wolfssl/archive/v${WOLFSSL_VERSION}.tar.gz -O "$BUILD_DIR/wolfssl-${WOLFSSL_VERSION}.tar.gz"
+[[ ! -e "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}" ]] || rm -rf "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}"
+tar xvzf "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}.tar.gz" -C "${BUILD_DIR}"
 
 cd "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}"
 ./autogen.sh
@@ -101,5 +105,5 @@ make -j${NCPU}
 CC="${TARGET_HOST}-gcc"
 STRIP="${TARGET_HOST}-strip"
 $CC $CFLAGS $LDFLAGS -Os -Wall -I"${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}" -c "${SOURCE_DIR}/ssl_helper.c" -o "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}/ssl_helper.o"
-$CC $CFLAGS $LDFLAGS "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}/ssl_helper.o" "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}/src/.libs/libwolfssl.a" -lm -o "${INSTALL_DIR}/${MARCH}/bin/ssl_helper"
-$STRIP -s "${INSTALL_DIR}/${MARCH}/bin/ssl_helper"
+$CC $CFLAGS $LDFLAGS "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}/ssl_helper.o" "${BUILD_DIR}/wolfssl-${WOLFSSL_VERSION}/src/.libs/libwolfssl.a" -lm -o "${INSTALL_DIR}/${TARGET_ARCH}/ssl_helper"
+$STRIP -s "${INSTALL_DIR}/${TARGET_ARCH}/ssl_helper"
