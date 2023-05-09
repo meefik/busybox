@@ -16,4 +16,5 @@ public class BaseActivity extends AppCompatActivity {
     public void setTheme(int resId) {
         super.setTheme(PrefStore.getTheme(this));
     }
+
 }

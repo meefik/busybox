@@ -21,6 +21,7 @@ class PrefStore {
     }
 
     static String getLibDir(Context c) {
+        // return c.getApplicationInfo().dataDir + "/lib";
         return c.getApplicationInfo().nativeLibraryDir;
     }
 

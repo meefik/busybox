@@ -2,10 +2,13 @@ package ru.meefik.busybox;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,9 +37,8 @@ import java.util.zip.ZipOutputStream;
 
 public class MainActivity extends BaseActivity {
 
-    private static final int REQUEST_WRITE_STORAGE = 112;
-    private Logger logger;
-    private AssetsUtils assets;
+    public static TextView output;
+    public static ScrollView scroll;
 
     static {
         Shell.enableVerboseLogging = BuildConfig.DEBUG;
@@ -49,20 +51,55 @@ public class MainActivity extends BaseActivity {
         );
     }
 
+    /**
+     * Show message in TextView, used from Logger
+     *
+     * @param log message
+     */
+    public static void showLog(final String log) {
+        // show log in TextView
+        output.post(() -> {
+            output.setText(log);
+            // scroll TextView to bottom
+            scroll.post(() -> {
+                scroll.fullScroll(View.FOCUS_DOWN);
+                scroll.clearFocus();
+            });
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView output = findViewById(R.id.outputView);
-        ScrollView scroll = findViewById(R.id.scrollView);
+        scroll = findViewById(R.id.scrollView);
+        output = findViewById(R.id.outputView);
+        // enable context clickable
+        output.setMovementMethod(LinkMovementMethod.getInstance());
 
+        AssetUtils assets = new AssetUtils(this);
+
+        String binDir = PrefStore.getFilesDir(this) + "/bin";
         Shell.getShell(shell -> {
-            logger = new Logger(this, output, scroll);
-            assets = new AssetsUtils(this, logger);
-            assets.extractAssets();
+            if (assets.extractAssets()) {
+                String cmd = String.format("busybox --install -s %s", binDir);
+                Shell.cmd(cmd).exec();
+            }
             execScript("info.sh", false);
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // restore font size
+        output.setTextSize(TypedValue.COMPLEX_UNIT_SP, PrefStore.getFontSize(this));
+        // restore logs
+        String log = Logger.get();
+        if (log.length() > 0) {
+            showLog(log);
+        }
     }
 
     @Override
@@ -121,27 +158,32 @@ public class MainActivity extends BaseActivity {
 
     /**
      * Execute a shell script.
-     *  @param script shell script
+     *
+     * @param script shell script
      * @param root   from superuser
      */
     private void execScript(String script, Boolean root) {
-        logger.clear();
+        Logger.clear();
+        String traceMode = String.format("export TRACE_MODE=\"%s\"", PrefStore.isTraceMode(this));
+        String installDir = String.format("export INSTALL_DIR=\"%s\"", PrefStore.getInstallDir(this));
+        String ramDisk = String.format("export MOUNT_RAMDISK=\"%s\"", PrefStore.isRamDisk(this));
+        String replaceApplets = String.format("export REPLACE_APPLETS=\"%s\"", PrefStore.isReplaceApplets(this));
+        String installApplets = String.format("export INSTALL_APPLETS=\"%s\"", PrefStore.isInstallApplets(this));
         String absoluteScriptPath = PrefStore.getFilesDir(this) + "/bin/" + script;
         String cmd = String.format("busybox ash \"%s\"", absoluteScriptPath);
+        Context context = getApplicationContext();
         List<String> callbackList = new CallbackList<String>() {
             @Override
             public void onAddElement(String s) {
-                logger.log(s + '\n');
+                Logger.log(context, s + '\n');
             }
         };
-        if (root) {
-            if (Shell.rootAccess()) {
-                Shell.su(cmd).to(callbackList).submit();
-            } else {
-                logger.log("Require superuser privileges (root).\n");
-            }
+        if (root && Boolean.FALSE.equals(Shell.isAppGrantedRoot())) {
+            Logger.log(this, "Require superuser privileges (root).\n");
         } else {
-            Shell.sh(cmd).to(callbackList).submit();
+            Shell.cmd(traceMode, installDir, ramDisk, replaceApplets, installApplets, cmd)
+                    .to(callbackList)
+                    .submit();
         }
     }
 
@@ -255,6 +297,7 @@ public class MainActivity extends BaseActivity {
      * Request permission to write to storage.
      */
     private void requestWritePermissions() {
+        int REQUEST_WRITE_STORAGE = 112;
         boolean hasPermission = (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasPermission) {
@@ -267,6 +310,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        int REQUEST_WRITE_STORAGE = 112;
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_WRITE_STORAGE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="fontsize" translatable="false">14</string>
+    <string name="fontsize" translatable="false">12</string>
     <string name="maxlines" translatable="false">100</string>
     <string name="timestamp" translatable="false">false</string>
     <string name="language" translatable="false"></string>

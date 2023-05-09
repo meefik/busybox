@@ -6,11 +6,11 @@
         android:title="@string/action_help"
         app:showAsAction="ifRoom|withText" />
     <item
-        android:id="@+id/action_zip"
-        android:title="@string/action_zip" />
-    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings" />
+    <item
+        android:id="@+id/action_zip"
+        android:title="@string/action_zip" />
     <item
         android:id="@+id/action_about"
         android:title="@string/action_about" />

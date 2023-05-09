@@ -5,9 +5,6 @@ import android.content.res.AssetManager;
 import android.system.ErrnoException;
 import android.system.Os;
 
-import com.topjohnwu.superuser.CallbackList;
-import com.topjohnwu.superuser.Shell;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.Closeable;
@@ -18,15 +15,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Objects;
 
-class AssetsUtils {
+class AssetUtils {
+
     final private Context context;
-    final private Logger logger;
 
-    AssetsUtils(Context context, Logger logger) {
+    /**
+     * AssetsUtils constructor
+     *
+     * @param context application context
+     */
+    AssetUtils(Context context) {
         this.context = context;
-        this.logger = logger;
     }
 
     /**
@@ -34,7 +35,7 @@ class AssetsUtils {
      *
      * @param c closable object
      */
-    static void close(Closeable c) {
+    private void close(Closeable c) {
         if (c != null) {
             try {
                 c.close();
@@ -51,7 +52,7 @@ class AssetsUtils {
      * @param path      path to asset file
      * @return false if error
      */
-    boolean extractFile(String rootAsset, String path) {
+    private void extractFile(String rootAsset, String path) {
         AssetManager assetManager = context.getAssets();
         InputStream in = null;
         OutputStream out = null;
@@ -66,13 +67,11 @@ class AssetsUtils {
             }
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            // ignore
         } finally {
             close(in);
             close(out);
         }
-        return true;
     }
 
     /**
@@ -82,7 +81,7 @@ class AssetsUtils {
      * @param path      path to asset directory
      * @return false if error
      */
-    boolean extractDir(String rootAsset, String path) {
+    private boolean extractDir(String rootAsset, String path) {
         AssetManager assetManager = context.getAssets();
         try {
             String[] assets = assetManager.list(rootAsset + path);
@@ -96,7 +95,7 @@ class AssetsUtils {
                     if (!extractDir(rootAsset, path + "/" + asset)) return false;
                 }
             } else {
-                if (!extractFile(rootAsset, path)) return false;
+                extractFile(rootAsset, path);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,7 +109,7 @@ class AssetsUtils {
      *
      * @param path path to directory
      */
-    void cleanDirectory(File path) {
+    private void cleanDirectory(File path) {
         if (path == null) return;
         if (path.exists()) {
             File[] list = path.listFiles();
@@ -127,7 +126,7 @@ class AssetsUtils {
      *
      * @param path path to directory
      */
-    void setPermissions(File path) {
+    private void setPermissions(File path) {
         if (path == null) return;
         if (path.exists()) {
             path.setReadable(true, false);
@@ -147,7 +146,7 @@ class AssetsUtils {
      *
      * @return false if error
      */
-    boolean setVersion() {
+    private boolean setVersion() {
         boolean result = false;
         String f = PrefStore.getFilesDir(context) + "/version";
         BufferedWriter bw = null;
@@ -168,7 +167,7 @@ class AssetsUtils {
      *
      * @return false if error
      */
-    boolean isLatestVersion() {
+    private boolean isLatestVersion() {
         File f = new File(PrefStore.getFilesDir(context) + "/version");
         if (!f.exists()) return false;
         BufferedReader br = null;
@@ -191,73 +190,57 @@ class AssetsUtils {
      * @return false if error
      */
     boolean extractAssets() {
-        if (isLatestVersion()) return true;
+        if (isLatestVersion()) return false;
 
         // prepare bin directory
         String binDir = PrefStore.getFilesDir(context) + "/bin";
-        File fd = new File(binDir);
-        if (!fd.exists()) {
-            if (!fd.mkdirs()) return false;
+        File binFd = new File(binDir);
+        if (!binFd.exists()) {
+            if (!binFd.mkdirs()) return false;
         }
-        cleanDirectory(fd);
+        cleanDirectory(binFd);
+
+        // extract assets
+        if (!extractDir("all", "")) {
+            return false;
+        }
+        String mArch = PrefStore.getArch();
+        if (!extractDir(mArch, "")) {
+            return false;
+        }
+
+        // create symlinks for libs
+        String libDir = PrefStore.getLibDir(context);
+        File libFd = new File(libDir);
+        File [] files = libFd.listFiles();
+        for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
+            File f = files[i];
+            String libName = f.getName();
+            String binName = libName
+                    .replaceAll("^lib","")
+                    .replaceAll ("\\.so$", "");
+            try {
+                File targetFd = new File(binDir + "/" + binName);
+                targetFd.delete();
+                Os.symlink(libDir + "/" + libName, binDir + "/" + binName);
+            } catch (ErrnoException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
 
         // create .nomedia
         File noMediaFd = new File(PrefStore.getFilesDir(context) + "/.nomedia");
-        if (!noMediaFd.exists()) {
-            try {
-                noMediaFd.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // create symlink to busybox
-        String libDir = PrefStore.getLibDir(context);
-        File busybox = new File(binDir + "/busybox");
-        if (!busybox.exists()) {
-            try {
-                Os.symlink(libDir + "/libbusybox.so", binDir + "/busybox");
-            } catch (ErrnoException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // create symlink to ssl_helper
-        File sslHelper = new File(binDir + "/ssl_helper");
-        if (!sslHelper.exists()) {
-            try {
-                Os.symlink(libDir + "/libssl_helper.so", binDir + "/ssl_helper");
-            } catch (ErrnoException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // extract assets
-        extractDir("all", "");
-        String mArch = PrefStore.getArch();
-        switch (mArch) {
-            case "arm":
-                extractDir("arm", "");
-                break;
-            case "arm64":
-                extractDir("arm64", "");
-                break;
-            case "x86":
-                extractDir("x86", "");
-                break;
-            case "x86_64":
-                extractDir("x86_64", "");
-                break;
+        try {
+            noMediaFd.createNewFile();
+        } catch (IOException ignored) {
         }
 
         // set permissions
-        setPermissions(fd);
-
-        // install applets
-        String cmd = String.format("busybox --install -s %s", binDir);
-        Shell.sh(cmd).exec();
+        setPermissions(binFd);
 
         // update version
         return setVersion();
     }
+
 }

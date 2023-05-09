@@ -25,27 +25,9 @@ public class SettingsActivity extends BasePreferenceActivity {
     }
 
     @Override
-    public boolean onPreferenceClick(Preference preference) {
-        return false;
-    }
-
-    @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Preference pref = findPreference(key);
         setSummary(pref, true);
-    }
-
-    /**
-     * Request permission to write to storage.
-     */
-    private void requestWritePermissions() {
-        int REQUEST_WRITE_STORAGE = 112;
-        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        if (!hasPermission) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
-        }
     }
 
     /**
@@ -95,4 +77,18 @@ public class SettingsActivity extends BasePreferenceActivity {
             }
         }
     }
+
+    /**
+     * Request permission to write to storage.
+     */
+    private void requestWritePermissions() {
+        int REQUEST_WRITE_STORAGE = 112;
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+        }
+    }
+
 }

@@ -25,4 +25,5 @@ public class AboutActivity extends BaseActivity {
         super.onResume();
         setTitle(R.string.title_activity_about);
     }
+
 }
